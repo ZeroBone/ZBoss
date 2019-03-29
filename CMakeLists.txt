@@ -44,7 +44,33 @@ target_link_libraries(
     ${SDL2_MIXER_LIBRARIES}
 )
 
+target_compile_definitions(zboss PUBLIC SDL_MAIN_HANDLED)
+
+# Reference implementation executable
+
 add_executable(zbossri ${ZBOSS_RI_SOURCES})
+
+target_include_directories(
+    zbossri
+    PUBLIC
+    ${zboss_BINARY_DIR}
+    ${SDL2_INCLUDE_DIRS}
+    ${SDL2_IMAGE_INCLUDE_DIRS}
+    ${SDL2_TTF_INCLUDE_DIRS}
+    ${SDL2_MIXER_INCLUDE_DIRS}
+    $<BUILD_INTERFACE:${zboss_SOURCE_DIR}/include>
+)
 
 #target_link_libraries(zboss ${SDL2_LIBRARY} -lmingw32 -lSDL2main -lSDL2 -mwindows)
 target_link_libraries(zbossri zboss)
+
+install(
+    TARGETS zboss
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin
+)
+
+install(
+    DIRECTORY ${zboss_SOURCE_DIR}/include/zboss
+    DESTINATION include
+)
