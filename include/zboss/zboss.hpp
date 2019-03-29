@@ -1,0 +1,4 @@
+#ifndef ZBOSS_ZBOSS_HPP
+#define ZBOSS_ZBOSS_HPP
+
+#endif //ZBOSS_ZBOSS_HPP
