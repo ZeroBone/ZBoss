@@ -1,6 +1,5 @@
 #include <iostream>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
 
 int main(int argc, char *argv[]) {
 
@@ -16,12 +15,44 @@ int main(int argc, char *argv[]) {
     );
 
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    SDL_SetRenderDrawColor(renderer, 0xff, 0, 0, SDL_ALPHA_OPAQUE);
-    SDL_RenderClear(renderer);
 
-    SDL_RenderPresent(renderer);
+    bool running = true;
 
-    SDL_Delay(3000);
+    Uint8 red = 0;
+    Uint8 green = 1;
+    Uint8 blue = 2;
+
+    while (running) {
+
+        red += 2;
+        green += 5;
+        blue += 4;
+
+        SDL_SetRenderDrawColor(renderer, red, green, blue, SDL_ALPHA_OPAQUE);
+        SDL_RenderClear(renderer);
+
+        SDL_RenderPresent(renderer);
+
+        SDL_Delay(16);
+
+        SDL_Event currentEvent;
+
+        while (SDL_PollEvent(&currentEvent)) {
+
+            switch (currentEvent.type) {
+
+                case SDL_QUIT:
+                    running = false;
+                    break;
+
+                default:
+                    break;
+
+            }
+
+        }
+
+    }
 
     SDL_DestroyWindow(window);
     SDL_Quit();
