@@ -1,9 +1,19 @@
 #include <iostream>
-#include <SDL2/SDL.h>
+#include "game.hpp"
 
 int main(int argc, char *argv[]) {
 
-    SDL_Init(SDL_INIT_VIDEO);
+    zboss::ZbConfig config = {
+        .height = 640,
+        .width = 480,
+        .resizable = true,
+        .maximise = true,
+        .useFonts = true
+    };
+
+    ZBOSS_run(new Game(), config);
+
+    /*SDL_Init(SDL_INIT_VIDEO);
 
     SDL_Window *window = SDL_CreateWindow(
         "test",
@@ -55,7 +65,7 @@ int main(int argc, char *argv[]) {
     }
 
     SDL_DestroyWindow(window);
-    SDL_Quit();
+    SDL_Quit();*/
 
     return 0;
 }
