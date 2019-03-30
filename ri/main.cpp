@@ -4,14 +4,16 @@
 int main(int argc, char *argv[]) {
 
     zboss::ZbConfig config = {
-        .height = 640,
-        .width = 480,
+        .width = 640,
+        .height = 480,
         .resizable = true,
         .maximise = true,
         .useFonts = true
     };
 
-    ZBOSS_run(new Game(), config);
+    Game game;
+
+    ZBOSS_run(&game, config);
 
     /*SDL_Init(SDL_INIT_VIDEO);
 

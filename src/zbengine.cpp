@@ -7,13 +7,38 @@ namespace zboss {
 
         running = true;
 
-        while (running) {}
+        onCreate();
+
+        onResize();
+
+        Uint32 frameStart;
+        int frameTime;
+
+        while (running) {
+
+            frameStart = SDL_GetTicks();
+
+            onRender();
+
+            frameTime = SDL_GetTicks() - frameStart;
+
+            if (frameDelay > frameTime) {
+                SDL_Delay(static_cast<Uint32>(frameDelay - frameTime));
+            }
+
+        }
+
+        onPause();
+
+        onDestroy();
 
     }
 
     Engine::~Engine() {
 
+        SDL_DestroyWindow(window);
 
+        SDL_DestroyRenderer(renderer);
 
     }
 
@@ -58,6 +83,8 @@ namespace zboss {
 
         // start the engine loop
         derivedInstance->run();
+
+        delete derivedInstance;
 
         if (config.useFonts) {
             TTF_Quit();

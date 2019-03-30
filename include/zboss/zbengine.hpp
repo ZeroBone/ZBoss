@@ -17,6 +17,9 @@ namespace zboss {
         SDL_Renderer* renderer;
         bool running;
 
+        int fps;
+        int frameDelay;
+
         void run();
 
         public:
@@ -25,13 +28,21 @@ namespace zboss {
 
         protected:
 
-        explicit Engine() = default;
+        explicit Engine() : fps(60), frameDelay(1000 / fps) {}
 
         virtual void onCreate() {}
         virtual void onResize() {}
         virtual void onRender() {}
         virtual void onPause() {}
         virtual void onResume() {}
+        virtual void onDestroy() {}
+
+        void setFramesPerSecond(int newFps) {
+
+            fps = newFps;
+            frameDelay = 1000 / fps;
+
+        }
 
     };
 
