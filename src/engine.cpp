@@ -1,5 +1,6 @@
-#include <zboss/zbengine.hpp>
-#include <zboss/zbexceptions.hpp>
+#include <zboss/engine.hpp>
+#include <zboss/exceptions.hpp>
+#include <iostream>
 
 namespace zboss {
 
@@ -20,6 +21,21 @@ namespace zboss {
 
             onRender();
 
+            while (SDL_PollEvent(&currentEvent)) {
+
+                switch (currentEvent.type) {
+
+                    case SDL_QUIT:
+                        running = false;
+                        break;
+
+                    default:
+                        break;
+
+                }
+
+            }
+
             frameTime = SDL_GetTicks() - frameStart;
 
             if (frameDelay > frameTime) {
@@ -39,6 +55,8 @@ namespace zboss {
         SDL_DestroyWindow(window);
 
         SDL_DestroyRenderer(renderer);
+
+        std::cout << "engine destructor" << std::endl;
 
     }
 
@@ -83,8 +101,6 @@ namespace zboss {
 
         // start the engine loop
         derivedInstance->run();
-
-        delete derivedInstance;
 
         if (config.useFonts) {
             TTF_Quit();

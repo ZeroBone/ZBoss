@@ -1,7 +1,7 @@
 #ifndef ZBOSS_ZBAPP_HPP
 #define ZBOSS_ZBAPP_HPP
 
-#include "zbengine.hpp"
+#include "engine.hpp"
 
 namespace zboss {
 

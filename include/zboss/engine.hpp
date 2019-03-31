@@ -3,7 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#include "zbconfig.hpp"
+#include "config.hpp"
 
 namespace zboss {
 
@@ -15,6 +15,7 @@ namespace zboss {
 
         SDL_Window* window;
         SDL_Renderer* renderer;
+        SDL_Event currentEvent;
         bool running;
 
         int fps;

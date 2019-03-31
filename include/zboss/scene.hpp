@@ -3,6 +3,8 @@
 
 namespace zboss {
 
+    class Scene {};
+
 }
 
 #endif //ZBOSS_SCENE_HPP
