@@ -12,18 +12,23 @@ find_package(SDL2_mixer REQUIRED)
 # include_directories(${SDL2_INCLUDE_DIR})
 
 set(ZBOSS_HEADERS
-    ${zboss_SOURCE_DIR}/include/zboss/zboss.hpp
-    ${zboss_SOURCE_DIR}/include/zboss/engine.hpp include/zboss/exceptions.hpp
-        include/zboss/scene.hpp
-        include/zboss/app.hpp
-        include/zboss/config.hpp)
+    include/zboss/zboss.hpp
+    include/zboss/engine.hpp
+    include/zboss/exceptions.hpp
+    include/zboss/scene.hpp
+    include/zboss/app.hpp
+    include/zboss/config.hpp
+    include/zboss/ecs.hpp)
 
 set(ZBOSS_SOURCES
-    ${zboss_SOURCE_DIR}/src/engine.cpp)
+    src/engine.cpp
+    src/ecs.cpp)
 
 set(ZBOSS_RI_SOURCES
-    ${zboss_SOURCE_DIR}/ri/main.cpp
-        ri/game.cpp ri/game.hpp)
+    ri/main.cpp
+    ri/game.cpp
+    ri/game.hpp
+)
 
 add_library(zboss SHARED ${ZBOSS_HEADERS} ${ZBOSS_SOURCES})
 

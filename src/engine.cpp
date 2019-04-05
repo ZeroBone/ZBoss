@@ -1,6 +1,5 @@
 #include <zboss/engine.hpp>
 #include <zboss/exceptions.hpp>
-#include <iostream>
 
 namespace zboss {
 
@@ -55,8 +54,6 @@ namespace zboss {
         SDL_DestroyWindow(window);
 
         SDL_DestroyRenderer(renderer);
-
-        std::cout << "engine destructor" << std::endl;
 
     }
 
