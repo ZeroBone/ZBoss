@@ -12,16 +12,16 @@ find_package(SDL2_mixer REQUIRED)
 # include_directories(${SDL2_INCLUDE_DIR})
 
 set(ZBOSS_HEADERS
-    include/zboss/zboss.hpp
-    include/zboss/engine.hpp
+    include/zboss/definitions.hpp
+        include/zboss/engine.hpp
     include/zboss/exceptions.hpp
     include/zboss/scene.hpp
         include/zboss/config.hpp
-    include/zboss/ecs.hpp include/zboss/nodes/node.hpp include/zboss/definitions.hpp)
+    include/zboss/ecs.hpp include/zboss/nodes/node.hpp include/zboss/nodes/container.hpp include/zboss/math/matrix.hpp)
 
 set(ZBOSS_SOURCES
     src/engine.cpp
-    src/ecs.cpp)
+    src/ecs.cpp src/math/matrix.cpp)
 
 set(ZBOSS_RI_SOURCES
     ri/main.cpp

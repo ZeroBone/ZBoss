@@ -3,18 +3,23 @@
 
 namespace zboss {
 
+    typedef enum {
+        NODE_NODE,
+        NODE_CONTAINER
+    } node_type_t;
+
     class Node {
 
         private:
 
         std::vector<Node*> children;
-        int type;
+        node_type_t type;
         Node* parent;
         bool visible = true;
 
         public:
 
-        Node(int type) : type(type) {}
+        explicit Node(node_type_t type) : type(type) {}
 
         virtual void onRender() {}
 

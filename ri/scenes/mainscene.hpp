@@ -1,7 +1,7 @@
 #ifndef ZBOSS_MAINSCENE_HPP
 #define ZBOSS_MAINSCENE_HPP
 
-#include <zboss/zboss.hpp>
+#include <zboss/scene.hpp>
 
 class MainScene : public zboss::Scene {
 

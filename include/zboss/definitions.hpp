@@ -5,7 +5,9 @@ namespace zboss {
 
     class Engine;
     class Scene;
+
     class Node;
+    class ContainerNode;
 
 }
 
