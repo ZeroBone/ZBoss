@@ -21,7 +21,7 @@ namespace zboss {
     }
 
     template <typename T>
-    inline component_id_t getComponentTypeID() noexcept {
+    inline component_id_t getComponentTypeId() noexcept {
         // for every component type the static variable is different, so the counting will be separated
 
         static_assert(std::is_base_of<ECSComponent, T>::value, "");
@@ -108,7 +108,7 @@ namespace zboss {
 
         template <typename T>
         bool hasComponent() const {
-            return componentBitset[getComponentTypeID<T>()];
+            return componentBitset[getComponentTypeId<T>()];
         }
 
         template <typename T, typename... TArgs>
@@ -122,8 +122,8 @@ namespace zboss {
 
             components.emplace_back(std::move(uPtr));
 
-            componentArray[getComponentTypeID<T>()] = c;
-            componentBitset[getComponentTypeID<T>()] = true;
+            componentArray[getComponentTypeId<T>()] = c;
+            componentBitset[getComponentTypeId<T>()] = true;
 
             c->init();
 
@@ -133,7 +133,7 @@ namespace zboss {
 
         template<typename T>
         T& getComponent() const {
-            auto ptr(componentArray[getComponentTypeID<T>()]);
+            auto ptr(componentArray[getComponentTypeId<T>()]);
             return *static_cast<T*>(ptr);
         }
 
@@ -170,12 +170,14 @@ namespace zboss {
                 auto& v(groupedEntities[i]);
 
                 v.erase(
-                    std::remove_if(std::begin(v), std::end(v),
-                                   [i](ECSEntity* mEntity)
-                                   {
-                                       return !mEntity->isActive() || !mEntity->hasGroup(i);
-                                   }),
-                    std::end(v));
+                    std::remove_if(
+                        std::begin(v),
+                        std::end(v), [i](ECSEntity* mEntity) {
+                           return !mEntity->isActive() || !mEntity->hasGroup(i);
+                        }
+                        ),
+                    std::end(v)
+                );
             }
 
             entities.erase(
@@ -186,6 +188,7 @@ namespace zboss {
                 }),
                 std::end(entities)
             );
+
         }
 
         void AddToGroup(ECSEntity* entity, group_id_t group) {

@@ -51,9 +51,25 @@ namespace zboss {
 
     Engine::~Engine() {
 
+        // SDL_GL_DeleteContext(gl);
+
         SDL_DestroyWindow(window);
 
         SDL_DestroyRenderer(renderer);
+
+    }
+
+    void Engine::setScene(Scene* newScene) {
+
+        if (scene != nullptr) {
+            scene->onDestroy();
+        }
+
+        scene = newScene;
+
+        scene->onCreate();
+
+        scene->onResize();
 
     }
 
@@ -89,6 +105,8 @@ namespace zboss {
             config.height,
             windowFlags
         );
+
+        // derivedInstance->gl = SDL_GL_CreateContext(derivedInstance->window);
 
         derivedInstance->renderer = SDL_CreateRenderer(
             derivedInstance->window,

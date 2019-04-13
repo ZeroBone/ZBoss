@@ -1,9 +1,34 @@
 #ifndef ZBOSS_SCENE_HPP
 #define ZBOSS_SCENE_HPP
 
+#include "definitions.hpp"
+
 namespace zboss {
 
-    class Scene {};
+    class Scene {
+
+        protected:
+        Node* root;
+
+        public:
+
+        Scene() = default;
+
+        virtual void onCreate() = 0;
+        virtual void onDestroy() = 0;
+
+        void onResize() {}
+
+        void onRender() {
+
+        }
+
+        void onPause() {}
+
+        void onResume() {}
+
+
+    };
 
 }
 

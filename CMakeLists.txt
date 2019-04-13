@@ -16,9 +16,8 @@ set(ZBOSS_HEADERS
     include/zboss/engine.hpp
     include/zboss/exceptions.hpp
     include/zboss/scene.hpp
-    include/zboss/app.hpp
-    include/zboss/config.hpp
-    include/zboss/ecs.hpp)
+        include/zboss/config.hpp
+    include/zboss/ecs.hpp include/zboss/nodes/node.hpp include/zboss/definitions.hpp)
 
 set(ZBOSS_SOURCES
     src/engine.cpp
@@ -28,7 +27,7 @@ set(ZBOSS_RI_SOURCES
     ri/main.cpp
     ri/game.cpp
     ri/game.hpp
-)
+    ri/scenes/mainscene.hpp)
 
 add_library(zboss SHARED ${ZBOSS_HEADERS} ${ZBOSS_SOURCES})
 

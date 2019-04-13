@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include "scene.hpp"
 #include "config.hpp"
 
 namespace zboss {
@@ -14,6 +15,7 @@ namespace zboss {
         private:
 
         SDL_Window* window;
+        // SDL_GLContext gl;
         SDL_Renderer* renderer;
         SDL_Event currentEvent;
         bool running;
@@ -29,14 +31,57 @@ namespace zboss {
 
         protected:
 
+        Scene* scene = nullptr;
+
         explicit Engine() : fps(60), frameDelay(1000 / fps) {}
 
-        virtual void onCreate() {}
-        virtual void onResize() {}
-        virtual void onRender() {}
-        virtual void onPause() {}
-        virtual void onResume() {}
-        virtual void onDestroy() {}
+        virtual void onCreate() = 0;
+
+        private:
+
+        void onResize() {
+
+            if (scene != nullptr) {
+                scene->onResize();
+            }
+
+        }
+
+        void onRender() {
+
+            if (scene != nullptr) {
+                scene->onRender();
+            }
+
+        }
+
+        void onPause() {
+
+            if (scene != nullptr) {
+                scene->onPause();
+            }
+
+        }
+
+        void onResume() {
+
+            if (scene != nullptr) {
+                scene->onResume();
+            }
+
+        }
+
+        void onDestroy() {
+
+            if (scene != nullptr) {
+                scene->onDestroy();
+            }
+
+        }
+
+        protected:
+
+        void setScene(Scene* newScene);
 
         void setFramesPerSecond(int newFps) {
 
