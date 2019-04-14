@@ -39,12 +39,14 @@ namespace zboss {
 
         }
 
-        T &operator()(int row, int column) {
-            return matrix[row][column];
+        T &operator()(int y, int x) const {
+            return matrix[y][x];
         }
 
         void transpose(Matrix<T, R, C>& to) const;
 
+        template <T, int NEWR, int NEWC>
+        Matrix<T, R, NEWC> operator*(const Matrix<T, NEWR, NEWC>& m) const;
 
     };
 
