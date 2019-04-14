@@ -17,11 +17,11 @@ set(ZBOSS_HEADERS
     include/zboss/exceptions.hpp
     include/zboss/scene.hpp
         include/zboss/config.hpp
-    include/zboss/ecs.hpp include/zboss/nodes/node.hpp include/zboss/nodes/container.hpp include/zboss/math/matrix.hpp)
+    include/zboss/ecs.hpp include/zboss/nodes/node.hpp include/zboss/nodes/container.hpp include/zboss/math/matrix.hpp include/zboss/math/vector.hpp)
 
 set(ZBOSS_SOURCES
     src/engine.cpp
-    src/ecs.cpp src/math/matrix.cpp)
+    src/ecs.cpp src/math/matrix.cpp src/math/vector.cpp)
 
 set(ZBOSS_RI_SOURCES
     ri/main.cpp
