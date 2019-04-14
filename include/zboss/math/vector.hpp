@@ -1,12 +1,12 @@
 #ifndef ZBOSS_VECTOR_HPP
 #define ZBOSS_VECTOR_HPP
 
-#include <SDL2/SDL.h>
-
 namespace zboss {
 
     template <typename T>
     class Vector {
+
+        public:
 
         T x, y;
 
@@ -17,7 +17,7 @@ namespace zboss {
             return x * v.x + y * v.y;
         }
 
-        template <T>
+        /*template <T>
         inline Vector<T> rotate(T angle) const {
 
             return Vector(
@@ -25,7 +25,7 @@ namespace zboss {
                 -x * sin(angle) + y * cos(angle)
             );
 
-        }
+        }*/
 
     };
 

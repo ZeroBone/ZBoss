@@ -1,5 +1,5 @@
-#ifndef ZBOSS_ZBCONFIG_HPP
-#define ZBOSS_ZBCONFIG_HPP
+#ifndef ZBOSS_CONFIG_HPP
+#define ZBOSS_CONFIG_HPP
 
 namespace zboss {
 
@@ -17,4 +17,4 @@ namespace zboss {
 
 }
 
-#endif //ZBOSS_ZBCONFIG_HPP
+#endif //ZBOSS_CONFIG_HPP

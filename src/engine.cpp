@@ -1,5 +1,4 @@
 #include <zboss/engine.hpp>
-#include <zboss/exceptions.hpp>
 
 namespace zboss {
 

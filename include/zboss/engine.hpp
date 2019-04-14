@@ -1,16 +1,17 @@
-#ifndef ZBOSS_ZBENGINE_HPP
-#define ZBOSS_ZBENGINE_HPP
+#ifndef ZBOSS_ENGINE_HPP
+#define ZBOSS_ENGINE_HPP
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include "scene.hpp"
 #include "config.hpp"
+#include "exceptions.hpp"
 
 namespace zboss {
 
     class Engine {
 
-        friend void ZBOSS_run(zboss::Engine *derivedInstance, zboss::ZbConfig &config);
+        friend void ZBOSS_run(Engine *derivedInstance, ZbConfig &config);
 
         private:
 
@@ -94,4 +95,4 @@ namespace zboss {
 
 }
 
-#endif //ZBOSS_ZBENGINE_HPP
+#endif //ZBOSS_ENGINE_HPP

@@ -1,6 +1,8 @@
 #ifndef ZBOSS_NODE_HPP
 #define ZBOSS_NODE_HPP
 
+#include <vector>
+
 namespace zboss {
 
     typedef enum {
@@ -20,6 +22,8 @@ namespace zboss {
         public:
 
         explicit Node(node_type_t type) : type(type) {}
+
+        Node* findFirstParentByType(node_type_t type);
 
         virtual void onRender() {}
 

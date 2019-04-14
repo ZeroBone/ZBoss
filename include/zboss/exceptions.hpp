@@ -1,5 +1,5 @@
-#ifndef ZBOSS_ZBEXCEPTIONS_HPP
-#define ZBOSS_ZBEXCEPTIONS_HPP
+#ifndef ZBOSS_EXCEPTIONS_HPP
+#define ZBOSS_EXCEPTIONS_HPP
 
 #include <stdexcept>
 #include <string>
@@ -22,4 +22,4 @@ namespace zboss {
 
 }
 
-#endif //ZBOSS_ZBEXCEPTIONS_HPP
+#endif //ZBOSS_EXCEPTIONS_HPP

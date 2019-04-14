@@ -1,7 +1,7 @@
 #ifndef ZBOSS_SCENE_HPP
 #define ZBOSS_SCENE_HPP
 
-#include "definitions.hpp"
+#include "nodes/node.hpp"
 
 namespace zboss {
 
