@@ -1,14 +1,15 @@
 #ifndef ZBOSS_SCENE_HPP
 #define ZBOSS_SCENE_HPP
 
-#include "nodes/node.hpp"
+#include <zboss/entity/entity.hpp>
 
 namespace zboss {
 
     class Scene {
 
         protected:
-        Node* root;
+
+        Entity* root;
 
         public:
 

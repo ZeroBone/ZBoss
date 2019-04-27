@@ -2,6 +2,56 @@
 
 namespace zboss {
 
+    void ZBOSS_run(Engine* derivedInstance, ZbConfig& config) {
+
+        if (SDL_Init(SDL_INIT_EVERYTHING)) {
+            throw InitializeException("B", SDL_GetError());
+        }
+
+        if (config.useFonts) {
+
+            if (TTF_Init() != 0) {
+                throw InitializeException("B", TTF_GetError());
+            }
+
+        }
+
+        Uint32 windowFlags = SDL_WINDOW_OPENGL;
+
+        if (config.maximise) {
+            windowFlags |= SDL_WINDOW_MAXIMIZED;
+        }
+
+        if (config.resizable) {
+            windowFlags |= SDL_WINDOW_RESIZABLE;
+        }
+
+        derivedInstance->window = SDL_CreateWindow(
+            "ZBoss",
+            SDL_WINDOWPOS_UNDEFINED,
+            SDL_WINDOWPOS_UNDEFINED,
+            config.width,
+            config.height,
+            windowFlags
+        );
+
+        // derivedInstance->gl = SDL_GL_CreateContext(derivedInstance->window);
+
+        derivedInstance->renderer = SDL_CreateRenderer(
+            derivedInstance->window,
+            -1,
+            SDL_RENDERER_ACCELERATED
+        );
+
+        // start the engine loop
+        derivedInstance->run();
+
+        if (config.useFonts) {
+            TTF_Quit();
+        }
+
+    }
+
     void Engine::run() {
 
         running = true;
@@ -58,66 +108,32 @@ namespace zboss {
 
     }
 
-    void Engine::setScene(Scene* newScene) {
+    void Engine::onResize() {
 
         if (scene != nullptr) {
-            scene->onDestroy();
+            scene->onResize();
         }
-
-        scene = newScene;
-
-        scene->onCreate();
-
-        scene->onResize();
 
     }
 
-    void ZBOSS_run(zboss::Engine* derivedInstance, zboss::ZbConfig& config) {
+    void Engine::onRender() {
 
-        if (SDL_Init(SDL_INIT_EVERYTHING)) {
-            throw InitializeException("B", SDL_GetError());
+        SDL_RenderClear(renderer);
+
+        // thickLineColor(renderer, 0, 0, 720, 100, 20, 0xFF00FFFF);
+
+        if (scene != nullptr) {
+            scene->onRender();
         }
 
-        if (config.useFonts) {
+        SDL_RenderPresent(renderer);
 
-            if (TTF_Init() != 0) {
-                throw InitializeException("B", TTF_GetError());
-            }
+    }
 
-        }
+    void Engine::onPause()  {
 
-        Uint32 windowFlags = SDL_WINDOW_OPENGL;
-
-        if (config.maximise) {
-            windowFlags |= SDL_WINDOW_MAXIMIZED;
-        }
-
-        if (config.resizable) {
-            windowFlags |= SDL_WINDOW_RESIZABLE;
-        }
-
-        derivedInstance->window = SDL_CreateWindow(
-            "ZBoss",
-            SDL_WINDOWPOS_UNDEFINED,
-            SDL_WINDOWPOS_UNDEFINED,
-            config.width,
-            config.height,
-            windowFlags
-        );
-
-        // derivedInstance->gl = SDL_GL_CreateContext(derivedInstance->window);
-
-        derivedInstance->renderer = SDL_CreateRenderer(
-            derivedInstance->window,
-            -1,
-            SDL_RENDERER_ACCELERATED
-        );
-
-        // start the engine loop
-        derivedInstance->run();
-
-        if (config.useFonts) {
-            TTF_Quit();
+        if (scene != nullptr) {
+            scene->onPause();
         }
 
     }

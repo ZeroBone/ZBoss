@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2_gfxPrimitives.h>
 #include "scene.hpp"
 #include "config.hpp"
 #include "exceptions.hpp"
@@ -34,35 +35,20 @@ namespace zboss {
 
         Scene* scene = nullptr;
 
-        explicit Engine() : fps(60), frameDelay(1000 / fps) {}
+        explicit Engine() :
+            fps(60),
+            frameDelay(1000 / fps)
+            {}
 
         virtual void onCreate() = 0;
 
         private:
 
-        void onResize() {
+        void onResize();
 
-            if (scene != nullptr) {
-                scene->onResize();
-            }
+        void onRender();
 
-        }
-
-        void onRender() {
-
-            if (scene != nullptr) {
-                scene->onRender();
-            }
-
-        }
-
-        void onPause() {
-
-            if (scene != nullptr) {
-                scene->onPause();
-            }
-
-        }
+        void onPause();
 
         void onResume() {
 
@@ -80,9 +66,21 @@ namespace zboss {
 
         }
 
-        protected:
+        public:
 
-        void setScene(Scene* newScene);
+        void setScene(Scene* newScene) {
+
+            if (scene != nullptr) {
+                scene->onDestroy();
+            }
+
+            scene = newScene;
+
+            scene->onCreate();
+
+            scene->onResize();
+
+        }
 
         void setFramesPerSecond(int newFps) {
 
@@ -92,6 +90,8 @@ namespace zboss {
         }
 
     };
+
+    void ZBOSS_run(Engine* derivedInstance, ZbConfig& config);
 
 }
 
