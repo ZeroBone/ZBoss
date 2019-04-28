@@ -1,6 +1,7 @@
 #ifndef ZBOSS_SCENE_HPP
 #define ZBOSS_SCENE_HPP
 
+#include <memory>
 #include <zboss/entity/entity.hpp>
 
 namespace zboss {
@@ -9,11 +10,11 @@ namespace zboss {
 
         protected:
 
-        Entity* root;
+        std::shared_ptr<Entity> root;
 
         public:
 
-        explicit Scene() = default;
+        explicit Scene() : root(nullptr) {}
 
         virtual void onCreate() = 0;
         virtual void onDestroy() = 0;
@@ -21,6 +22,11 @@ namespace zboss {
         void onResize() {}
 
         void onRender() {
+
+            if (root != nullptr) {
+                root->send_process();
+                root->send_draw();
+            }
 
         }
 

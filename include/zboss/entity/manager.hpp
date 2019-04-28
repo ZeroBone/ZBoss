@@ -20,17 +20,14 @@ namespace zboss {
 
         public:
 
-        void update();
-
-        void draw();
-
         void refresh();
 
         void AddToGroup(Entity* entity, EntityConstants::group_id_t group);
 
         std::vector<Entity*>& getGroup(EntityConstants::group_id_t mGroup);
 
-        Entity& addEntity(std::string& name);
+        // Entity* addEntity(const std::string& name);
+        std::shared_ptr<Entity> addEntity(const std::string& name);
 
     };
     

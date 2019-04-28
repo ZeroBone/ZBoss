@@ -1,14 +1,14 @@
-#ifndef ZBOSS_CONSTANTS_HPP
-#define ZBOSS_CONSTANTS_HPP
+#ifndef ZBOSS_ENTITY_CONSTANTS_HPP
+#define ZBOSS_ENTITY_CONSTANTS_HPP
 
 #include <bitset>
 #include <array>
 
 namespace zboss {
 
-    class EntityConstants {
+    class EntityComponent;
 
-        class EntityComponent;
+    class EntityConstants {
 
         public:
 
@@ -44,4 +44,4 @@ namespace zboss {
 
 }
 
-#endif //ZBOSS_CONSTANTS_HPP
+#endif //ZBOSS_ENTITY_CONSTANTS_HPP

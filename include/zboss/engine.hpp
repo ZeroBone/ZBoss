@@ -1,29 +1,57 @@
 #ifndef ZBOSS_ENGINE_HPP
 #define ZBOSS_ENGINE_HPP
 
+#include <memory>
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#include <SDL2_gfxPrimitives.h>
-#include "scene.hpp"
-#include "config.hpp"
-#include "exceptions.hpp"
+#include <zboss/scene.hpp>
+#include <zboss/config.hpp>
+#include <zboss/exceptions.hpp>
+
+#include <zboss/assets/manager.hpp>
+#include <zboss/assets/locators/file.hpp>
+#include <zboss/assets/loaders/image.hpp>
+#include <zboss/assets/loaders/audio.hpp>
+#include <zboss/assets/loaders/font.hpp>
+
+#include <zboss/renderer.hpp>
 
 namespace zboss {
 
     class Engine {
 
-        friend void ZBOSS_run(Engine *derivedInstance, ZbConfig &config);
+        friend void ZBOSS_run(Engine* derivedInstance, ZbConfig& config);
 
         private:
 
+        static Engine* _instance;
+
         SDL_Window* window;
+
         // SDL_GLContext gl;
-        SDL_Renderer* renderer;
+
         SDL_Event currentEvent;
+
+        EntityManager entityManager;
+
         bool running;
 
         int fps;
+
         int frameDelay;
+
+        Renderer _renderer;
+
+        std::shared_ptr<FileLocator> _asset_file_locator;
+
+        std::shared_ptr<ImageLoader> _asset_image_loader;
+
+        std::shared_ptr<AudioLoader> _asset_audio_loader;
+
+        std::shared_ptr<FontLoader> _asset_font_loader;
+
+        AssetManager _assets;
 
         void run();
 
@@ -35,10 +63,7 @@ namespace zboss {
 
         Scene* scene = nullptr;
 
-        explicit Engine() :
-            fps(60),
-            frameDelay(1000 / fps)
-            {}
+        explicit Engine();
 
         virtual void onCreate() = 0;
 
@@ -85,8 +110,21 @@ namespace zboss {
         void setFramesPerSecond(int newFps) {
 
             fps = newFps;
+
             frameDelay = 1000 / fps;
 
+        }
+
+        inline EntityManager& entities() {
+            return entityManager;
+        }
+
+        AssetManager& assets();
+
+        Renderer& renderer();
+
+        inline static Engine& getInstance() {
+            return *_instance;
         }
 
     };

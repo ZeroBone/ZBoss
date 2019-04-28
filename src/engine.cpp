@@ -2,6 +2,8 @@
 
 namespace zboss {
 
+    Engine* Engine::_instance = nullptr;
+
     void ZBOSS_run(Engine* derivedInstance, ZbConfig& config) {
 
         if (SDL_Init(SDL_INIT_EVERYTHING)) {
@@ -37,11 +39,11 @@ namespace zboss {
 
         // derivedInstance->gl = SDL_GL_CreateContext(derivedInstance->window);
 
-        derivedInstance->renderer = SDL_CreateRenderer(
+        derivedInstance->renderer().set_renderer(SDL_CreateRenderer(
             derivedInstance->window,
             -1,
             SDL_RENDERER_ACCELERATED
-        );
+        ));
 
         // start the engine loop
         derivedInstance->run();
@@ -49,6 +51,55 @@ namespace zboss {
         if (config.useFonts) {
             TTF_Quit();
         }
+
+    }
+
+    Engine::Engine() :
+        fps(60),
+        frameDelay(1000 / fps),
+        _asset_file_locator(std::make_shared<FileLocator>("/")),
+        _asset_image_loader(std::make_shared<ImageLoader>()),
+        _asset_audio_loader(std::make_shared<AudioLoader>()),
+        _asset_font_loader(std::make_shared<FontLoader>()) {
+
+        Engine::_instance = this;
+
+        _assets.register_locator(_asset_file_locator);
+
+        _assets.register_loader(_asset_font_loader, {"ttf"});
+
+        _assets.register_loader(
+            _asset_image_loader,
+            {
+                "png",
+                "bmp",
+                "jpg", "jpeg",
+                "tga",
+                "pnm", "pbm", "pgm", "ppm",
+                "xpm",
+                "xcf",
+                "pcx",
+                "gif",
+                "tif", "tiff",
+                "lbm", "iff"
+            }
+        );
+
+        _assets.register_loader(
+            _asset_audio_loader,
+            {
+                "wav",
+                "voc",
+                "midi",
+                "mod",
+                "s3m",
+                "it",
+                "xm",
+                "ogg",
+                "mp3"
+            }
+        );
+
 
     }
 
@@ -104,7 +155,9 @@ namespace zboss {
 
         SDL_DestroyWindow(window);
 
-        SDL_DestroyRenderer(renderer);
+        _renderer.destroy();
+
+        // SDL_DestroyRenderer(renderer);
 
     }
 
@@ -118,7 +171,8 @@ namespace zboss {
 
     void Engine::onRender() {
 
-        SDL_RenderClear(renderer);
+        // SDL_RenderClear(renderer);
+        _renderer.clear();
 
         // thickLineColor(renderer, 0, 0, 720, 100, 20, 0xFF00FFFF);
 
@@ -126,16 +180,25 @@ namespace zboss {
             scene->onRender();
         }
 
-        SDL_RenderPresent(renderer);
+        // SDL_RenderPresent(renderer);
+        _renderer.present();
 
     }
 
-    void Engine::onPause()  {
+    void Engine::onPause() {
 
         if (scene != nullptr) {
             scene->onPause();
         }
 
+    }
+
+    AssetManager& Engine::assets() {
+        return _assets;
+    }
+
+    Renderer& Engine::renderer() {
+        return _renderer;
     }
 
 }

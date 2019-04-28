@@ -4,7 +4,7 @@ namespace zboss {
 
     using namespace std;
 
-    void Entity::update() {
+    /*void Entity::update() {
 
         for (auto& c : components) {
 
@@ -12,7 +12,7 @@ namespace zboss {
 
         }
 
-    }
+    }*/
 
     void Entity::draw() {
 
@@ -200,19 +200,19 @@ namespace zboss {
         process_enabled = enabled;
     }
 
-    void Entity::send_process(Uint32 delta) {
+    void Entity::send_process() {
 
         if (has_process()) {
-            process(delta);
+            process();
         }
 
         for (auto& child : get_children()) {
-            child->send_process(delta);
+            child->send_process();
         }
 
     }
 
-    void Entity::process(Uint32 d) {
+    void Entity::process() {
 
         for (auto& c : components) {
 
@@ -252,9 +252,25 @@ namespace zboss {
         ready();
     }
 
-    void Entity::enter_tree() {}
+    void Entity::enter_tree() {
 
-    void Entity::ready() {}
+        for (auto& c : components) {
+
+            c->enter_tree();
+
+        }
+
+    }
+
+    void Entity::ready() {
+
+        for (auto& c : components) {
+
+            c->ready();
+
+        }
+
+    }
 
     void Entity::send_exit_tree() {
         for (auto& child : get_children()) {

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 project(zboss C CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_MODULE_PATH ${zboss_SOURCE_DIR}/cmake)
 
 find_package(SDL2 REQUIRED)
@@ -13,18 +13,39 @@ find_package(SDL2_gfx REQUIRED)
 # include_directories(${SDL2_INCLUDE_DIR})
 
 set(ZBOSS_HEADERS
-    include/zboss/engine.hpp
-    include/zboss/exceptions.hpp
-    include/zboss/scene.hpp
-    include/zboss/config.hpp
-    include/zboss/entity/entity.hpp
-    include/zboss/entity/component.hpp
-    include/zboss/entity/manager.hpp
-    include/zboss/math/matrix.hpp
-    include/zboss/math/vector.hpp
-    include/zboss/entity/constants.hpp include/zboss/components/container.hpp)
+        include/zboss/engine.hpp
+        include/zboss/exceptions.hpp
+        include/zboss/scene.hpp
+        include/zboss/config.hpp
+        include/zboss/entity/entity.hpp
+        include/zboss/entity/component.hpp
+        include/zboss/entity/manager.hpp
+        include/zboss/math/matrix.hpp
+        include/zboss/math/vector.hpp
+        include/zboss/entity/constants.hpp
+        include/zboss/components/container.hpp
+        include/zboss/assets/manager.hpp
+        include/zboss/assets/locator.hpp
+        include/zboss/assets/loader.hpp
+        include/zboss/assets/cache.hpp
+        include/zboss/assets/asset.hpp
+        include/zboss/assets/loaders/audio.hpp
+        include/zboss/assets/loaders/font.hpp
+        include/zboss/assets/loaders/image.hpp
+        include/zboss/assets/locators/file.hpp include/zboss/renderer.hpp include/zboss/math/shape.hpp)
 
-set(ZBOSS_SOURCES src/engine.cpp src/entity/entity.cpp src/entity/manager.cpp src/math/vector.cpp src/components/container.cpp)
+set(ZBOSS_SOURCES
+        src/engine.cpp
+        src/entity/entity.cpp
+        src/entity/manager.cpp
+        src/math/vector.cpp
+        src/components/container.cpp
+        src/assets/asset.cpp
+        src/assets/manager.cpp
+        src/assets/loaders/audio.cpp
+        src/assets/loaders/font.cpp
+        src/assets/loaders/image.cpp
+        src/assets/locators/file.cpp include/zboss/components/sprite.hpp src/components/sprite.cpp src/math/shape.cpp src/renderer.cpp src/entity/constants.cpp)
 
 set(ZBOSS_RI_SOURCES
     ri/main.cpp

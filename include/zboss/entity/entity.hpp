@@ -30,9 +30,9 @@ namespace zboss {
 
         public:
 
-        explicit Entity(EntityManager& manager, std::string& name) : manager(manager), name(name) {}
+        Entity(EntityManager& manager, const std::string& name) : manager(manager), name(name) {}
 
-        void update();
+        // void update();
 
         void draw();
 
@@ -103,9 +103,9 @@ namespace zboss {
 
         void set_process(bool enabled);
 
-        void send_process(Uint32 delta);
+        void send_process();
 
-        void process(Uint32 delta);
+        void process();
 
         bool has_draw() const;
 
@@ -115,9 +115,9 @@ namespace zboss {
 
         void send_enter_tree();
 
-        virtual void enter_tree();
+        void enter_tree(); // should notify all components
 
-        virtual void ready();
+        void ready(); // should notify all components
 
         void send_exit_tree();
 
@@ -156,14 +156,18 @@ namespace zboss {
         T* c(new T(std::forward<TArgs>(mArgs)...));
 
         // c->entity = this;
-        c->entity = std::make_shared<Entity>(this);
-        // c->entity = shared_from_this();
+        // c->entity = std::make_shared<Entity>(*this, name);
+        c->entity = shared_from_this();
 
         std::unique_ptr<EntityComponent> uPtr{c};
 
         components.emplace_back(std::move(uPtr));
 
-        componentArray[getComponentTypeId<T>()] = c;
+        componentArray[getComponentTypeId<T>()] = c; // implicit conversion
+        // componentArray[getComponentTypeId<T>()] = static_cast<EntityComponent*>(c); // implicit conversion
+        // componentArray[getComponentTypeId<T>()] = static_cast<EntityComponent*>(c); // implicit conversion
+        // componentArray[getComponentTypeId<T>()] = dynamic_cast<EntityComponent*>(c); // implicit conversion
+
         componentBitset[getComponentTypeId<T>()] = true;
 
         c->init();

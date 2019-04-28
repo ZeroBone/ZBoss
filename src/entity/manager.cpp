@@ -3,22 +3,6 @@
 
 namespace zboss {
 
-    void EntityManager::update() {
-
-        for (auto& entity : entities) {
-            entity->update();
-        }
-
-    }
-
-    void EntityManager::draw() {
-
-        for (auto& entity : entities) {
-            entity->draw();
-        }
-
-    }
-
     void EntityManager::refresh() {
 
         for (auto i(0u); i < EntityConstants::maxGroups; i++) {
@@ -55,7 +39,7 @@ namespace zboss {
         return groupedEntities[mGroup];
     }
 
-    Entity& EntityManager::addEntity(std::string& name) {
+    /*Entity* EntityManager::addEntity(const std::string& name) {
 
         auto e = new Entity(*this, name);
 
@@ -63,7 +47,25 @@ namespace zboss {
 
         entities.emplace_back(std::move(uPtr));
 
-        return *e;
+        return e;
+
+    }*/
+
+    std::shared_ptr<Entity> EntityManager::addEntity(const std::string& name) {
+
+        std::shared_ptr<Entity> entity = std::make_shared<Entity>(*this, name);
+
+        entity->init();
+
+        return entity;
+
+        /*auto e = new Entity(*this, name);
+
+        std::unique_ptr<Entity> uPtr { e };
+
+        entities.emplace_back(std::move(uPtr));
+
+        return e;*/
 
     }
 

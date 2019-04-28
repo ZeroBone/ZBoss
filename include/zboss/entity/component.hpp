@@ -15,8 +15,14 @@ namespace zboss {
         std::shared_ptr<Entity> entity;
         // Entity* entity;
 
-        virtual void initialize() {}
+        virtual void init() {}
+
+        virtual void enter_tree() {}
+
+        virtual void ready() {}
+
         virtual void update() {}
+
         virtual void draw() {}
 
         virtual ~EntityComponent() = default;

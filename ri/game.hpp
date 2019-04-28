@@ -6,9 +6,11 @@
 
 class Game : public zboss::Engine {
 
-    public:
+    private:
 
     static Game* instance;
+
+    public:
 
     explicit Game(): Engine() {
 
@@ -20,6 +22,10 @@ class Game : public zboss::Engine {
 
         setScene(new MainScene());
 
+    }
+
+    inline static Game* get() {
+        return instance;
     }
 
 };

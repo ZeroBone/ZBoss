@@ -1,5 +1,5 @@
-#ifndef ZBOSS_CONTAINER_HPP
-#define ZBOSS_CONTAINER_HPP
+#ifndef ZBOSS_CONTAINER_COMPONENT_HPP
+#define ZBOSS_CONTAINER_COMPONENT_HPP
 
 #include <vector>
 #include <zboss/entity/component.hpp>
@@ -59,4 +59,4 @@ namespace zboss {
 
 }
 
-#endif //ZBOSS_CONTAINER_HPP
+#endif //ZBOSS_CONTAINER_COMPONENT_HPP
