@@ -8,6 +8,9 @@
 #include <zboss/engine.hpp>
 #include <zboss/components/container.hpp>
 #include <zboss/components/sprite.hpp>
+#include <zboss/components/movement.hpp>
+
+#include "../components/movementcontroller.hpp"
 
 using namespace zboss;
 using namespace std;
@@ -22,7 +25,11 @@ class MainScene : public zboss::Scene {
 
         player->addComponent<SpriteComponent>();
 
-        player->getComponent<SpriteComponent>().set_sprite("");
+        player->getComponent<SpriteComponent>().setSprite("test.png");
+
+        player->addComponent<MovementComponent>();
+
+        player->addComponent<MovementControllerComponent>();
 
         root = player;
 

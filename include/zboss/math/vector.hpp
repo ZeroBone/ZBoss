@@ -6,85 +6,100 @@
 
 namespace zboss {
 
-    struct Vector {
+    struct Vector2D {
 
-        float x;
-        float y;
+        float x, y;
 
-        Vector() : x(0), y(0) {}
+        Vector2D() : x(0), y(0) {}
 
-        Vector(float x, float y) : x(x), y(y) {}
+        Vector2D(float x, float y) : x(x), y(y) {}
 
-        Vector(SDL_Point p) : x(p.x), y(p.y) {}
+        explicit Vector2D(SDL_Point p) : x(p.x), y(p.y) {}
 
-        SDL_Point as_point() const {
+        SDL_Point toSdlPoint() const {
+
             SDL_Point result;
-            result.x = x;
-            result.y = y;
+
+            result.x = static_cast<int>(x);
+            result.y = static_cast<int>(y);
+
             return result;
+
         }
 
-        Vector& operator=(const Vector& other) {
+        Vector2D& operator=(const Vector2D& other) {
             x = other.x;
             y = other.y;
             return *this;
         }
 
-        float dot(const Vector& other) const {
+        float dot(const Vector2D& other) const {
+
             return (x * other.x) + (y * other.y);
+
         }
 
-        float magnitude_squared() const {
+        float squaredMagnitude() const {
+
             return (x * x) + (y * y);
+
         }
 
         float magnitude() const {
-            return sqrt(magnitude_squared());
+
+            return sqrt(squaredMagnitude());
+
         }
 
-        Vector normalize() const {
-            return Vector(x, y) / magnitude();
+        Vector2D normalize() const {
+            return Vector2D(x, y) / magnitude();
         }
 
-        Vector normal() const {
-            return Vector(-y, x);
+        Vector2D normal() const {
+            return Vector2D(-y, x);
         }
 
-        Vector projection(const Vector& v) const {
-            return v * (dot(v) / v.magnitude_squared());
+        Vector2D projection(const Vector2D& v) const {
+            return v * (dot(v) / v.squaredMagnitude());
         }
 
-        Vector rotate(float angle) const {
-            return Vector(
-                x * cos(angle) + y * sin(angle),
-                -x * sin(angle) + y * cos(angle)
+        Vector2D rotate(float angle) const {
+
+            return Vector2D(
+                x * cos(angle) +
+                y * sin(angle),
+                -x * sin(angle) +
+                y * cos(angle)
             );
+
         }
 
-        Vector operator+(const Vector& other) const {
-            return Vector(x + other.x, y + other.y);
+        Vector2D operator+(const Vector2D& other) const {
+            return Vector2D(x + other.x, y + other.y);
         }
 
-        Vector operator-(const Vector& other) const {
-            return Vector(x - other.x, y - other.y);
+        Vector2D operator-(const Vector2D& other) const {
+            return Vector2D(x - other.x, y - other.y);
         }
 
-        Vector operator*(float n) const {
-            return Vector(x * n, y * n);
+        Vector2D operator*(float n) const {
+            return Vector2D(x * n, y * n);
         }
 
-        Vector operator/(float n) const {
-            return Vector(x / n, y / n);
+        Vector2D operator/(float n) const {
+            return Vector2D(x / n, y / n);
         }
+
     };
 
-    Vector VectorPolar(float angle, float r);
+    Vector2D VectorPolar(float angle, float r);
 
-    Vector operator*(int i, const Vector& v);
+    Vector2D operator*(int i, const Vector2D& v);
 
-    Vector operator*(float f, const Vector& v);
+    Vector2D operator*(float f, const Vector2D& v);
 
-    Vector operator-(const Vector& v);
+    Vector2D operator-(const Vector2D& v);
+    
 }
 
 #endif //ZBOSS_VECTOR_HPP

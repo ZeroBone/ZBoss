@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <zboss/entity/entity.hpp>
+#include <iostream>
 
 namespace zboss {
 
@@ -26,6 +27,14 @@ namespace zboss {
             if (root != nullptr) {
                 root->send_process();
                 root->send_draw();
+            }
+
+        }
+
+        inline void dispatchEvent() {
+
+            if (root != nullptr) {
+                root->send_input();
             }
 
         }

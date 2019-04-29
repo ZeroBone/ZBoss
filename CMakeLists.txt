@@ -32,7 +32,7 @@ set(ZBOSS_HEADERS
         include/zboss/assets/loaders/audio.hpp
         include/zboss/assets/loaders/font.hpp
         include/zboss/assets/loaders/image.hpp
-        include/zboss/assets/locators/file.hpp include/zboss/renderer.hpp include/zboss/math/shape.hpp)
+        include/zboss/assets/locators/file.hpp include/zboss/renderer.hpp include/zboss/math/shape.hpp include/zboss/components/movement.hpp)
 
 set(ZBOSS_SOURCES
         src/engine.cpp
@@ -45,13 +45,22 @@ set(ZBOSS_SOURCES
         src/assets/loaders/audio.cpp
         src/assets/loaders/font.cpp
         src/assets/loaders/image.cpp
-        src/assets/locators/file.cpp include/zboss/components/sprite.hpp src/components/sprite.cpp src/math/shape.cpp src/renderer.cpp src/entity/constants.cpp)
+        src/assets/locators/file.cpp
+        include/zboss/components/sprite.hpp
+        src/components/sprite.cpp
+        src/math/shape.cpp
+        src/renderer.cpp
+        src/entity/constants.cpp
+        src/components/movement.cpp
+        src/entity/component.cpp)
 
 set(ZBOSS_RI_SOURCES
     ri/main.cpp
     ri/game.cpp
     ri/game.hpp
-    ri/scenes/mainscene.hpp)
+    ri/scenes/mainscene.hpp
+    ri/components/movementcontroller.hpp
+    ri/components/movementcontroller.cpp)
 
 add_library(zboss SHARED ${ZBOSS_HEADERS} ${ZBOSS_SOURCES})
 
@@ -76,6 +85,11 @@ target_link_libraries(
 )
 
 target_compile_definitions(zboss PUBLIC SDL_MAIN_HANDLED)
+
+configure_file(
+    ${zboss_SOURCE_DIR}/binconfig.hpp
+    ${zboss_BINARY_DIR}/binconfig.hpp
+)
 
 set_target_properties(zboss PROPERTIES LINKER_LANGUAGE CXX)
 

@@ -95,9 +95,9 @@ namespace zboss {
 
         void set_input(bool enabled);
 
-        bool send_input(SDL_Event* event);
+        bool send_input();
 
-        virtual bool input(SDL_Event* event);
+        bool input();
 
         bool has_process() const;
 
@@ -106,10 +106,6 @@ namespace zboss {
         void send_process();
 
         void process();
-
-        bool has_draw() const;
-
-        void set_draw(bool enabled);
 
         void send_draw();
 
@@ -130,8 +126,6 @@ namespace zboss {
         bool input_enabled{false};
 
         bool process_enabled{false};
-
-        bool draw_enabled{false};
 
         bool in_tree{false};
 
@@ -164,9 +158,9 @@ namespace zboss {
         components.emplace_back(std::move(uPtr));
 
         componentArray[getComponentTypeId<T>()] = c; // implicit conversion
-        // componentArray[getComponentTypeId<T>()] = static_cast<EntityComponent*>(c); // implicit conversion
-        // componentArray[getComponentTypeId<T>()] = static_cast<EntityComponent*>(c); // implicit conversion
-        // componentArray[getComponentTypeId<T>()] = dynamic_cast<EntityComponent*>(c); // implicit conversion
+        // componentArray[getComponentTypeId<T>()] = static_cast<EntityComponent*>(c);
+        // componentArray[getComponentTypeId<T>()] = static_cast<EntityComponent*>(c);
+        // componentArray[getComponentTypeId<T>()] = dynamic_cast<EntityComponent*>(c);
 
         componentBitset[getComponentTypeId<T>()] = true;
 
@@ -181,34 +175,10 @@ namespace zboss {
 
         auto ptr(componentArray[getComponentTypeId<T>()]);
 
-        // return *static_cast<T*>(ptr);
-        return *reinterpret_cast<T*>(ptr);
+        return *static_cast<T*>(ptr);
+        // return *reinterpret_cast<T*>(ptr);
 
     }
-
-    /*vector<shared_ptr<Entity>> Entity::find_children_by_type(const vector<string>& types) const {
-        vector<shared_ptr<Entity>> result;
-
-        for (auto& child : children) {
-
-            for (auto& nodetype : types) {
-
-                if (child->is_of(nodetype)) {
-                    result.push_back(child);
-                    break;
-                }
-
-            }
-
-            auto child_result = child->find_children_by_type(types);
-
-            if (!child_result.empty()) {
-                result.insert(result.end(), child_result.begin(), child_result.end());
-            }
-        }
-
-        return result;
-    }*/
 
     template <class T>
     std::vector<std::shared_ptr<Entity>> Entity::find_children_by_type() const {
@@ -235,22 +205,10 @@ namespace zboss {
 
     }
 
-    /*shared_ptr<Entity> Entity::find_first_ancestor_by_type(const string& type) const {
-        shared_ptr<Entity> result = get_parent();
-
-        if (result == nullptr) {
-            return nullptr;
-        }
-        else if (result->is_of(type)) {
-            return result;
-        }
-        else {
-            return result->find_first_ancestor_by_type(type);
-        }
-    }*/
-
     template <class T>
     std::shared_ptr<Entity> Entity::find_first_ancestor_by_type() const {
+
+        // TODO: replace recursion with loop
 
         std::shared_ptr<Entity> result = get_parent();
 

@@ -12,48 +12,49 @@ namespace zboss {
 
         public:
 
-        Vector get_pos() const;
+        Vector2D getPosition() const;
 
-        void set_pos(const Vector& pos);
+        void setPosition(const Vector2D& pos);
 
-        void set_pos(int x, int y);
+        void setPosition(int x, int y);
 
-        float get_rotation() const;
+        float getRotation() const;
 
-        void set_rotation(float angle);
+        void setRotation(float angle);
 
-        float get_zoom() const;
+        float getScale() const;
 
-        void set_zoom(float zoom);
+        void setScale(float scale);
 
-        Vector get_absolute_pos();
+        Vector2D getAbsolutePosition();
 
-        float get_absolute_rotation() const;
+        float getAbsoluteRotation() const;
 
-        float get_absolute_zoom() const;
+        float getAbsoluteScale() const;
 
-        Matrix<3, 3> get_pm_transform() const;
-
-        private:
-        void premultiply_pos();
+        Matrix<3, 3> getCachedTransform() const;
 
         private:
 
-        Vector _pos;
+        void cachePosition();
 
-        float _angle = 0;
+        private:
 
-        float _zoom = 0;
+        Vector2D rawPosition;
+
+        float rawAngle = 0;
+
+        float rawScale = 0;
 
         Matrix<3, 3> translation;
 
         Matrix<3, 3> rotation;
 
-        Matrix<3, 3> local_pm_transform;
+        Matrix<3, 3> localCachedTransform;
 
-        Matrix<3, 3> parent_pm_transform;
+        Matrix<3, 3> parentCachedTransform;
 
-        Vector pm_pos;
+        Vector2D pm_pos;
 
     };
 

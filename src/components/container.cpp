@@ -5,35 +5,38 @@ namespace zboss {
 
     using namespace std;
 
-    Vector ContainerComponent::get_pos() const {
-        return _pos;
+    Vector2D ContainerComponent::getPosition() const {
+        return rawPosition;
     }
 
-    void ContainerComponent::set_pos(const Vector& pos) {
-        set_pos(pos.x, pos.y);
+    void ContainerComponent::setPosition(const Vector2D& pos) {
+        setPosition(pos.x, pos.y);
     }
 
-    void ContainerComponent::set_pos(int x, int y) {
-        _pos.x = x;
-        _pos.y = y;
+    void ContainerComponent::setPosition(int x, int y) {
+
+        rawPosition.x = x;
+        rawPosition.y = y;
 
         translation = {
-            {1.0, 0.0, (float) x},
-            {0.0, 1.0, (float) y},
-            {0.0, 0.0, 1.0}
+            {1., 0., (float)x},
+            {0., 1., (float)y},
+            {0., 0., 1.}
         };
 
-        local_pm_transform = translation * rotation;
-        premultiply_pos();
+        localCachedTransform = translation * rotation;
+
+        cachePosition();
+
     }
 
-    float ContainerComponent::get_rotation() const {
-        return _angle;
+    float ContainerComponent::getRotation() const {
+        return rawAngle;
     }
 
-    void ContainerComponent::set_rotation(float angle) {
+    void ContainerComponent::setRotation(float angle) {
 
-        _angle = angle;
+        rawAngle = angle;
 
         rotation = {
             {cos(angle),  sin(angle), 0.0},
@@ -41,39 +44,39 @@ namespace zboss {
             {0.0,         0.0,        1.0}
         };
 
-        local_pm_transform = translation * rotation;
+        localCachedTransform = translation * rotation;
 
-        premultiply_pos();
+        cachePosition();
 
     }
 
-    float ContainerComponent::get_zoom() const {
-        return _zoom;
+    float ContainerComponent::getScale() const {
+        return rawScale;
     }
 
-    void ContainerComponent::set_zoom(float zoom) {
-        _zoom = zoom;
+    void ContainerComponent::setScale(float scale) {
+        rawScale = scale;
 
-        translation = translation * zoom;
-        local_pm_transform = translation * rotation;
-        premultiply_pos();
+        translation = translation * scale;
+        localCachedTransform = translation * rotation;
+        cachePosition();
     }
 
-    Matrix<3, 3> ContainerComponent::get_pm_transform() const {
-        return local_pm_transform;
+    Matrix<3, 3> ContainerComponent::getCachedTransform() const {
+        return localCachedTransform;
     }
 
-    void ContainerComponent::premultiply_pos() {
+    void ContainerComponent::cachePosition() {
         Matrix<3, 1> origin = {
             {0.0},
             {0.0},
             {1.0}
         };
-        Matrix<3, 1> transformed = parent_pm_transform * local_pm_transform * origin;
-        pm_pos = Vector(transformed(0, 0), transformed(1, 0));
+        Matrix<3, 1> transformed = parentCachedTransform * localCachedTransform * origin;
+        pm_pos = Vector2D(transformed(0, 0), transformed(1, 0));
     }
 
-    Vector ContainerComponent::get_absolute_pos() {
+    Vector2D ContainerComponent::getAbsolutePosition() {
         Matrix<3, 3> current_parent_pm_transform;
 
         auto parent = entity->find_first_ancestor_by_type<ContainerComponent>();
@@ -83,21 +86,21 @@ namespace zboss {
             /*auto pnode = static_pointer_cast<ContainerComponent>(parent);
             current_parent_pm_transform = pnode->get_pm_transform();*/
 
-            current_parent_pm_transform = parent->getComponent<ContainerComponent>().get_pm_transform();
+            current_parent_pm_transform = parent->getComponent<ContainerComponent>().getCachedTransform();
 
         }
 
-        if (current_parent_pm_transform != parent_pm_transform) {
+        if (current_parent_pm_transform != parentCachedTransform) {
 
-            parent_pm_transform = current_parent_pm_transform;
-            premultiply_pos();
+            parentCachedTransform = current_parent_pm_transform;
+            cachePosition();
 
         }
 
         return pm_pos;
     }
 
-    float ContainerComponent::get_absolute_rotation() const {
+    float ContainerComponent::getAbsoluteRotation() const {
 
         float abs_angle = 0;
 
@@ -109,7 +112,7 @@ namespace zboss {
 
             if (e->hasComponent<ContainerComponent>()) {
 
-                abs_angle += e->getComponent<ContainerComponent>().get_rotation();
+                abs_angle += e->getComponent<ContainerComponent>().getRotation();
 
                 /*auto pnode = static_pointer_cast<const PositionNode>(entity);
 
@@ -125,7 +128,7 @@ namespace zboss {
 
     }
 
-    float ContainerComponent::get_absolute_zoom() const {
+    float ContainerComponent::getAbsoluteScale() const {
 
         float abs_zoom = 1;
 
@@ -136,7 +139,7 @@ namespace zboss {
 
             if (node->hasComponent<ContainerComponent>()) {
 
-                abs_zoom *= node->getComponent<ContainerComponent>().get_zoom();
+                abs_zoom *= node->getComponent<ContainerComponent>().getScale();
 
                 /*auto pnode = static_pointer_cast<const PositionNode>(node);
                 abs_zoom *= pnode->get_zoom();*/

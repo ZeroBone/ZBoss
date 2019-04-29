@@ -2,6 +2,7 @@
 #define ZBOSS_COMPONENT_HPP
 
 #include <memory>
+#include <SDL2/SDL.h>
 #include <zboss/entity/constants.hpp>
 
 namespace zboss {
@@ -9,6 +10,14 @@ namespace zboss {
     class Entity;
 
     class EntityComponent {
+
+        private:
+
+        bool hasInput = false;
+
+        bool hasUpdate = false;
+
+        bool hasRender = false;
 
         public:
 
@@ -24,6 +33,41 @@ namespace zboss {
         virtual void update() {}
 
         virtual void draw() {}
+
+        virtual bool input() {
+            return true;
+        }
+
+        inline bool inputEnabled() const {
+            return hasInput;
+        }
+
+        inline bool updateEnabled() const {
+            return hasUpdate;
+        }
+
+        inline bool renderEnabled() const {
+            return hasRender;
+        }
+
+        void enableInput();
+
+        void enableUpdate();
+
+        inline void setInputEnabled(bool enabled) {
+
+            if (enabled) {
+                enableInput();
+            }
+            else {
+                hasInput = false;
+            }
+
+        }
+
+        inline void setRenderEnabled(bool enabled) {
+            hasRender = enabled;
+        }
 
         virtual ~EntityComponent() = default;
 

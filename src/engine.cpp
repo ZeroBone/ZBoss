@@ -1,4 +1,5 @@
 #include <zboss/engine.hpp>
+#include "../binconfig.hpp"
 
 namespace zboss {
 
@@ -39,7 +40,7 @@ namespace zboss {
 
         // derivedInstance->gl = SDL_GL_CreateContext(derivedInstance->window);
 
-        derivedInstance->renderer().set_renderer(SDL_CreateRenderer(
+        derivedInstance->renderer().setSdlRenderer(SDL_CreateRenderer(
             derivedInstance->window,
             -1,
             SDL_RENDERER_ACCELERATED
@@ -57,7 +58,7 @@ namespace zboss {
     Engine::Engine() :
         fps(60),
         frameDelay(1000 / fps),
-        _asset_file_locator(std::make_shared<FileLocator>("/")),
+        _asset_file_locator(std::make_shared<FileLocator>(ZBOSS_SOURCE_DIR)),
         _asset_image_loader(std::make_shared<ImageLoader>()),
         _asset_audio_loader(std::make_shared<AudioLoader>()),
         _asset_font_loader(std::make_shared<FontLoader>()) {
@@ -122,14 +123,12 @@ namespace zboss {
 
             while (SDL_PollEvent(&currentEvent)) {
 
-                switch (currentEvent.type) {
+                if (currentEvent.type == SDL_QUIT) {
+                    running = false;
+                }
+                else if (scene != nullptr) {
 
-                    case SDL_QUIT:
-                        running = false;
-                        break;
-
-                    default:
-                        break;
+                    scene->dispatchEvent();
 
                 }
 
@@ -172,7 +171,7 @@ namespace zboss {
     void Engine::onRender() {
 
         // SDL_RenderClear(renderer);
-        _renderer.clear();
+        _renderer.renderClear();
 
         // thickLineColor(renderer, 0, 0, 720, 100, 20, 0xFF00FFFF);
 

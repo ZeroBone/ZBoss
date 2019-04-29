@@ -1,24 +1,18 @@
 #include <zboss/entity/entity.hpp>
 
+#include <iostream>
+
 namespace zboss {
 
     using namespace std;
-
-    /*void Entity::update() {
-
-        for (auto& c : components) {
-
-            c->update();
-
-        }
-
-    }*/
 
     void Entity::draw() {
 
         for (auto& c : components) {
 
-            c->draw();
+            if (c->renderEnabled()) {
+                c->draw();
+            }
 
         }
 
@@ -172,24 +166,40 @@ namespace zboss {
         input_enabled = enabled;
     }
 
-    bool Entity::send_input(SDL_Event* event) {
+    bool Entity::send_input() {
 
         bool result = true;
 
         if (has_input()) {
-            result = result && input(event);
+
+            result = result && input();
+
         }
 
         for (auto& child : get_children()) {
-            result = result && child->send_input(event);
+            result = result && child->send_input();
         }
 
         return result;
 
     }
 
-    bool Entity::input(SDL_Event*) {
+    bool Entity::input() {
+
+        bool result = true;
+
+        for (auto& c : components) {
+
+            if (!c->inputEnabled()) {
+                continue;
+            }
+
+            result = result && c->input();
+
+        }
+
         return true;
+
     }
 
     bool Entity::has_process() const {
@@ -214,33 +224,28 @@ namespace zboss {
 
     void Entity::process() {
 
-        for (auto& c : components) {
+        for (auto& component : components) {
 
-            c->update();
+            if (component->updateEnabled()) {
+                component->update();
+            }
 
         }
 
-    }
-
-    bool Entity::has_draw() const {
-        return draw_enabled;
-    }
-
-    void Entity::set_draw(bool enabled) {
-        draw_enabled = enabled;
     }
 
     void Entity::send_draw() {
-        if (has_draw()) {
-            draw();
-        }
+
+        draw();
 
         for (auto& child : children) {
             child->send_draw();
         }
+
     }
 
     void Entity::send_enter_tree() {
+
         enter_tree();
 
         for (auto& child : get_children()) {
@@ -250,6 +255,7 @@ namespace zboss {
         in_tree = true;
 
         ready();
+
     }
 
     void Entity::enter_tree() {

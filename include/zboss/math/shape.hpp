@@ -8,13 +8,13 @@ namespace zboss {
 
     struct Edge {
 
-        Vector start;
+        Vector2D start;
 
-        Vector end;
+        Vector2D end;
 
-        Edge(Vector s, Vector e) : start(s), end(e) {}
+        Edge(Vector2D s, Vector2D e) : start(s), end(e) {}
 
-        Vector as_vector() const {
+        Vector2D as_vector() const {
             return end - start;
         }
     };
@@ -25,22 +25,22 @@ namespace zboss {
 
         Shape();
 
-        Shape(const std::vector<Vector>& vertices);
+        Shape(const std::vector<Vector2D>& vertices);
 
-        Shape translate(const Vector& v) const;
+        Shape translate(const Vector2D& v) const;
 
-        Vector barycenter() const;
+        Vector2D barycenter() const;
 
         Shape rotate(float angle) const;
 
-        std::vector<float> projection(const Vector& v) const;
+        std::vector<float> projection(const Vector2D& v) const;
 
-        bool overlap(const Shape& other, Vector& mtv) const;
+        bool overlap(const Shape& other, Vector2D& mtv) const;
 
         std::vector<Edge> get_edges() const;
 
         private:
-        std::vector<Vector> vertices;
+        std::vector<Vector2D> vertices;
 
         std::vector<Edge> edges;
 

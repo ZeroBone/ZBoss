@@ -41,7 +41,9 @@ namespace zboss {
     }
 
     SDL_RWops* FileLocator::locate(const string& assetname, bool binary) {
+
         string fullpath = _location + SEPARATOR + assetname;
+
         replace(fullpath.begin(), fullpath.end(), REPLACE, SEPARATOR);
 
         SDL_RWops* input = SDL_RWFromFile(fullpath.c_str(), (binary ? "rb" : "r"));

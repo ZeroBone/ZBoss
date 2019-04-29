@@ -3,11 +3,9 @@
 #include <zboss/components/container.hpp>
 #include <zboss/engine.hpp>
 
-using namespace std;
-
 namespace zboss {
 
-    void SpriteComponent::set_sprite(const string& assetname) {
+    void SpriteComponent::setSprite(const std::string& assetname) {
 
         ImageDescriptor d(assetname);
 
@@ -19,6 +17,7 @@ namespace zboss {
         else if (sprite->descriptor()->name() != d.name()) {
 
             sprite.reset();
+
             sprite = Engine::getInstance().assets().load<Image>(d);
 
         }
@@ -35,25 +34,32 @@ namespace zboss {
             return;
         }
 
-        SDL_Point pos = entity->getComponent<ContainerComponent>().get_absolute_pos().as_point();
+        SDL_Point pos = entity->getComponent<ContainerComponent>().getAbsolutePosition().toSdlPoint();
 
-        int angle = entity->getComponent<ContainerComponent>().get_absolute_rotation();
+        int angle = static_cast<int>(entity->getComponent<ContainerComponent>().getAbsoluteRotation());
 
         SDL_Rect dest;
 
-        int w = sprite->asset()->w;
-        int h = sprite->asset()->h;
+        int width = sprite->asset()->w;
+        int height = sprite->asset()->h;
 
-        dest.x = pos.x - w / 2;
-        dest.y = pos.y - h / 2;
-        dest.w = w;
-        dest.h = h;
+        dest.x = pos.x - width / 2;
+        dest.y = pos.y - height / 2;
+
+        dest.w = width;
+        dest.h = height;
 
         if (!Engine::getInstance().renderer().draw_image(sprite, dest, angle, pos, _flip)) {
 
-            cerr << "[SpriteNode][ERROR] " << Engine::getInstance().renderer().get_error() << endl;
+            std::cerr << "[SpriteNode][ERROR] " << Engine::getInstance().renderer().get_error() << std::endl;
 
         }
+
+    }
+
+    void SpriteComponent::init() {
+
+        setRenderEnabled(true);
 
     }
 

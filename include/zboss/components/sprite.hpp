@@ -13,11 +13,17 @@ namespace zboss {
 
         SpriteComponent() = default;
 
-        void set_sprite(const std::string& assetname);
+        explicit SpriteComponent(const std::string& sprite) {
+            setSprite(sprite);
+        }
+
+        void setSprite(const std::string& assetname);
 
         void flip(SDL_RendererFlip flip);
 
-        virtual void draw();
+        void init() override;
+
+        void draw() override;
 
         private:
 

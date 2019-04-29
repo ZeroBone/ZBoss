@@ -2,24 +2,24 @@
 
 namespace zboss {
 
-    Vector VectorPolar(float angle, float r) {
+    Vector2D VectorPolar(float angle, float r) {
 
-        return Vector(
+        return Vector2D(
             r * cos(angle),
             r * sin(angle)
         );
 
     }
 
-    Vector operator*(int i, const Vector& v) {
+    Vector2D operator*(int i, const Vector2D& v) {
         return v * i;
     }
 
-    Vector operator*(float f, const Vector& v) {
+    Vector2D operator*(float f, const Vector2D& v) {
         return v * f;
     }
 
-    Vector operator-(const Vector& v) {
+    Vector2D operator-(const Vector2D& v) {
         return -1 * v;
     }
 

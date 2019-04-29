@@ -31,8 +31,6 @@ namespace zboss {
 
         // SDL_GLContext gl;
 
-        SDL_Event currentEvent;
-
         EntityManager entityManager;
 
         bool running;
@@ -53,9 +51,9 @@ namespace zboss {
 
         AssetManager _assets;
 
-        void run();
-
         public:
+
+        SDL_Event currentEvent;
 
         virtual ~Engine();
 
@@ -68,6 +66,8 @@ namespace zboss {
         virtual void onCreate() = 0;
 
         private:
+
+        void run();
 
         void onResize();
 
