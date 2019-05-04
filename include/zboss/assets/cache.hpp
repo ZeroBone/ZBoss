@@ -10,7 +10,7 @@ namespace zboss {
 
     struct AssetHasher {
         size_t operator()(std::shared_ptr<AssetDescriptor> const& key) const {
-            return key->get_hash();
+            return key->computeHash();
         }
     };
 

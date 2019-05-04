@@ -32,32 +32,36 @@ namespace zboss {
 
         template<typename A, typename D>
         std::shared_ptr<A> load(const D& assetdesc) {
+
             static_assert(std::is_base_of<BaseAsset, A>::value, "Supplied asset type does not inherit from Asset");
             static_assert(std::is_base_of<AssetDescriptor, D>::value,
                           "Supplied descriptor type does not inherit from AssetDescriptor");
 
             auto passetdesc = std::make_shared<D>(assetdesc);
+
             std::shared_ptr<A> asset = nullptr;
 
             if (cache.find(passetdesc) == cache.end()) {
+
                 SDL_RWops* input = nullptr;
 
                 for (auto& locator : locators) {
+
                     try {
                         input = locator->locate(passetdesc->name(), passetdesc->binary());
+                        break;
                     }
                     catch (const AssetLocatorError& e) {
                         std::cerr << "[AssetLocatorError] " << e.what() << std::endl;
                         input = nullptr;
                     }
 
-                    if (input != nullptr) {
-                        break;
-                    }
                 }
 
                 if (input != nullptr) {
+
                     if (loaders.find(passetdesc->extension()) != loaders.end()) {
+
                         auto loader = loaders[passetdesc->extension()];
 
                         asset = std::shared_ptr<A>(
@@ -72,18 +76,20 @@ namespace zboss {
                             loader->load(asset, input);
                         }
                         catch (const AssetLoaderError& e) {
-                            std::cerr << "[AssetLoaderError] " << e.what() << std::endl;
+                            std::cerr << "[AssetManager] " << e.what() << std::endl;
                             asset.reset();
                         }
 
                         if (asset != nullptr) {
                             cache[passetdesc] = std::static_pointer_cast<BaseAsset>(asset);
                         }
+
                     }
                     else {
                         std::cerr << "[AssetLoaderError] No loader found for extension: " << passetdesc->extension()
                                   << std::endl;
                     }
+
                 }
                 else {
                     std::cerr << "[AssetLocatorError] Request asset not found by any locator: " << passetdesc->name()
@@ -95,6 +101,7 @@ namespace zboss {
             }
 
             return asset;
+
         }
 
         private:

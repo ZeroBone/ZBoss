@@ -1,7 +1,7 @@
 #ifndef ZBOSS_MOVEMENTCONTROLLER_COMPONENT_HPP
 #define ZBOSS_MOVEMENTCONTROLLER_COMPONENT_HPP
 
-#include <zboss/entity/component.hpp>
+#include <zboss/zboss.hpp>
 
 using namespace zboss;
 

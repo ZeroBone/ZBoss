@@ -1,11 +1,10 @@
 #include <zboss/assets/loaders/image.hpp>
 
-using namespace std;
-
 namespace zboss {
 
-    void ImageLoader::load(shared_ptr <BaseAsset> asset, SDL_RWops* input) {
-        shared_ptr <Image> img = static_pointer_cast<Image>(asset);
+    void ImageLoader::load(std::shared_ptr<BaseAsset> asset, SDL_RWops* input) {
+
+        std::shared_ptr<Image> img = std::static_pointer_cast<Image>(asset);
 
         SDL_Surface* content = IMG_Load_RW(input, 1);
 
@@ -14,6 +13,7 @@ namespace zboss {
         }
 
         img->setAsset(content);
+
     }
 
     void ImageLoader::unload(BaseAsset* asset) {

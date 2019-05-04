@@ -2,8 +2,9 @@
 #define ZBOSS_SCENE_HPP
 
 #include <memory>
-#include <zboss/entity/entity.hpp>
 #include <iostream>
+
+#include <zboss/entity/entity.hpp>
 
 namespace zboss {
 
@@ -15,7 +16,7 @@ namespace zboss {
 
         public:
 
-        explicit Scene() : root(nullptr) {}
+        explicit Scene();
 
         virtual void onCreate() = 0;
         virtual void onDestroy() = 0;

@@ -15,7 +15,7 @@ namespace zboss {
 
         AssetDescriptor(const std::string& assetname, bool binary = true);
 
-        virtual size_t get_hash() const;
+        virtual size_t computeHash() const;
 
         virtual bool compare(const AssetDescriptor& other) const;
 
@@ -26,9 +26,11 @@ namespace zboss {
         bool binary() const;
 
         private:
+
         std::string assetname;
 
         bool _binary;
+
     };
 
     class BaseAsset {
@@ -53,31 +55,32 @@ namespace zboss {
 
         std::shared_ptr<AssetDescriptor> desc;
 
-        bool _loaded;
+        bool isLoaded;
 
     };
 
-    template<typename T>
+    template <class T>
     class Asset : public BaseAsset {
 
         using BaseAsset::BaseAsset;
 
         public:
 
-        void setAsset(T content) {
-            _asset = content;
+        void setAsset(T asset) {
+            theAsset = asset;
             setLoaded();
         }
 
         T& asset() {
-            return _asset;
+            return theAsset;
         }
 
         private:
 
-        T _asset;
+        T theAsset;
 
     };
+
 }
 
 #endif //ZBOSS_ASSET_HPP

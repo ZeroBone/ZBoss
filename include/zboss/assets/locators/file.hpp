@@ -9,11 +9,12 @@ namespace zboss {
 
         public:
 
-        FileLocator(const std::string& location);
+        explicit FileLocator(const std::string& location);
 
-        virtual SDL_RWops* locate(const std::string& assetname, bool binary);
+        SDL_RWops* locate(const std::string& assetname, bool binary) override;
 
         private:
+
         std::string _location;
 
     };

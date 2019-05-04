@@ -3,6 +3,8 @@
 
 #include <bitset>
 #include <array>
+#include <iostream>
+#include <unordered_map>
 
 namespace zboss {
 
@@ -15,30 +17,54 @@ namespace zboss {
         static const size_t maxComponents = 32;
         static const size_t maxGroups = 32;
 
-        using component_id_t = size_t;
-        using group_id_t = size_t;
+        using ComponentId = std::size_t;
+        using group_id_t = std::size_t;
+
         using component_bitset_t = std::bitset<maxComponents>;
         using group_bitset_t = std::bitset<maxGroups>;
         using component_array_t = std::array<EntityComponent*, maxComponents>;
 
     };
 
-    inline EntityConstants::component_id_t allocateComponentId() {
-        static EntityConstants::component_id_t counter = 0u;
+    inline static EntityConstants::ComponentId allocateComponentId();
+
+    template <class T>
+    inline static EntityConstants::ComponentId getComponentTypeId() noexcept;
+
+    inline static EntityConstants::ComponentId allocateComponentId() {
+
+        static EntityConstants::ComponentId counter = 0u;
+
         return counter++;
+
     }
 
-    template <typename T>
-    inline EntityConstants::component_id_t getComponentTypeId() noexcept;
-
-    template <typename T>
-    inline EntityConstants::component_id_t getComponentTypeId() noexcept {
+    template <class T>
+    inline static EntityConstants::ComponentId getComponentTypeId() noexcept {
         // for every component type the static variable is different, so the counting will be separated
+
+        // return std::type_index(typeid(T));
 
         // static_assert(std::is_base_of<EntityComponent, T>::value, "");
 
-        static EntityConstants::component_id_t typeID = allocateComponentId();
-        return typeID;
+        /*static bool inited = false;
+        static EntityConstants::ComponentId typeId;
+
+        if (!inited) {
+            inited = true;
+            typeId = allocateComponentId();
+        }
+
+        std::cout << typeId << std::endl;
+
+        return typeId;*/
+
+        static const EntityConstants::ComponentId typeId = allocateComponentId();
+        // std::cout << typeId << std::endl;
+
+        // dsize_t a = sizeof(T);
+
+        return typeId;
 
     }
 

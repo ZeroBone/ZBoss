@@ -18,11 +18,7 @@ class Game : public zboss::Engine {
 
     }
 
-    void onCreate() override {
-
-        setScene(new MainScene());
-
-    }
+    void onCreate() override;
 
     inline static Game* get() {
         return instance;

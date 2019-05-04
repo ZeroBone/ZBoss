@@ -4,6 +4,9 @@ project(zboss C CXX)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_MODULE_PATH ${zboss_SOURCE_DIR}/cmake)
 
+SET(CMAKE_CXX_FLAGS_DEBUG "-g -D_DEBUG_")
+SET(CMAKE_CXX_FLAGS_RELEASE "-O4 -DNDEBUG")
+
 find_package(SDL2 REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_image REQUIRED)
@@ -32,7 +35,17 @@ set(ZBOSS_HEADERS
         include/zboss/assets/loaders/audio.hpp
         include/zboss/assets/loaders/font.hpp
         include/zboss/assets/loaders/image.hpp
-        include/zboss/assets/locators/file.hpp include/zboss/renderer.hpp include/zboss/math/shape.hpp include/zboss/components/movement.hpp)
+        include/zboss/assets/locators/file.hpp
+        include/zboss/components/sprite.hpp
+        include/zboss/renderer.hpp
+        include/zboss/math/shape.hpp
+        include/zboss/components/movement.hpp
+        include/zboss/zboss.hpp
+        include/zboss/tilemap/tileset.hpp
+        include/zboss/tilemap/layers/tilelayer.hpp
+        include/zboss/tilemap/tilemap.hpp
+        include/zboss/assets/loaders/tilemap.hpp
+        include/zboss/components/tilemap.hpp include/zboss/tilemap/layers/layer.hpp)
 
 set(ZBOSS_SOURCES
         src/engine.cpp
@@ -46,13 +59,18 @@ set(ZBOSS_SOURCES
         src/assets/loaders/font.cpp
         src/assets/loaders/image.cpp
         src/assets/locators/file.cpp
-        include/zboss/components/sprite.hpp
         src/components/sprite.cpp
         src/math/shape.cpp
         src/renderer.cpp
-        src/entity/constants.cpp
         src/components/movement.cpp
-        src/entity/component.cpp)
+        src/entity/component.cpp
+        src/tilemap/tileset.cpp
+        src/tilemap/layers/tilelayer.cpp
+        src/tilemap/tilemap.cpp
+        src/assets/loaders/tilemap.cpp
+        src/components/tilemap.cpp
+        src/scene.cpp
+        src/tilemap/layers/layer.cpp)
 
 set(ZBOSS_RI_SOURCES
     ri/main.cpp
@@ -60,7 +78,7 @@ set(ZBOSS_RI_SOURCES
     ri/game.hpp
     ri/scenes/mainscene.hpp
     ri/components/movementcontroller.hpp
-    ri/components/movementcontroller.cpp)
+    ri/components/movementcontroller.cpp ri/scenes/mainscene.cpp)
 
 add_library(zboss SHARED ${ZBOSS_HEADERS} ${ZBOSS_SOURCES})
 
@@ -72,7 +90,8 @@ target_include_directories(
     ${SDL2_IMAGE_INCLUDE_DIRS}
     ${SDL2_MIXER_INCLUDE_DIRS}
     ${SDL2_GFX_INCLUDE_DIRS}
-    $<BUILD_INTERFACE:${zboss_SOURCE_DIR}/include>
+    # $<BUILD_INTERFACE:${zboss_SOURCE_DIR}/include>
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 target_link_libraries(

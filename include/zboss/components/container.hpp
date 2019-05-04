@@ -12,6 +12,8 @@ namespace zboss {
 
         public:
 
+        ContainerComponent() = default;
+
         Vector2D getPosition() const;
 
         void setPosition(const Vector2D& pos);

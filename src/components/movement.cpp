@@ -6,7 +6,9 @@ namespace zboss {
 
     void MovementComponent::update() {
 
-        EntityComponent::update();
+        /*if (!entity->hasComponent<ContainerComponent>()) {
+            return;
+        }*/
 
         auto& container = entity->getComponent<ContainerComponent>();
 

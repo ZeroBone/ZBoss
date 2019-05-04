@@ -43,7 +43,7 @@ namespace zboss {
         derivedInstance->renderer().setSdlRenderer(SDL_CreateRenderer(
             derivedInstance->window,
             -1,
-            SDL_RENDERER_ACCELERATED
+            SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE
         ));
 
         // start the engine loop
@@ -61,7 +61,8 @@ namespace zboss {
         _asset_file_locator(std::make_shared<FileLocator>(ZBOSS_SOURCE_DIR)),
         _asset_image_loader(std::make_shared<ImageLoader>()),
         _asset_audio_loader(std::make_shared<AudioLoader>()),
-        _asset_font_loader(std::make_shared<FontLoader>()) {
+        _asset_font_loader(std::make_shared<FontLoader>()),
+        _asset_tile_map_loader(std::make_shared<TileMapLoader>()) {
 
         Engine::_instance = this;
 
@@ -100,6 +101,8 @@ namespace zboss {
                 "mp3"
             }
         );
+
+        _assets.register_loader(_asset_tile_map_loader, {"json"});
 
 
     }

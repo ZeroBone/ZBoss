@@ -12,9 +12,9 @@ namespace zboss {
         using Asset<SDL_RWops*>::Asset;
 
         public:
-        std::shared_ptr <Mix_Music> music();
+        std::shared_ptr<Mix_Music> music();
 
-        std::shared_ptr <Mix_Chunk> effect();
+        std::shared_ptr<Mix_Chunk> effect();
     };
 
     class AudioDescriptor : public AssetDescriptor {

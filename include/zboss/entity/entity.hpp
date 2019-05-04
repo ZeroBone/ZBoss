@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <memory>
+#include <typeindex>
+
 #include <zboss/entity/constants.hpp>
 #include <zboss/entity/manager.hpp>
 #include <zboss/entity/component.hpp>
@@ -22,11 +24,25 @@ namespace zboss {
 
         std::vector<std::unique_ptr<EntityComponent>> components;
 
-        EntityConstants::component_array_t componentArray;
+        EntityConstants::component_array_t componentArray = {nullptr};
 
         EntityConstants::component_bitset_t componentBitset;
 
         EntityConstants::group_bitset_t groupBitset;
+
+        // scene graph
+
+        bool input_enabled{false};
+
+        bool process_enabled{false};
+
+        bool in_tree{false};
+
+        std::string name;
+
+        std::weak_ptr<Entity> parent;
+
+        std::vector<std::shared_ptr<Entity>> children;
 
         public:
 
@@ -121,31 +137,26 @@ namespace zboss {
 
         bool is_in_tree() const;
 
-        private:
-
-        bool input_enabled{false};
-
-        bool process_enabled{false};
-
-        bool in_tree{false};
-
-        std::string name;
-
-        std::weak_ptr<Entity> parent;
-
-        std::vector<std::shared_ptr<Entity>> children;
-
     };
+
+    template <class T>
+    size_t getComponentTID() {
+        return getComponentTypeId<T>();
+        /*static const EntityConstants::ComponentId typeId = allocateComponentId();
+        std::cout << typeId << std::endl;
+
+        return typeId;*/
+    }
 
     template<class T>
     bool Entity::hasComponent() const {
 
-        return componentBitset[getComponentTypeId<T>()];
+        return componentBitset[getComponentTID<T>()];
 
     }
 
     template <class T, class ...TArgs>
-    T& Entity::addComponent(TArgs&& ... mArgs) {
+    T& Entity::addComponent(TArgs&& ...mArgs) {
 
         T* c(new T(std::forward<TArgs>(mArgs)...));
 
@@ -157,12 +168,9 @@ namespace zboss {
 
         components.emplace_back(std::move(uPtr));
 
-        componentArray[getComponentTypeId<T>()] = c; // implicit conversion
-        // componentArray[getComponentTypeId<T>()] = static_cast<EntityComponent*>(c);
-        // componentArray[getComponentTypeId<T>()] = static_cast<EntityComponent*>(c);
-        // componentArray[getComponentTypeId<T>()] = dynamic_cast<EntityComponent*>(c);
+        componentArray[getComponentTID<T>()] = c; // implicit conversion
 
-        componentBitset[getComponentTypeId<T>()] = true;
+        componentBitset[getComponentTID<T>()] = true;
 
         c->init();
 
@@ -173,7 +181,7 @@ namespace zboss {
     template<class T>
     T& Entity::getComponent() const {
 
-        auto ptr(componentArray[getComponentTypeId<T>()]);
+        auto ptr(componentArray[getComponentTID<T>()]);
 
         return *static_cast<T*>(ptr);
         // return *reinterpret_cast<T*>(ptr);

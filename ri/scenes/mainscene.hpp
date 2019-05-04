@@ -9,31 +9,17 @@
 #include <zboss/components/container.hpp>
 #include <zboss/components/sprite.hpp>
 #include <zboss/components/movement.hpp>
+#include <zboss/components/tilemap.hpp>
 
 #include "../components/movementcontroller.hpp"
 
 using namespace zboss;
-using namespace std;
+
+using namespace std::literals;
 
 class MainScene : public zboss::Scene {
 
-    void onCreate() override {
-
-        auto player = Engine::getInstance().entities().addEntity("test"s);
-
-        player->addComponent<ContainerComponent>();
-
-        player->addComponent<SpriteComponent>();
-
-        player->getComponent<SpriteComponent>().setSprite("test.png");
-
-        player->addComponent<MovementComponent>();
-
-        player->addComponent<MovementControllerComponent>();
-
-        root = player;
-
-    }
+    void onCreate() override;
 
     void onDestroy() override {}
 

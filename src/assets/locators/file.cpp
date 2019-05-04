@@ -5,8 +5,6 @@
 #include <algorithm>
 #include <iostream>
 
-using namespace std;
-
 namespace zboss {
 
 #ifdef _WIN32
@@ -23,8 +21,10 @@ namespace zboss {
 
 #endif
 
-    FileLocator::FileLocator(const string& location) : AssetLocator() {
+    FileLocator::FileLocator(const std::string& location) : AssetLocator() {
+
         if (location.empty()) {
+
             char* tmp = SDL_GetBasePath();
 
             if (tmp == nullptr) {
@@ -34,15 +34,17 @@ namespace zboss {
                 _location = tmp;
                 _location = _location.substr(0, _location.length() - 1);
             }
+
         }
         else {
             _location = location;
         }
+
     }
 
-    SDL_RWops* FileLocator::locate(const string& assetname, bool binary) {
+    SDL_RWops* FileLocator::locate(const std::string& assetname, bool binary) {
 
-        string fullpath = _location + SEPARATOR + assetname;
+        std::string fullpath = _location + SEPARATOR + assetname;
 
         replace(fullpath.begin(), fullpath.end(), REPLACE, SEPARATOR);
 
@@ -53,6 +55,7 @@ namespace zboss {
         }
 
         return input;
+
     }
 
 }

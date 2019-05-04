@@ -7,7 +7,7 @@ namespace zboss {
 
     AssetDescriptor::AssetDescriptor(const string& assetname, bool binary) : assetname(assetname), _binary(binary) {}
 
-    size_t AssetDescriptor::get_hash() const {
+    size_t AssetDescriptor::computeHash() const {
         hash<string> hashfn;
         return hashfn(assetname);
     }
@@ -36,18 +36,18 @@ namespace zboss {
     }
 
     BaseAsset::BaseAsset(shared_ptr<AssetLoader> loader, shared_ptr<AssetDescriptor> assetdesc)
-        : _loader(loader), desc(assetdesc), _loaded(false) {}
+        : _loader(loader), desc(assetdesc), isLoaded(false) {}
 
     shared_ptr<AssetLoader> BaseAsset::loader() {
         return _loader;
     }
 
     void BaseAsset::setLoaded() {
-        _loaded = true;
+        isLoaded = true;
     }
 
     bool BaseAsset::loaded() const {
-        return _loaded;
+        return isLoaded;
     }
 
     shared_ptr<AssetDescriptor> BaseAsset::descriptor() {

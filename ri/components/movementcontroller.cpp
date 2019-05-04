@@ -1,11 +1,8 @@
 #include "movementcontroller.hpp"
 
-#include <zboss/engine.hpp>
-#include <zboss/components/movement.hpp>
-
 bool MovementControllerComponent::input() {
 
-    SDL_Event& event = Engine::getInstance().currentEvent;
+    SDL_Event& event = Engine::get().currentEvent;
 
     switch (event.type) {
 
@@ -38,32 +35,8 @@ bool MovementControllerComponent::input() {
 
         }
 
-        /*case SDL_KEYUP: {
-
-            switch (event.key.keysym.sym) {
-
-                case SDL_SCANCODE_W:
-                case SDL_SCANCODE_S:
-
-                    entity->getComponent<MovementComponent>().speed.y = 0;
-
-                    break;
-
-                case SDL_SCANCODE_A:
-                case SDL_SCANCODE_D:
-
-                    entity->getComponent<MovementComponent>().speed.x = 0;
-
-                    break;
-
-                default:
-                    break;
-
-            }
-
+        default:
             break;
-
-        }*/
 
     }
 

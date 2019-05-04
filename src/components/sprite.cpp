@@ -11,14 +11,14 @@ namespace zboss {
 
         if (sprite == nullptr) {
 
-            sprite = Engine::getInstance().assets().load<Image>(d);
+            sprite = Engine::get().assets().load<Image>(d);
 
         }
         else if (sprite->descriptor()->name() != d.name()) {
 
             sprite.reset();
 
-            sprite = Engine::getInstance().assets().load<Image>(d);
+            sprite = Engine::get().assets().load<Image>(d);
 
         }
 
@@ -49,9 +49,9 @@ namespace zboss {
         dest.w = width;
         dest.h = height;
 
-        if (!Engine::getInstance().renderer().draw_image(sprite, dest, angle, pos, _flip)) {
+        if (!Engine::get().renderer().draw_image(sprite, dest, angle, pos, _flip)) {
 
-            std::cerr << "[SpriteNode][ERROR] " << Engine::getInstance().renderer().get_error() << std::endl;
+            std::cerr << "[SpriteNode][ERROR] " << Engine::get().renderer().get_error() << std::endl;
 
         }
 

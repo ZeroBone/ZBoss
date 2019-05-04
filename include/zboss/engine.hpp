@@ -14,6 +14,7 @@
 #include <zboss/assets/loaders/image.hpp>
 #include <zboss/assets/loaders/audio.hpp>
 #include <zboss/assets/loaders/font.hpp>
+#include <zboss/assets/loaders/tilemap.hpp>
 
 #include <zboss/renderer.hpp>
 
@@ -48,6 +49,8 @@ namespace zboss {
         std::shared_ptr<AudioLoader> _asset_audio_loader;
 
         std::shared_ptr<FontLoader> _asset_font_loader;
+
+        std::shared_ptr<TileMapLoader> _asset_tile_map_loader;
 
         AssetManager _assets;
 
@@ -123,7 +126,7 @@ namespace zboss {
 
         Renderer& renderer();
 
-        inline static Engine& getInstance() {
+        inline static Engine& get() {
             return *_instance;
         }
 

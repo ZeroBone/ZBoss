@@ -7,9 +7,9 @@ namespace zboss {
     FontDescriptor::FontDescriptor(const string& assetname, int font_size) :
         AssetDescriptor(assetname), font_size(font_size) {}
 
-    size_t FontDescriptor::get_hash() const {
+    size_t FontDescriptor::computeHash() const {
         hash<int> hashfn;
-        return AssetDescriptor::get_hash() ^ hashfn(font_size);
+        return AssetDescriptor::computeHash() ^ hashfn(font_size);
     }
 
     bool FontDescriptor::compare(const AssetDescriptor& other) const {

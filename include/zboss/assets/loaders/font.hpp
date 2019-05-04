@@ -1,5 +1,5 @@
-#ifndef ZBOSS_FONT_HPP
-#define ZBOSS_FONT_HPP
+#ifndef ZBOSS_FONT_LOADER_HPP
+#define ZBOSS_FONT_LOADER_HPP
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
@@ -15,15 +15,17 @@ namespace zboss {
         using AssetDescriptor::AssetDescriptor;
 
         public:
+
         FontDescriptor(const std::string& assetname, int font_size);
 
-        virtual size_t get_hash() const;
+        size_t computeHash() const override;
 
-        virtual bool compare(const AssetDescriptor& other) const;
+        bool compare(const AssetDescriptor& other) const override;
 
         int fontSize() const;
 
         private:
+
         int font_size;
 
     };
@@ -32,12 +34,12 @@ namespace zboss {
 
         public:
 
-        virtual void load(std::shared_ptr<BaseAsset> asset, SDL_RWops* input);
+        void load(std::shared_ptr<BaseAsset> asset, SDL_RWops* input) override;
 
-        virtual void unload(BaseAsset* asset);
+        void unload(BaseAsset* asset) override;
 
     };
 
 }
 
-#endif //ZBOSS_FONT_HPP
+#endif //ZBOSS_FONT_LOADER_HPP

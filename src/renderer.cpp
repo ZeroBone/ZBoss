@@ -389,6 +389,9 @@ namespace zboss {
 
     bool Renderer::draw_image(shared_ptr<Image> asset, const SDL_Rect& dest, float angle, const SDL_Point& center,
                               SDL_RendererFlip flip) {
+
+        // TODO: optimize texture creation
+
         SDL_Texture* t = SDL_CreateTextureFromSurface(renderer, asset->asset());
         bool success = true;
 
