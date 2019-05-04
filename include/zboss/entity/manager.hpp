@@ -13,18 +13,11 @@ namespace zboss {
 
     class EntityManager {
 
-        private:
+        // private:
 
-        std::vector<std::unique_ptr<Entity>> entities;
-        std::array<std::vector<Entity*>, EntityConstants::maxGroups> groupedEntities;
+        // std::vector<std::unique_ptr<Entity>> entities;
 
         public:
-
-        void refresh();
-
-        void AddToGroup(Entity* entity, EntityConstants::group_id_t group);
-
-        std::vector<Entity*>& getGroup(EntityConstants::group_id_t mGroup);
 
         // Entity* addEntity(const std::string& name);
         std::shared_ptr<Entity> addEntity(const std::string& name);

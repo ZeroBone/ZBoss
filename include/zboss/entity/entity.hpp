@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <memory>
+#include <unordered_map>
+#include <typeinfo>
 #include <typeindex>
 
 #include <zboss/entity/constants.hpp>
@@ -24,19 +26,15 @@ namespace zboss {
 
         std::vector<std::unique_ptr<EntityComponent>> components;
 
-        EntityConstants::component_array_t componentArray = {nullptr};
-
-        EntityConstants::component_bitset_t componentBitset;
-
-        EntityConstants::group_bitset_t groupBitset;
+        std::unordered_map<std::type_index, EntityComponent*> componentMap;
 
         // scene graph
 
-        bool input_enabled{false};
+        bool input_enabled = false;
 
-        bool process_enabled{false};
+        bool process_enabled = false;
 
-        bool in_tree{false};
+        bool in_tree = false;
 
         std::string name;
 
@@ -60,20 +58,50 @@ namespace zboss {
             active = false;
         }
 
-        bool hasGroup(EntityConstants::group_id_t mGroup);
+        template <class T>
+        bool hasComponent() const {
 
-        void addGroup(EntityConstants::group_id_t group);
+            return !(componentMap.find(std::type_index(typeid(T))) == componentMap.end());
 
-        void delGroup(EntityConstants::group_id_t mGroup);
+        }
 
-        template<class T>
-        bool hasComponent() const;
+        template <class T, class ...TArgs>
+        T& addComponent(TArgs&& ...mArgs) {
 
-        template<class T, class... TArgs>
-        T& addComponent(TArgs&& ... mArgs);
+            T* c(new T(std::forward<TArgs>(mArgs)...));
 
-        template<class T>
-        T& getComponent() const;
+            // c->entity = this;
+            // c->entity = std::make_shared<Entity>(*this, name);
+            c->entity = shared_from_this();
+
+            std::unique_ptr<EntityComponent> uPtr{c};
+
+            components.emplace_back(std::move(uPtr));
+
+            componentMap[std::type_index(typeid(T))] = c;
+
+            /*componentArray[getComponentTypeId<T>()] = c;
+
+            componentBitset[getComponentTypeId<T>()] = true;*/
+
+            c->init();
+
+            return *c;
+
+        }
+
+        template <class T>
+        T& getComponent() const {
+
+            // auto ptr(componentArray[getComponentTypeId<T>()]);
+
+            // return *static_cast<T*>(ptr);
+
+            auto ptr = componentMap.at(std::type_index(typeid(T)));
+
+            return *static_cast<T*>(ptr);
+
+        }
 
         // graph part
 
@@ -138,55 +166,6 @@ namespace zboss {
         bool is_in_tree() const;
 
     };
-
-    template <class T>
-    size_t getComponentTID() {
-        return getComponentTypeId<T>();
-        /*static const EntityConstants::ComponentId typeId = allocateComponentId();
-        std::cout << typeId << std::endl;
-
-        return typeId;*/
-    }
-
-    template<class T>
-    bool Entity::hasComponent() const {
-
-        return componentBitset[getComponentTID<T>()];
-
-    }
-
-    template <class T, class ...TArgs>
-    T& Entity::addComponent(TArgs&& ...mArgs) {
-
-        T* c(new T(std::forward<TArgs>(mArgs)...));
-
-        // c->entity = this;
-        // c->entity = std::make_shared<Entity>(*this, name);
-        c->entity = shared_from_this();
-
-        std::unique_ptr<EntityComponent> uPtr{c};
-
-        components.emplace_back(std::move(uPtr));
-
-        componentArray[getComponentTID<T>()] = c; // implicit conversion
-
-        componentBitset[getComponentTID<T>()] = true;
-
-        c->init();
-
-        return *c;
-
-    }
-
-    template<class T>
-    T& Entity::getComponent() const {
-
-        auto ptr(componentArray[getComponentTID<T>()]);
-
-        return *static_cast<T*>(ptr);
-        // return *reinterpret_cast<T*>(ptr);
-
-    }
 
     template <class T>
     std::vector<std::shared_ptr<Entity>> Entity::find_children_by_type() const {

@@ -18,27 +18,10 @@ namespace zboss {
 
     }
 
-    bool Entity::hasGroup(zboss::EntityConstants::group_id_t mGroup) {
-        return groupBitset[mGroup];
-    }
-
-    void Entity::addGroup(zboss::EntityConstants::group_id_t group) {
-
-        groupBitset[group] = true;
-
-        manager.AddToGroup(this, group);
-
-    }
-
-    void Entity::delGroup(zboss::EntityConstants::group_id_t mGroup) {
-        groupBitset[mGroup] = false;
-    }
-
 
     // graph part
 
-    void Entity::init() {
-    }
+    void Entity::init() {}
 
     const char* Entity::get_name() const {
         return name.c_str();
@@ -120,6 +103,7 @@ namespace zboss {
     }
 
     void Entity::remove_child(shared_ptr<Entity> child, bool reparent) {
+
         for (auto it = children.begin(); it != children.end(); it++) {
             if (*it == child) {
                 children.erase(it);
@@ -130,6 +114,7 @@ namespace zboss {
         if (reparent) {
             child->reparent(nullptr, false, true);
         }
+
     }
 
     void Entity::reparent(shared_ptr<Entity> newparent, bool remove, bool add) {
