@@ -1,7 +1,7 @@
 #ifndef ZBOSS_RENDERER_HPP
 #define ZBOSS_RENDERER_HPP
 
-#include <zboss/assets/loaders/image.hpp>
+#include <zboss/assets/loaders/texture.hpp>
 #include <zboss/assets/loaders/font.hpp>
 #include <zboss/math/vector.hpp>
 #include <zboss/math/shape.hpp>
@@ -64,13 +64,15 @@ namespace zboss {
 
         bool draw_filled_shape(const Shape& shape, const SDL_Color& color);
 
-        bool draw_image(std::shared_ptr<Image> asset, const SDL_Rect& dest);
+        bool drawTexture(std::shared_ptr<TextureAsset> asset, const SDL_Rect& dest);
 
-        bool draw_image(std::shared_ptr<Image> asset, const SDL_Rect& src, const SDL_Rect& dest);
+        bool drawTexture(std::shared_ptr<TextureAsset> asset, const SDL_Rect& src, const SDL_Rect& dest);
 
-        bool draw_image(std::shared_ptr<Image> asset, const SDL_Rect& dest, float angle, const SDL_Point& center, SDL_RendererFlip flip);
+        bool drawTexture(std::shared_ptr<TextureAsset> asset, const SDL_Rect& dest, float angle, const SDL_Point& center,
+                         SDL_RendererFlip flip);
 
-        bool draw_image(std::shared_ptr<Image> asset, const SDL_Rect& src, const SDL_Rect& dest, float angle, const SDL_Point& center, SDL_RendererFlip flip);
+        bool drawTexture(std::shared_ptr<TextureAsset> asset, const SDL_Rect& src, const SDL_Rect& dest, float angle,
+                         const SDL_Point& center, SDL_RendererFlip flip);
 
         bool renderText(std::shared_ptr<Font> asset, const std::string& text, const Vector2D& pos, const SDL_Color& color);
 

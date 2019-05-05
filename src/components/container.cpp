@@ -73,7 +73,7 @@ namespace zboss {
             {1.0}
         };
         Matrix<3, 1> transformed = parentCachedTransform * localCachedTransform * origin;
-        pm_pos = Vector2D(transformed(0, 0), transformed(1, 0));
+        cachedPosition = Vector2D(transformed(0, 0), transformed(1, 0));
     }
 
     Vector2D ContainerComponent::getAbsolutePosition() {
@@ -97,7 +97,7 @@ namespace zboss {
 
         }
 
-        return pm_pos;
+        return cachedPosition;
     }
 
     float ContainerComponent::getAbsoluteRotation() const {

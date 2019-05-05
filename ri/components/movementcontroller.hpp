@@ -1,7 +1,9 @@
 #ifndef ZBOSS_MOVEMENTCONTROLLER_COMPONENT_HPP
 #define ZBOSS_MOVEMENTCONTROLLER_COMPONENT_HPP
 
-#include <zboss/zboss.hpp>
+#include <SDL2/SDL.h>
+#include <zboss/engine.hpp>
+#include <zboss/components/transform.hpp>
 
 using namespace zboss;
 

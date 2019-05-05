@@ -9,7 +9,10 @@ namespace zboss {
         width(mapObj["width"]),
         height(mapObj["height"]),
         tileWidth(mapObj["tilewidth"]),
-        tileHeight(mapObj["tileheight"]) {
+        tileHeight(mapObj["tileheight"]),
+        tileScreenWidth(tileWidth),
+        tileScreenHeight(tileHeight),
+        specialTiles(0) {
 
         size_t i = 0;
 
@@ -29,6 +32,18 @@ namespace zboss {
 
         }
 
+    }
+
+    void TileMap::setScale(float scale) {
+
+        tileScreenWidth = static_cast<uint16_t>(tileWidth * scale);
+
+        tileScreenHeight = static_cast<uint16_t>(tileHeight * scale);
+
+    }
+
+    void TileMap::setSpecialTiles(uint16_t newSpecialTiles) {
+        specialTiles = newSpecialTiles;
     }
 
 }

@@ -1,24 +1,24 @@
 #include <zboss/components/sprite.hpp>
 
-#include <zboss/components/container.hpp>
+#include <zboss/components/transform.hpp>
 #include <zboss/engine.hpp>
 
 namespace zboss {
 
     void SpriteComponent::setSprite(const std::string& assetname) {
 
-        ImageDescriptor d(assetname);
+        TextureAssetDescriptor d(assetname);
 
         if (sprite == nullptr) {
 
-            sprite = Engine::get().assets().load<Image>(d);
+            sprite = Engine::get().assets().load<TextureAsset>(d);
 
         }
         else if (sprite->descriptor()->name() != d.name()) {
 
             sprite.reset();
 
-            sprite = Engine::get().assets().load<Image>(d);
+            sprite = Engine::get().assets().load<TextureAsset>(d);
 
         }
 
@@ -34,14 +34,16 @@ namespace zboss {
             return;
         }
 
-        SDL_Point pos = entity->getComponent<ContainerComponent>().getAbsolutePosition().toSdlPoint();
+        // SDL_Point pos = entity->getComponent<ContainerComponent>().getAbsolutePosition().toSdlPoint();
+        SDL_Point pos = entity->getComponent<TransformComponent>().position.toSdlPoint();
 
-        int angle = static_cast<int>(entity->getComponent<ContainerComponent>().getAbsoluteRotation());
+        // int angle = static_cast<int>(entity->getComponent<ContainerComponent>().getAbsoluteRotation());
+        int angle = 0;
 
         SDL_Rect dest;
 
-        int width = sprite->asset()->w;
-        int height = sprite->asset()->h;
+        int width = sprite->asset().surface->w;
+        int height = sprite->asset().surface->h;
 
         dest.x = pos.x - width / 2;
         dest.y = pos.y - height / 2;
@@ -49,7 +51,7 @@ namespace zboss {
         dest.w = width;
         dest.h = height;
 
-        if (!Engine::get().renderer().draw_image(sprite, dest, angle, pos, _flip)) {
+        if (!Engine::get().renderer().drawTexture(sprite, dest, angle, pos, _flip)) {
 
             std::cerr << "[SpriteNode][ERROR] " << Engine::get().renderer().get_error() << std::endl;
 

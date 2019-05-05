@@ -41,8 +41,8 @@ namespace zboss {
             Engine::get().renderer().renderer,
             SDL_PIXELFORMAT_RGBA8888,
             SDL_TEXTUREACCESS_TARGET,
-            tileMap.width * tileMap.tileWidth,
-            tileMap.height * tileMap.tileHeight
+            tileMap.width * tileMap.tileScreenWidth,
+            tileMap.height * tileMap.tileScreenHeight
         );
 
         SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
@@ -60,7 +60,7 @@ namespace zboss {
 
         SDL_SetRenderTarget(Engine::get().renderer().renderer, texture);
 
-        SDL_SetTextureAlphaMod(texture, static_cast<Uint8>(opacity * 255));
+        SDL_SetTextureAlphaMod(texture, static_cast<Uint8>(opacity * 0xff));
 
         // SDL_SetRenderDrawColor(Engine::get().renderer().renderer, 0, 0xff, 0, 0xff);
 
@@ -72,7 +72,8 @@ namespace zboss {
                 uint16_t tileNumber = tiles[y * tileMap.width + x];
 
                 // if (tileNumber <= 2501) {
-                if (tileNumber <= 2500) {
+                // if (tileNumber <= 2500) {
+                if (tileNumber <= tileMap.specialTiles) {
                     continue;
                 }
 
@@ -100,7 +101,7 @@ namespace zboss {
                             // renderer,
                             Engine::get().renderer().renderer,
                             // SDL_CreateTextureFromSurface(renderer, tileSet.texture->asset()),
-                            tileSet.t,
+                            tileSet.texture->asset().texture,
                             &clipSrc,
                             &clipDest
                         ) != 0) {

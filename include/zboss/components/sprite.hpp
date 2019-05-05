@@ -3,7 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <zboss/entity/component.hpp>
-#include <zboss/assets/loaders/image.hpp>
+#include <zboss/assets/loaders/texture.hpp>
 
 namespace zboss {
 
@@ -27,7 +27,7 @@ namespace zboss {
 
         private:
 
-        std::shared_ptr<Image> sprite;
+        std::shared_ptr<TextureAsset> sprite;
 
         SDL_RendererFlip _flip = SDL_FLIP_NONE;
 

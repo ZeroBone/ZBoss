@@ -11,7 +11,7 @@
 
 #include <zboss/assets/manager.hpp>
 #include <zboss/assets/locators/file.hpp>
-#include <zboss/assets/loaders/image.hpp>
+#include <zboss/assets/loaders/texture.hpp>
 #include <zboss/assets/loaders/audio.hpp>
 #include <zboss/assets/loaders/font.hpp>
 #include <zboss/assets/loaders/tilemap.hpp>
@@ -44,7 +44,7 @@ namespace zboss {
 
         std::shared_ptr<FileLocator> _asset_file_locator;
 
-        std::shared_ptr<ImageLoader> _asset_image_loader;
+        std::shared_ptr<TextureAssetLoader> _asset_image_loader;
 
         std::shared_ptr<AudioLoader> _asset_audio_loader;
 
@@ -57,6 +57,9 @@ namespace zboss {
         public:
 
         SDL_Event currentEvent;
+
+        int vWidth;
+        int vHeight;
 
         virtual ~Engine();
 

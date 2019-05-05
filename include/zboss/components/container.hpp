@@ -56,7 +56,7 @@ namespace zboss {
 
         Matrix<3, 3> parentCachedTransform;
 
-        Vector2D pm_pos;
+        Vector2D cachedPosition;
 
     };
 

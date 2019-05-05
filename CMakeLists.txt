@@ -25,7 +25,6 @@ set(ZBOSS_HEADERS
         include/zboss/entity/manager.hpp
         include/zboss/math/matrix.hpp
         include/zboss/math/vector.hpp
-        include/zboss/entity/constants.hpp
         include/zboss/components/container.hpp
         include/zboss/assets/manager.hpp
         include/zboss/assets/locator.hpp
@@ -34,7 +33,7 @@ set(ZBOSS_HEADERS
         include/zboss/assets/asset.hpp
         include/zboss/assets/loaders/audio.hpp
         include/zboss/assets/loaders/font.hpp
-        include/zboss/assets/loaders/image.hpp
+        include/zboss/assets/loaders/texture.hpp
         include/zboss/assets/locators/file.hpp
         include/zboss/components/sprite.hpp
         include/zboss/renderer.hpp
@@ -45,7 +44,9 @@ set(ZBOSS_HEADERS
         include/zboss/tilemap/layers/tilelayer.hpp
         include/zboss/tilemap/tilemap.hpp
         include/zboss/assets/loaders/tilemap.hpp
-        include/zboss/components/tilemap.hpp include/zboss/tilemap/layers/layer.hpp)
+        include/zboss/components/tilemap.hpp
+        include/zboss/tilemap/layers/layer.hpp
+        include/zboss/components/transform.hpp)
 
 set(ZBOSS_SOURCES
         src/engine.cpp
@@ -57,7 +58,7 @@ set(ZBOSS_SOURCES
         src/assets/manager.cpp
         src/assets/loaders/audio.cpp
         src/assets/loaders/font.cpp
-        src/assets/loaders/image.cpp
+        src/assets/loaders/texture.cpp
         src/assets/locators/file.cpp
         src/components/sprite.cpp
         src/math/shape.cpp
@@ -70,7 +71,8 @@ set(ZBOSS_SOURCES
         src/assets/loaders/tilemap.cpp
         src/components/tilemap.cpp
         src/scene.cpp
-        src/tilemap/layers/layer.cpp)
+        src/tilemap/layers/layer.cpp
+        src/components/transform.cpp)
 
 set(ZBOSS_RI_SOURCES
     ri/main.cpp

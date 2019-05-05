@@ -92,7 +92,7 @@ namespace zboss {
         }
     }
 
-    void Entity::add_child(shared_ptr<Entity> child, bool reparent) {
+    void Entity::addChild(shared_ptr <Entity> child, bool reparent) {
 
         children.push_back(child);
 
@@ -133,7 +133,7 @@ namespace zboss {
 
         if (get_parent() != nullptr) {
             if (add) {
-                get_parent()->add_child(shared_from_this(), false);
+                get_parent()->addChild(shared_from_this(), false);
             }
 
             if (!is_in_tree()) {

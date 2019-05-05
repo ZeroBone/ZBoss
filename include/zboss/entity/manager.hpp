@@ -5,7 +5,6 @@
 #include <memory>
 #include <array>
 #include <algorithm>
-#include <zboss/entity/constants.hpp>
 
 namespace zboss {
 

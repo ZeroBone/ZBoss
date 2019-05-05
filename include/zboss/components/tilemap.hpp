@@ -12,8 +12,10 @@ namespace zboss {
 
         TileMapComponent() = default;
 
-        explicit TileMapComponent(const std::string& tileMapName) {
+        explicit TileMapComponent(const std::string& tileMapName, float scale = 1.f, uint16_t specialTiles = 0) {
             setTileMap(tileMapName);
+            tileMap->asset()->setScale(scale);
+            tileMap->asset()->setSpecialTiles(specialTiles);
         }
 
         void setTileMap(const std::string& tileMapName);

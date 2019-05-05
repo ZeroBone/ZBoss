@@ -8,19 +8,37 @@
 
 namespace zboss {
 
-    class Image : public Asset<SDL_Surface*> {
+    class TextureData {
+
+        public:
+
+        SDL_Surface* surface;
+
+        SDL_Texture* texture;
+
+        void destroy() {
+
+            SDL_FreeSurface(surface);
+
+            SDL_DestroyTexture(texture);
+
+        }
+
+    };
+
+    class TextureAsset : public Asset<TextureData> {
 
         using Asset::Asset;
 
     };
 
-    class ImageDescriptor : public AssetDescriptor {
+    class TextureAssetDescriptor : public AssetDescriptor {
 
         using AssetDescriptor::AssetDescriptor;
 
     };
 
-    class ImageLoader : public AssetLoader {
+    class TextureAssetLoader : public AssetLoader {
 
         public:
 

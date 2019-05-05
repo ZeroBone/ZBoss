@@ -33,8 +33,8 @@ namespace zboss {
         SDL_Rect dest;
         dest.x = 0;
         dest.y = 0;
-        dest.w = tMap.width * tMap.tileWidth;
-        dest.h = tMap.height * tMap.tileHeight;
+        dest.w = tMap.width * tMap.tileScreenWidth;
+        dest.h = tMap.height * tMap.tileScreenHeight;
 
         for (auto& layer : tMap.layers) {
 

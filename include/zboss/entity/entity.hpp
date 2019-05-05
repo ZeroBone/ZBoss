@@ -7,7 +7,6 @@
 #include <typeinfo>
 #include <typeindex>
 
-#include <zboss/entity/constants.hpp>
 #include <zboss/entity/manager.hpp>
 #include <zboss/entity/component.hpp>
 #include <SDL2/SDL.h>
@@ -129,7 +128,7 @@ namespace zboss {
         template<class T>
         std::shared_ptr<Entity> find_first_ancestor_by_type() const;
 
-        void add_child(std::shared_ptr<Entity> child, bool reparent = true);
+        void addChild(std::shared_ptr<Entity> child, bool reparent = true);
 
         void remove_child(std::shared_ptr<Entity> child, bool reparent = true);
 

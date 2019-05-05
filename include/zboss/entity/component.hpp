@@ -3,7 +3,6 @@
 
 #include <memory>
 #include <SDL2/SDL.h>
-#include <zboss/entity/constants.hpp>
 
 namespace zboss {
 

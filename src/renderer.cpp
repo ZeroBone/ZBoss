@@ -347,8 +347,17 @@ namespace zboss {
         );
     }
 
-    bool Renderer::draw_image(shared_ptr<Image> asset, const SDL_Rect& dest) {
-        SDL_Texture* t = SDL_CreateTextureFromSurface(renderer, asset->asset());
+    bool Renderer::drawTexture(shared_ptr<TextureAsset> asset, const SDL_Rect& dest) {
+
+        if (SDL_RenderCopy(renderer, asset->asset().texture, nullptr, &dest) != 0) {
+            setError("SDL: "s + SDL_GetError());
+            return false;
+        }
+
+        return true;
+
+        /*SDL_Texture* t = SDL_CreateTextureFromSurface(renderer, asset->asset());
+
         bool success = true;
 
         if (t != nullptr) {
@@ -364,11 +373,21 @@ namespace zboss {
             success = false;
         }
 
-        return success;
+        return success;*/
+
     }
 
-    bool Renderer::draw_image(shared_ptr<Image> asset, const SDL_Rect& src, const SDL_Rect& dest) {
-        SDL_Texture* t = SDL_CreateTextureFromSurface(renderer, asset->asset());
+    bool Renderer::drawTexture(shared_ptr<TextureAsset> asset, const SDL_Rect& src, const SDL_Rect& dest) {
+
+        if (SDL_RenderCopy(renderer, asset->asset().texture, &src, &dest) != 0) {
+            setError("SDL: "s + SDL_GetError());
+            return false;
+        }
+
+        return true;
+
+        /*SDL_Texture* t = SDL_CreateTextureFromSurface(renderer, asset->asset());
+
         bool success = true;
 
         if (t != nullptr) {
@@ -384,15 +403,21 @@ namespace zboss {
             success = false;
         }
 
-        return success;
+        return success;*/
+
     }
 
-    bool Renderer::draw_image(shared_ptr<Image> asset, const SDL_Rect& dest, float angle, const SDL_Point& center,
-                              SDL_RendererFlip flip) {
+    bool Renderer::drawTexture(shared_ptr<TextureAsset> asset, const SDL_Rect& dest, float angle, const SDL_Point& center,
+                               SDL_RendererFlip flip) {
 
-        // TODO: optimize texture creation
+        if (SDL_RenderCopyEx(renderer, asset->asset().texture, nullptr, &dest, angle, &center, flip) != 0) {
+            setError("SDL: "s + SDL_GetError());
+            return false;
+        }
 
-        SDL_Texture* t = SDL_CreateTextureFromSurface(renderer, asset->asset());
+        return true;
+
+        /*SDL_Texture* t = SDL_CreateTextureFromSurface(renderer, asset->asset());
         bool success = true;
 
         if (t != nullptr) {
@@ -408,12 +433,20 @@ namespace zboss {
             success = false;
         }
 
-        return success;
+        return success;*/
     }
 
-    bool Renderer::draw_image(shared_ptr<Image> asset, const SDL_Rect& src, const SDL_Rect& dest, float angle,
-                              const SDL_Point& center, SDL_RendererFlip flip) {
-        SDL_Texture* t = SDL_CreateTextureFromSurface(renderer, asset->asset());
+    bool Renderer::drawTexture(shared_ptr<TextureAsset> asset, const SDL_Rect& src, const SDL_Rect& dest, float angle,
+                               const SDL_Point& center, SDL_RendererFlip flip) {
+
+        if (SDL_RenderCopyEx(renderer, asset->asset().texture, &src, &dest, angle, &center, flip) != 0) {
+            setError("SDL: "s + SDL_GetError());
+            return false;
+        }
+
+        return true;
+
+        /*SDL_Texture* t = SDL_CreateTextureFromSurface(renderer, asset->asset());
         bool success = true;
 
         if (t != nullptr) {
@@ -429,7 +462,8 @@ namespace zboss {
             success = false;
         }
 
-        return success;
+        return success;*/
+
     }
 
     bool Renderer::renderText(shared_ptr<Font> asset, const string& text, const Vector2D& pos, const SDL_Color& color) {

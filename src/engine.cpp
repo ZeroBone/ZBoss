@@ -59,7 +59,7 @@ namespace zboss {
         fps(60),
         frameDelay(1000 / fps),
         _asset_file_locator(std::make_shared<FileLocator>(ZBOSS_SOURCE_DIR)),
-        _asset_image_loader(std::make_shared<ImageLoader>()),
+        _asset_image_loader(std::make_shared<TextureAssetLoader>()),
         _asset_audio_loader(std::make_shared<AudioLoader>()),
         _asset_font_loader(std::make_shared<FontLoader>()),
         _asset_tile_map_loader(std::make_shared<TileMapLoader>()) {
@@ -164,6 +164,8 @@ namespace zboss {
     }
 
     void Engine::onResize() {
+        
+        SDL_GetRendererOutputSize(renderer().renderer, &vWidth, &vHeight);
 
         if (scene != nullptr) {
             scene->onResize();

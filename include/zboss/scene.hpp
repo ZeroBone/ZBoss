@@ -4,6 +4,8 @@
 #include <memory>
 #include <iostream>
 
+#include <SDL2/SDL.h>
+
 #include <zboss/entity/entity.hpp>
 
 namespace zboss {
@@ -14,14 +16,17 @@ namespace zboss {
 
         std::shared_ptr<Entity> root;
 
+        SDL_Rect camera;
+
         public:
 
         explicit Scene();
 
         virtual void onCreate() = 0;
+
         virtual void onDestroy() = 0;
 
-        void onResize() {}
+        virtual void onResize();
 
         void onRender() {
 

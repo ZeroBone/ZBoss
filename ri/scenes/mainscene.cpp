@@ -6,22 +6,22 @@ void MainScene::onCreate() {
 
     auto player = Engine::get().entities().addEntity("test"s);
 
-    tileMap->addComponent<TileMapComponent>("maps/spawn.json");
+    tileMap->addComponent<TileMapComponent>("maps/spawn.json", 2.f, 2500);
     // tileMap->addComponent<SpriteComponent>("test.png");
 
     // player->addComponent<TileMapComponent>("maps/spawn.json");
     // player->addComponent<TileMapComponent>();
 
-    player->addComponent<ContainerComponent>();
+    // player->addComponent<ContainerComponent>();
+
+    player->addComponent<TransformComponent>();
 
     player->addComponent<SpriteComponent>("test.png");
 
-    player->addComponent<MovementComponent>();
-
     player->addComponent<MovementControllerComponent>();
 
-    root->add_child(tileMap, false);
+    root->addChild(tileMap, false);
 
-    root->add_child(player, false);
+    root->addChild(player, false);
 
 }

@@ -32,9 +32,19 @@ namespace zboss {
 
         uint16_t tileHeight;
 
+        uint16_t tileScreenWidth;
+
+        uint16_t tileScreenHeight;
+
+        uint16_t specialTiles;
+
         std::vector<TileSet> tileSets;
 
         std::vector<TileLayer> layers;
+
+        void setScale(float scale);
+
+        void setSpecialTiles(uint16_t specialTiles);
 
         private:
 

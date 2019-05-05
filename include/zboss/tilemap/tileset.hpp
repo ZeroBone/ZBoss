@@ -7,7 +7,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#include <zboss/assets/loaders/image.hpp>
+#include <zboss/assets/loaders/texture.hpp>
 
 namespace zboss {
 
@@ -17,9 +17,7 @@ namespace zboss {
 
         public:
 
-        std::shared_ptr<Image> texture;
-
-        SDL_Texture* t;
+        std::shared_ptr<TextureAsset> texture;
 
         uint16_t columns;
 
