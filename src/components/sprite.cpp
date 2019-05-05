@@ -30,10 +30,6 @@ namespace zboss {
 
     void SpriteComponent::draw() {
 
-        if (sprite == nullptr) {
-            return;
-        }
-
         // SDL_Point pos = entity->getComponent<ContainerComponent>().getAbsolutePosition().toSdlPoint();
         SDL_Point pos = entity->getComponent<TransformComponent>().position.toSdlPoint();
 
@@ -53,7 +49,7 @@ namespace zboss {
 
         if (!Engine::get().renderer().drawTexture(sprite, dest, angle, pos, _flip)) {
 
-            std::cerr << "[SpriteNode][ERROR] " << Engine::get().renderer().get_error() << std::endl;
+            std::cerr << "[Sprite][ERROR] " << Engine::get().renderer().get_error() << std::endl;
 
         }
 

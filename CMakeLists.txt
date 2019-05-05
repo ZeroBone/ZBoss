@@ -46,7 +46,7 @@ set(ZBOSS_HEADERS
         include/zboss/assets/loaders/tilemap.hpp
         include/zboss/components/tilemap.hpp
         include/zboss/tilemap/layers/layer.hpp
-        include/zboss/components/transform.hpp)
+        include/zboss/components/transform.hpp include/zboss/components/animatedsprite.hpp include/zboss/components/camerafollow.hpp)
 
 set(ZBOSS_SOURCES
         src/engine.cpp
@@ -72,7 +72,7 @@ set(ZBOSS_SOURCES
         src/components/tilemap.cpp
         src/scene.cpp
         src/tilemap/layers/layer.cpp
-        src/components/transform.cpp)
+        src/components/transform.cpp src/components/animatedsprite.cpp src/components/camerafollow.cpp)
 
 set(ZBOSS_RI_SOURCES
     ri/main.cpp

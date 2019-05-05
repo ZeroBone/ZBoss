@@ -25,14 +25,17 @@ namespace zboss {
 
         TileMap& tMap = *tileMap->asset();
 
-        SDL_Point center = {
+        SDL_Rect src = {
             .x = 0,
-            .y = 0
+            .y = 0,
+            .w = tMap.width * tMap.tileWidth,
+            .h = tMap.height * tMap.tileHeight
         };
 
         SDL_Rect dest;
-        dest.x = 0;
-        dest.y = 0;
+        dest.x = -entity->getScene().camera.x;
+        dest.y = -entity->getScene().camera.y;
+
         dest.w = tMap.width * tMap.tileScreenWidth;
         dest.h = tMap.height * tMap.tileScreenHeight;
 
@@ -44,7 +47,7 @@ namespace zboss {
                 Engine::get().renderer().renderer,
                 layer.texture, nullptr, &dest, 0., &center, SDL_FLIP_NONE);*/
 
-            if (SDL_RenderCopy(Engine::get().renderer().renderer, layer.texture, nullptr, &dest) != 0) {
+            if (SDL_RenderCopy(Engine::get().renderer().renderer, layer.texture, &src, &dest) != 0) {
                 std::cout << "Error rendering layer texture addr " << layer.texture << " : " << SDL_GetError() << std::endl;
             }
 
@@ -53,29 +56,6 @@ namespace zboss {
             // std::cout << layer.texture << SDL_GetError() << std::endl;
 
         }
-
-        /*TileMap* map = tileMap->asset();
-
-        SDL_Point pos = entity->getComponent<ContainerComponent>().getAbsolutePosition().toSdlPoint();
-
-        int angle = static_cast<int>(entity->getComponent<ContainerComponent>().getAbsoluteRotation());
-
-        SDL_Rect dest;
-
-        int width = sprite->asset()->w;
-        int height = sprite->asset()->h;
-
-        dest.x = pos.x - width / 2;
-        dest.y = pos.y - height / 2;
-
-        dest.w = width;
-        dest.h = height;
-
-        if (!Engine::getInstance().renderer().draw_image(sprite, dest, angle, pos, _flip)) {
-
-            std::cerr << "[TileMap][ERROR] " << Engine::getInstance().renderer().get_error() << std::endl;
-
-        }*/
 
     }
 

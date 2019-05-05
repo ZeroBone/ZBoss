@@ -13,6 +13,8 @@
 
 namespace zboss {
 
+    class Scene;
+
     class Entity : public std::enable_shared_from_this<Entity> {
 
         // ecs part
@@ -107,6 +109,8 @@ namespace zboss {
         public:
 
         void init();
+
+        Scene& getScene();
 
         const char* get_name() const;
 

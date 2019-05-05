@@ -12,13 +12,11 @@ namespace zboss {
 
     class Scene {
 
-        protected:
+        public:
 
         std::shared_ptr<Entity> root;
 
         SDL_Rect camera;
-
-        public:
 
         explicit Scene();
 

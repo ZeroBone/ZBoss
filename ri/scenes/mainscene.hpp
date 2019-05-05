@@ -7,9 +7,10 @@
 #include <zboss/entity/entity.hpp>
 #include <zboss/engine.hpp>
 #include <zboss/components/container.hpp>
-#include <zboss/components/sprite.hpp>
+#include <zboss/components/animatedsprite.hpp>
 #include <zboss/components/movement.hpp>
 #include <zboss/components/tilemap.hpp>
+#include <zboss/components/camerafollow.hpp>
 
 #include "../components/movementcontroller.hpp"
 

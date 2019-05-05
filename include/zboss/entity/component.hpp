@@ -53,6 +53,10 @@ namespace zboss {
 
         void enableUpdate();
 
+        inline void enableRendering() {
+            hasRender = true;
+        }
+
         inline void setInputEnabled(bool enabled) {
 
             if (enabled) {

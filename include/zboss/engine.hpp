@@ -65,7 +65,7 @@ namespace zboss {
 
         protected:
 
-        Scene* scene = nullptr;
+        Scene* _scene = nullptr;
 
         explicit Engine();
 
@@ -83,16 +83,16 @@ namespace zboss {
 
         void onResume() {
 
-            if (scene != nullptr) {
-                scene->onResume();
+            if (_scene != nullptr) {
+                _scene->onResume();
             }
 
         }
 
         void onDestroy() {
 
-            if (scene != nullptr) {
-                scene->onDestroy();
+            if (_scene != nullptr) {
+                _scene->onDestroy();
             }
 
         }
@@ -101,15 +101,15 @@ namespace zboss {
 
         void setScene(Scene* newScene) {
 
-            if (scene != nullptr) {
-                scene->onDestroy();
+            if (_scene != nullptr) {
+                _scene->onDestroy();
             }
 
-            scene = newScene;
+            _scene = newScene;
 
-            scene->onCreate();
+            _scene->onCreate();
 
-            scene->onResize();
+            _scene->onResize();
 
         }
 
@@ -128,6 +128,10 @@ namespace zboss {
         AssetManager& assets();
 
         Renderer& renderer();
+
+        inline Scene& scene() {
+            return *_scene;
+        }
 
         inline static Engine& get() {
             return *_instance;

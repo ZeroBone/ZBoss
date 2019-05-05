@@ -1,5 +1,8 @@
 #include <zboss/entity/entity.hpp>
 
+#include <zboss/engine.hpp>
+#include <zboss/scene.hpp>
+
 #include <iostream>
 
 namespace zboss {
@@ -22,6 +25,10 @@ namespace zboss {
     // graph part
 
     void Entity::init() {}
+
+    Scene& Entity::getScene() {
+        return Engine::get().scene();
+    }
 
     const char* Entity::get_name() const {
         return name.c_str();

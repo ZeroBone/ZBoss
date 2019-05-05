@@ -4,10 +4,15 @@
 #include <SDL2/SDL.h>
 #include <zboss/engine.hpp>
 #include <zboss/components/transform.hpp>
+#include <zboss/components/animatedsprite.hpp>
 
 using namespace zboss;
 
 class MovementControllerComponent : public EntityComponent {
+
+    private:
+
+    TransformComponent* transform;
 
     public:
 

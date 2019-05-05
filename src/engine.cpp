@@ -129,9 +129,9 @@ namespace zboss {
                 if (currentEvent.type == SDL_QUIT) {
                     running = false;
                 }
-                else if (scene != nullptr) {
+                else if (_scene != nullptr) {
 
-                    scene->dispatchEvent();
+                    _scene->dispatchEvent();
 
                 }
 
@@ -167,8 +167,8 @@ namespace zboss {
         
         SDL_GetRendererOutputSize(renderer().renderer, &vWidth, &vHeight);
 
-        if (scene != nullptr) {
-            scene->onResize();
+        if (_scene != nullptr) {
+            _scene->onResize();
         }
 
     }
@@ -180,8 +180,8 @@ namespace zboss {
 
         // thickLineColor(renderer, 0, 0, 720, 100, 20, 0xFF00FFFF);
 
-        if (scene != nullptr) {
-            scene->onRender();
+        if (_scene != nullptr) {
+            _scene->onRender();
         }
 
         // SDL_RenderPresent(renderer);
@@ -191,8 +191,8 @@ namespace zboss {
 
     void Engine::onPause() {
 
-        if (scene != nullptr) {
-            scene->onPause();
+        if (_scene != nullptr) {
+            _scene->onPause();
         }
 
     }

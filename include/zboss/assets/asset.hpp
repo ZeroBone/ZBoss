@@ -13,7 +13,7 @@ namespace zboss {
 
         public:
 
-        AssetDescriptor(const std::string& assetname, bool binary = true);
+        explicit AssetDescriptor(const std::string& assetname, bool binary = true);
 
         virtual size_t computeHash() const;
 

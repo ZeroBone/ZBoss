@@ -30,7 +30,7 @@ namespace zboss {
 
         void register_loader(std::shared_ptr<AssetLoader> loader, const std::vector<std::string>& extensions);
 
-        template<typename A, typename D>
+        template <class A, class D>
         std::shared_ptr<A> load(const D& assetdesc) {
 
             static_assert(std::is_base_of<BaseAsset, A>::value, "Supplied asset type does not inherit from Asset");

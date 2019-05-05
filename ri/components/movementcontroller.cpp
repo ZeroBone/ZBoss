@@ -7,28 +7,52 @@ bool MovementControllerComponent::input() {
     switch (event.type) {
 
         case SDL_KEYDOWN:
-        case SDL_KEYUP:{
+        case SDL_KEYUP: {
 
             const Uint8* state = SDL_GetKeyboardState(nullptr);
 
             if (state[SDL_SCANCODE_W]) {
-                entity->getComponent<TransformComponent>().speed.y = -5;
+
+                transform->speed.y = -5;
+
+                entity->getComponent<AnimatedSpriteComponent>().play("up", 250);
+
             }
             else if (state[SDL_SCANCODE_S]) {
-                entity->getComponent<TransformComponent>().speed.y = 5;
+
+                transform->speed.y = 5;
+
+                entity->getComponent<AnimatedSpriteComponent>().play("down", 250);
+
             }
             else {
-                entity->getComponent<TransformComponent>().speed.y = 0;
+
+                transform->speed.y = 0;
+
+                entity->getComponent<AnimatedSpriteComponent>().stop();
+
             }
 
             if (state[SDL_SCANCODE_A]) {
-                entity->getComponent<TransformComponent>().speed.x = -5;
+
+                transform->speed.x = -5;
+
+                entity->getComponent<AnimatedSpriteComponent>().play("left", 250);
+
             }
             else if (state[SDL_SCANCODE_D]) {
-                entity->getComponent<TransformComponent>().speed.x = 5;
+
+                transform->speed.x = 5;
+
+                entity->getComponent<AnimatedSpriteComponent>().play("right", 250);
+
             }
             else {
-                entity->getComponent<TransformComponent>().speed.x = 0;
+
+                transform->speed.x = 0;
+
+                entity->getComponent<AnimatedSpriteComponent>().stop();
+
             }
 
             break;
@@ -47,5 +71,7 @@ bool MovementControllerComponent::input() {
 void MovementControllerComponent::init() {
 
     enableInput();
+
+    transform = &entity->getComponent<TransformComponent>();
 
 }

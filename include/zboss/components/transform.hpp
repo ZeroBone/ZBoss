@@ -16,7 +16,7 @@ namespace zboss {
 
         uint8_t direction;
 
-        TransformComponent(float x = 0, float y = 0, uint8_t direction = 0) : direction(direction) {
+        explicit TransformComponent(float x = 0, float y = 0, uint8_t direction = 0) : direction(direction) {
             position.x = x;
             position.y = y;
         }
