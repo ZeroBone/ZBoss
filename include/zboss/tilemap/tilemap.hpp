@@ -16,7 +16,7 @@ namespace zboss {
 
         public:
 
-        TileMap(json mapObj);
+        explicit TileMap(json mapObj);
 
         ~TileMap() = default;
 
@@ -45,6 +45,12 @@ namespace zboss {
         void setScale(float scale);
 
         void setSpecialTiles(uint16_t specialTiles);
+
+        size_t layerNameIndex(const std::string& name) {
+
+            return layersMap[name];
+
+        }
 
         private:
 

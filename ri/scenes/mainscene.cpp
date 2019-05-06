@@ -2,17 +2,21 @@
 
 void MainScene::onCreate() {
 
-    auto tileMap = Engine::get().entities().addEntity("tilemap"s);
+    // setup background tilemap
+
+    auto tileMapGround = Engine::get().entities().addEntity("tilemapground"s);
+
+    tileMapGround->addComponent<TileMapComponent>("maps/spawn.json", 2.f, 2500);
+
+    {
+        TileMapComponent& tileMapComponent = tileMapGround->getComponent<TileMapComponent>();
+
+        tileMapComponent.endLayer = tileMapComponent.tileMap->asset()->layerNameIndex("above_1");
+    }
+
+    // setup player
 
     auto player = Engine::get().entities().addEntity("test"s);
-
-    tileMap->addComponent<TileMapComponent>("maps/spawn.json", 2.f, 2500);
-    // tileMap->addComponent<SpriteComponent>("test.png");
-
-    // player->addComponent<TileMapComponent>("maps/spawn.json");
-    // player->addComponent<TileMapComponent>();
-
-    // player->addComponent<ContainerComponent>();
 
     player->addComponent<TransformComponent>(1200, 1600);
 
@@ -33,8 +37,24 @@ void MainScene::onCreate() {
 
     player->addComponent<MovementControllerComponent>();
 
-    root->addChild(tileMap, false);
+    // setup foreground tilemap
+
+    auto tileMapAbove = Engine::get().entities().addEntity("tilemapabove"s);
+
+    tileMapAbove->addComponent<TileMapComponent>("maps/spawn.json", 2.f, 2500);
+
+    {
+        TileMapComponent& tileMapComponent = tileMapAbove->getComponent<TileMapComponent>();
+
+        tileMapComponent.startLayer = tileMapComponent.tileMap->asset()->layerNameIndex("above_1");
+    }
+
+    // build the graph
+
+    root->addChild(tileMapGround, false);
 
     root->addChild(player, false);
+
+    root->addChild(tileMapAbove, false);
 
 }

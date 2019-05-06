@@ -15,7 +15,7 @@ namespace zboss {
 
         TileMap& tileMap;
 
-        TileMapLayer(TileMap& tileMap);
+        explicit TileMapLayer(TileMap& tileMap);
 
         public:
 

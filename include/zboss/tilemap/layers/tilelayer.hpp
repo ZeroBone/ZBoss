@@ -21,13 +21,11 @@ namespace zboss {
 
         SDL_Texture* texture;
 
-        bool visible;
-
         float opacity;
 
         uint16_t* tiles;
 
-        TileLayer(json obj, TileMap& tileMap);
+        explicit TileLayer(json obj, TileMap& tileMap);
 
         void render() override;
 

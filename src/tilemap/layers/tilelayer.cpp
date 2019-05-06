@@ -9,7 +9,6 @@ namespace zboss {
     TileLayer::TileLayer(json obj, TileMap& tileMap) :
         TileMapLayer(tileMap),
         texture(nullptr),
-        visible(obj["visible"]),
         opacity(obj["opacity"]) {
 
         tiles = new uint16_t[tileMap.width * tileMap.height];

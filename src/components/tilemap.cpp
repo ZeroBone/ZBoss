@@ -1,6 +1,5 @@
 #include <zboss/components/tilemap.hpp>
 
-#include <zboss/components/tilemap.hpp>
 #include <zboss/engine.hpp>
 
 namespace zboss {
@@ -15,31 +14,36 @@ namespace zboss {
 
         }
 
+        endLayer = tileMap->asset()->layers.size();
+
     }
 
     void TileMapComponent::draw() {
 
-        if (tileMap == nullptr) {
+        /*if (tileMap == nullptr) {
             return;
-        }
+        }*/
 
-        TileMap& tMap = *tileMap->asset();
+        TileMap& map = *tileMap->asset();
 
         SDL_Rect src = {
             .x = 0,
             .y = 0,
-            .w = tMap.width * tMap.tileWidth,
-            .h = tMap.height * tMap.tileHeight
+            .w = map.width * map.tileWidth,
+            .h = map.height * map.tileHeight
         };
 
         SDL_Rect dest;
         dest.x = -entity->getScene().camera.x;
         dest.y = -entity->getScene().camera.y;
 
-        dest.w = tMap.width * tMap.tileScreenWidth;
-        dest.h = tMap.height * tMap.tileScreenHeight;
+        dest.w = map.width * map.tileScreenWidth;
+        dest.h = map.height * map.tileScreenHeight;
 
-        for (auto& layer : tMap.layers) {
+        // for (auto& layer : map.layers) {
+        for (size_t i = startLayer; i != map.layers.size() && i != endLayer; i++) {
+
+            auto& layer = map.layers[i];
 
             layer.render();
 
