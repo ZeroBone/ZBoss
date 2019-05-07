@@ -49,8 +49,6 @@ namespace zboss {
 
         currentAnimation = animation;
 
-        std::cout << "Playing " << currentAnimation << " anim." << std::endl;
-
         AnimatedSpriteAnimation& anim = animations[animation];
 
         animX = anim.x;
@@ -64,6 +62,8 @@ namespace zboss {
         animSpeed = speed;
 
         playing = true;
+
+        // std::cout << "Playing " << currentAnimation << " anim. Frame count: " << animFrameCount << std::endl;
 
     }
 
@@ -86,10 +86,14 @@ namespace zboss {
 
             srcRect.x = animFrameWidth * static_cast<int>((SDL_GetTicks() / animSpeed) % animFrameCount);
 
+            // std::cout << "Playing animation " << currentAnimation << " at " << srcRect.x << std::endl;
+
         }
         else {
 
             srcRect.x = animX;
+
+            // std::cout << "Not animating, drawing at " << srcRect.x << std::endl;
 
         }
 

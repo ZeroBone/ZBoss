@@ -116,11 +116,27 @@ namespace zboss {
         onResize();
 
         Uint32 frameStart;
-        int frameTime;
+        Uint32 frameTime;
+
+        // Uint32 time_step_ms = 1000 / 20;
+        // Uint32 next_game_step = SDL_GetTicks(); // initial value
 
         while (running) {
 
             frameStart = SDL_GetTicks();
+
+//            int computer_is_too_slow_limit = 10; // max number of advances per render, adjust this according to your minimum playable fps
+//
+//            // Loop until all steps are executed or computer_is_too_slow_limit is reached
+//            while((next_game_step <= frameStart) && (computer_is_too_slow_limit--)){
+//
+//                onUpdate();
+//
+//                next_game_step += time_step_ms; // count 1 game tick done
+//
+//            }
+
+            onUpdate();
 
             onRender();
 
@@ -140,7 +156,7 @@ namespace zboss {
             frameTime = SDL_GetTicks() - frameStart;
 
             if (frameDelay > frameTime) {
-                SDL_Delay(static_cast<Uint32>(frameDelay - frameTime));
+                SDL_Delay(frameDelay - frameTime);
             }
 
         }
@@ -173,6 +189,16 @@ namespace zboss {
 
     }
 
+    void Engine::onUpdate() {
+
+        if (_scene != nullptr) {
+
+            _scene->onUpdate();
+
+        }
+
+    }
+
     void Engine::onRender() {
 
         // SDL_RenderClear(renderer);
@@ -181,11 +207,13 @@ namespace zboss {
         // thickLineColor(renderer, 0, 0, 720, 100, 20, 0xFF00FFFF);
 
         if (_scene != nullptr) {
-            _scene->onRender();
-        }
 
-        // SDL_RenderPresent(renderer);
-        _renderer.present();
+            _scene->onRender();
+
+            // SDL_RenderPresent(renderer);
+            _renderer.present();
+
+        }
 
     }
 

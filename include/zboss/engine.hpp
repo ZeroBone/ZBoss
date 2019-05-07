@@ -38,7 +38,7 @@ namespace zboss {
 
         int fps;
 
-        int frameDelay;
+        Uint32 frameDelay;
 
         Renderer _renderer;
 
@@ -76,6 +76,8 @@ namespace zboss {
         void run();
 
         void onResize();
+
+        void onUpdate();
 
         void onRender();
 
@@ -117,7 +119,7 @@ namespace zboss {
 
             fps = newFps;
 
-            frameDelay = 1000 / fps;
+            frameDelay = static_cast<Uint32>(1000 / fps);
 
         }
 

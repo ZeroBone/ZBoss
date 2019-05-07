@@ -57,8 +57,6 @@ namespace zboss {
 
         public:
 
-        int animIndex = 0;
-
         std::unordered_map<std::string, AnimatedSpriteAnimation> animations;
 
         SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;

@@ -5,8 +5,16 @@
 #include <zboss/engine.hpp>
 #include <zboss/components/transform.hpp>
 #include <zboss/components/animatedsprite.hpp>
+#include <zboss/components/tilemap.hpp>
 
 using namespace zboss;
+
+typedef enum {
+    DIRECTION_LEFT,
+    DIRECTION_RIGHT,
+    DIRECTION_UP,
+    DIRECTION_DOWN
+} entity_direction_t;
 
 class MovementControllerComponent : public EntityComponent {
 
@@ -16,11 +24,19 @@ class MovementControllerComponent : public EntityComponent {
 
     public:
 
+    entity_direction_t direction;
+
     MovementControllerComponent() = default;
 
     bool input() override;
 
+    void update() override;
+
     void init() override;
+
+    private:
+
+    void updateDirection(bool moving);
 
 };
 

@@ -10,15 +10,25 @@ namespace zboss {
 
         public:
 
+        SDL_Point box;
+
         Vector2D position;
 
         Vector2D speed;
 
-        uint8_t direction;
+        /*union {
+            int direction;
+            float rotation;
+        } pivot;*/
 
-        explicit TransformComponent(float x = 0, float y = 0, uint8_t direction = 0) : direction(direction) {
+        explicit TransformComponent(int width, int height, float x = 0, float y = 0) {
+
+            box.x = width;
+            box.y = height;
+
             position.x = x;
             position.y = y;
+
         }
 
         void update() override;

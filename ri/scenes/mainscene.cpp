@@ -6,10 +6,10 @@ void MainScene::onCreate() {
 
     auto tileMapGround = Engine::get().entities().addEntity("tilemapground"s);
 
-    tileMapGround->addComponent<TileMapComponent>("maps/spawn.json", 2.f, 2500);
+    tileMapGround->addComponent<MyTileMapComponent>("maps/spawn.json", 2.f, 2500);
 
     {
-        TileMapComponent& tileMapComponent = tileMapGround->getComponent<TileMapComponent>();
+        MyTileMapComponent& tileMapComponent = tileMapGround->getComponent<MyTileMapComponent>();
 
         tileMapComponent.endLayer = tileMapComponent.tileMap->asset()->layerNameIndex("above_1");
     }
@@ -18,7 +18,7 @@ void MainScene::onCreate() {
 
     auto player = Engine::get().entities().addEntity("test"s);
 
-    player->addComponent<TransformComponent>(1200, 1600);
+    player->addComponent<TransformComponent>(static_cast<int>(16 * 3.5f), static_cast<int>(25 * 3.5f), 1200, 1600);
 
     // player->addComponent<SpriteComponent>("test.png");
     player->addComponent<AnimatedSpriteComponent>("sprites.png");
@@ -51,10 +51,10 @@ void MainScene::onCreate() {
 
     // build the graph
 
-    root->addChild(tileMapGround, false);
+    root->addChild(tileMapGround);
 
-    root->addChild(player, false);
+    root->addChild(player);
 
-    root->addChild(tileMapAbove, false);
+    root->addChild(tileMapAbove);
 
 }

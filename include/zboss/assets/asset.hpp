@@ -71,7 +71,7 @@ namespace zboss {
             setLoaded();
         }
 
-        T& asset() {
+        T& asset() { // TODO: make inline
             return theAsset;
         }
 

@@ -26,11 +26,22 @@ namespace zboss {
 
         virtual void onResize();
 
+        virtual void onUpdate() {
+
+            if (root != nullptr) { // TODO: remove this check
+
+                root->send_process();
+
+            }
+
+        }
+
         void onRender() {
 
-            if (root != nullptr) {
-                root->send_process();
+            if (root != nullptr) { // TODO: remove this check
+
                 root->send_draw();
+
             }
 
         }

@@ -35,6 +35,8 @@ namespace zboss {
 
         void draw() override;
 
+        void getTileByCoordinates(int* tileX, int* tileY, float x, float y);
+
     };
 
 }

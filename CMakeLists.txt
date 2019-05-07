@@ -46,7 +46,9 @@ set(ZBOSS_HEADERS
         include/zboss/assets/loaders/tilemap.hpp
         include/zboss/components/tilemap.hpp
         include/zboss/tilemap/layers/layer.hpp
-        include/zboss/components/transform.hpp include/zboss/components/animatedsprite.hpp include/zboss/components/camerafollow.hpp)
+        include/zboss/components/transform.hpp
+        include/zboss/components/animatedsprite.hpp
+        include/zboss/components/camerafollow.hpp)
 
 set(ZBOSS_SOURCES
         src/engine.cpp
@@ -80,7 +82,10 @@ set(ZBOSS_RI_SOURCES
     ri/game.hpp
     ri/scenes/mainscene.hpp
     ri/components/movementcontroller.hpp
-    ri/components/movementcontroller.cpp ri/scenes/mainscene.cpp)
+    ri/components/movementcontroller.cpp
+    ri/scenes/mainscene.cpp
+    ri/components/mytilemap.hpp
+    ri/components/mytilemap.hpp ri/components/mytilemap.cpp)
 
 add_library(zboss SHARED ${ZBOSS_HEADERS} ${ZBOSS_SOURCES})
 

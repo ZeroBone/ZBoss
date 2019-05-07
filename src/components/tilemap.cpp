@@ -69,4 +69,12 @@ namespace zboss {
 
     }
 
+    void TileMapComponent::getTileByCoordinates(int* tileX, int* tileY, float x, float y) {
+
+        *tileX = static_cast<int>(x / tileMap->asset()->tileScreenWidth);
+
+        *tileY = static_cast<int>(y / tileMap->asset()->tileScreenHeight);
+
+    }
+
 }
