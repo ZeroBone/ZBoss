@@ -8,7 +8,7 @@ namespace zboss {
 
     class CameraFollowComponent : public EntityComponent {
 
-        private:
+        protected:
 
         TransformComponent* transform;
 

@@ -15,41 +15,41 @@ bool MovementControllerComponent::input() {
 
             if (state[SDL_SCANCODE_W]) {
 
-                transform->speed.y = -5;
+                queuedSpeed.y = -5;
 
                 direction = DIRECTION_UP;
 
             }
             else if (state[SDL_SCANCODE_S]) {
 
-                transform->speed.y = 5;
+                queuedSpeed.y = 5;
 
                 direction = DIRECTION_DOWN;
 
             }
             else {
 
-                transform->speed.y = 0;
+                queuedSpeed.y = 0;
 
             }
 
             if (state[SDL_SCANCODE_A]) {
 
-                transform->speed.x = -5;
+                queuedSpeed.x = -5;
 
                 direction = DIRECTION_LEFT;
 
             }
             else if (state[SDL_SCANCODE_D]) {
 
-                transform->speed.x = 5;
+                queuedSpeed.x = 5;
 
                 direction = DIRECTION_RIGHT;
 
             }
             else {
 
-                transform->speed.x = 0;
+                queuedSpeed.x = 0;
 
             }
 
@@ -72,12 +72,14 @@ bool MovementControllerComponent::input() {
 
 void MovementControllerComponent::update() {
 
+    transform->speed = queuedSpeed;
+
     MyTileMapComponent& gameMap = entity
         ->get_parent()
         ->get_children()[0]
         ->getComponent<MyTileMapComponent>();
 
-    TileMap* tileMap = gameMap.tileMap->asset();
+    // TileMap* tileMap = gameMap.tileMap->asset();
 
     bool collidedX = false;
     bool collidedY = false;
@@ -233,7 +235,7 @@ void MovementControllerComponent::update() {
 
     if (collidedX && collidedY) {
 
-        return;
+        // return;
 
     }
 
@@ -257,25 +259,25 @@ void MovementControllerComponent::updateDirection(bool moving) {
 
         case DIRECTION_LEFT:
 
-            entity->getComponent<AnimatedSpriteComponent>().play("left", 250);
+            entity->getComponent<AnimatedSpriteComponent>().play("left", 200);
 
             break;
 
         case DIRECTION_RIGHT:
 
-            entity->getComponent<AnimatedSpriteComponent>().play("right", 250);
+            entity->getComponent<AnimatedSpriteComponent>().play("right", 200);
 
             break;
 
         case DIRECTION_UP:
 
-            entity->getComponent<AnimatedSpriteComponent>().play("up", 250);
+            entity->getComponent<AnimatedSpriteComponent>().play("up", 200);
 
             break;
 
         default:
 
-            entity->getComponent<AnimatedSpriteComponent>().play("down", 250);
+            entity->getComponent<AnimatedSpriteComponent>().play("down", 200);
 
             break;
 

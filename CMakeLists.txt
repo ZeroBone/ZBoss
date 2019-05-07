@@ -85,7 +85,7 @@ set(ZBOSS_RI_SOURCES
     ri/components/movementcontroller.cpp
     ri/scenes/mainscene.cpp
     ri/components/mytilemap.hpp
-    ri/components/mytilemap.hpp ri/components/mytilemap.cpp)
+    ri/components/mytilemap.hpp ri/components/mytilemap.cpp ri/components/mapcamerafollow.cpp ri/components/mapcamerafollow.hpp)
 
 add_library(zboss SHARED ${ZBOSS_HEADERS} ${ZBOSS_SOURCES})
 

@@ -33,7 +33,7 @@ void MainScene::onCreate() {
     player->getComponent<AnimatedSpriteComponent>().play("down", 250);
     player->getComponent<AnimatedSpriteComponent>().stop();
 
-    player->addComponent<CameraFollowComponent>();
+    player->addComponent<MapCameraFollowComponent>();
 
     player->addComponent<MovementControllerComponent>();
 

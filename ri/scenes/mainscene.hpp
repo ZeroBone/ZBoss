@@ -10,9 +10,9 @@
 #include <zboss/components/animatedsprite.hpp>
 #include <zboss/components/movement.hpp>
 #include <zboss/components/tilemap.hpp>
-#include "../components/mytilemap.hpp"
-#include <zboss/components/camerafollow.hpp>
 
+#include "../components/mytilemap.hpp"
+#include "../components/mapcamerafollow.hpp"
 #include "../components/movementcontroller.hpp"
 
 using namespace zboss;

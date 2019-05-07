@@ -22,6 +22,8 @@ class MovementControllerComponent : public EntityComponent {
 
     TransformComponent* transform;
 
+    Vector2D queuedSpeed;
+
     public:
 
     entity_direction_t direction;

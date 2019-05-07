@@ -44,6 +44,7 @@ namespace zboss {
     void AnimatedSpriteComponent::play(const std::string& animation, int speed) {
 
         if (currentAnimation == animation) {
+            playing = true;
             return;
         }
 
