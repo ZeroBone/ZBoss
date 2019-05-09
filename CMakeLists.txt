@@ -94,7 +94,7 @@ set(ZBOSS_RI_SOURCES
     ri/components/mytilemap.hpp
     ri/components/mytilemap.cpp
     ri/components/mapcamerafollow.cpp
-    ri/components/mapcamerafollow.hpp ri/components/hpbar.cpp ri/components/hpbar.hpp)
+    ri/components/mapcamerafollow.hpp ri/components/hpbar.cpp ri/components/hpbar.hpp ri/components/bossai.cpp ri/components/bossai.hpp)
 
 add_library(zboss SHARED ${ZBOSS_HEADERS} ${ZBOSS_SOURCES})
 

@@ -76,8 +76,8 @@ bool MovementControllerComponent::input() {
 
             arrow->addComponent<TransformComponent>(32, 32, transform->position.x, transform->position.y);
 
-            arrow->getComponent<TransformComponent>().speed.y = static_cast<int>((mouseY - transform->position.y) * 0.02);
-            arrow->getComponent<TransformComponent>().speed.x = static_cast<int>((mouseX - transform->position.x) * 0.02);
+            arrow->getComponent<TransformComponent>().speed.y = static_cast<float>((mouseY - transform->position.y) * 0.02);
+            arrow->getComponent<TransformComponent>().speed.x = static_cast<float>((mouseX - transform->position.x) * 0.02);
 
             arrow->addComponent<SpriteComponent>("bullet.png");
 

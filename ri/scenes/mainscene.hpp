@@ -15,6 +15,7 @@
 #include "../components/mapcamerafollow.hpp"
 #include "../components/movementcontroller.hpp"
 #include "../components/hpbar.hpp"
+#include "../components/bossai.hpp"
 
 using namespace zboss;
 

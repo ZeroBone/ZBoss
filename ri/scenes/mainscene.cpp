@@ -29,31 +29,6 @@ void MainScene::onCreate() {
     // player->addComponent<SpriteComponent>("test.png");
     player->addComponent<AnimatedSpriteComponent>("player.png");
 
-    player->addComponent<HpBarComponent>(50, 100);
-
-    {
-
-        HpBarComponent& playerHpBar = player->getComponent<HpBarComponent>();
-
-        playerHpBar.backgroundColor.r = 0;
-        playerHpBar.backgroundColor.g = 0;
-        playerHpBar.backgroundColor.b = 0;
-        playerHpBar.backgroundColor.a = 0xff;
-
-        playerHpBar.hpColor.r = 0xff;
-        playerHpBar.hpColor.g = 0;
-        playerHpBar.hpColor.b = 0;
-        playerHpBar.hpColor.a = 0xff;
-
-        playerHpBar.setOuterHeight(8);
-        playerHpBar.setInnerHeight(6);
-        playerHpBar.setOuterWidth(40);
-        playerHpBar.setInnerWidth(36);
-
-        playerHpBar.setOffsetY(-60);
-
-    }
-
     {
 
         AnimatedSpriteComponent& playerAnim = player->getComponent<AnimatedSpriteComponent>();
@@ -70,6 +45,31 @@ void MainScene::onCreate() {
 
     }
 
+    player->addComponent<HpBarComponent>(50, 100);
+
+    {
+
+        HpBarComponent& playerHpBar = player->getComponent<HpBarComponent>();
+
+        playerHpBar.backgroundColor.r = 0;
+        playerHpBar.backgroundColor.g = 0;
+        playerHpBar.backgroundColor.b = 0;
+        playerHpBar.backgroundColor.a = 0xff;
+
+        playerHpBar.hpColor.r = 0;
+        playerHpBar.hpColor.g = 0xff;
+        playerHpBar.hpColor.b = 0;
+        playerHpBar.hpColor.a = 0xff;
+
+        playerHpBar.setOuterHeight(8);
+        playerHpBar.setInnerHeight(6);
+        playerHpBar.setOuterWidth(40);
+        playerHpBar.setInnerWidth(36);
+
+        playerHpBar.setOffsetY(-60);
+
+    }
+
     player->addComponent<MapCameraFollowComponent>();
 
     player->addComponent<MovementControllerComponent>();
@@ -79,6 +79,8 @@ void MainScene::onCreate() {
     auto boss = Engine::get().entities().addEntity("test"s);
 
     boss->addComponent<TransformComponent>(static_cast<int>(16 * 3.5f), static_cast<int>(25 * 3.5f), 1500, 1700);
+
+    boss->addComponent<BossAiComponent>();
 
     // player->addComponent<SpriteComponent>("test.png");
     boss->addComponent<AnimatedSpriteComponent>("boss.png");
@@ -96,6 +98,31 @@ void MainScene::onCreate() {
 
         bossAnim.play("down", 250);
         // bossAnim.stop();
+
+    }
+
+    boss->addComponent<HpBarComponent>(1000, 1000);
+
+    {
+
+        HpBarComponent& bossHpBar = boss->getComponent<HpBarComponent>();
+
+        bossHpBar.backgroundColor.r = 0;
+        bossHpBar.backgroundColor.g = 0;
+        bossHpBar.backgroundColor.b = 0;
+        bossHpBar.backgroundColor.a = 0xff;
+
+        bossHpBar.hpColor.r = 0xff;
+        bossHpBar.hpColor.g = 0;
+        bossHpBar.hpColor.b = 0;
+        bossHpBar.hpColor.a = 0xff;
+
+        bossHpBar.setOuterHeight(8);
+        bossHpBar.setInnerHeight(6);
+        bossHpBar.setOuterWidth(70);
+        bossHpBar.setInnerWidth(66);
+
+        bossHpBar.setOffsetY(-70);
 
     }
 
