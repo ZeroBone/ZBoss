@@ -17,7 +17,8 @@ void SimpleMapColliderComponent::update() {
 
     if (tileMap.isTileWall(tileX, tileY)) {
 
-        entity->get_parent()->remove_child(entity);
+        // entity->get_parent()->remove_child(entity);
+        entity->destroy();
 
     }
 

@@ -2,6 +2,7 @@
 
 #include "mytilemap.hpp"
 #include "simplemapcollider.hpp"
+#include "entitycollider.hpp"
 
 using namespace std::literals;
 
@@ -71,28 +72,30 @@ bool MovementControllerComponent::input() {
 
             entity->getScene().worldMouseState(&mouseX, &mouseY);
 
-            auto arrow = Engine::get().entities().addEntity("arrow"s);
+            auto bullet = Engine::get().entities().addEntity("bullet"s);
 
-            arrow->addComponent<LifeComponent>(1000);
+            bullet->addComponent<LifeComponent>(1000);
 
-            arrow->addComponent<TransformComponent>(32, 32, transform->position.x, transform->position.y);
+            bullet->addComponent<TransformComponent>(32, 32, transform->position.x, transform->position.y);
 
-            arrow->getComponent<TransformComponent>().speed.y = static_cast<float>((mouseY - transform->position.y) * 0.02);
-            arrow->getComponent<TransformComponent>().speed.x = static_cast<float>((mouseX - transform->position.x) * 0.02);
+            bullet->getComponent<TransformComponent>().speed.y = (mouseY - transform->position.y) * 0.02f;
+            bullet->getComponent<TransformComponent>().speed.x = (mouseX - transform->position.x) * 0.02f;
 
-            arrow->addComponent<SimpleMapColliderComponent>();
+            bullet->addComponent<SimpleMapColliderComponent>();
 
-            arrow->addComponent<SpriteComponent>("bullet.png");
+            bullet->addComponent<EntityColliderComponent>("player"s, 5);
 
-            // arrow->getComponent<SpriteComponent>().setAngle(90.f);
+            bullet->addComponent<SpriteComponent>("bullet.png");
 
-            /*arrow->getComponent<SpriteComponent>().setAngle(atan2(
-                arrow->getComponent<TransformComponent>().speed.y,
-                arrow->getComponent<TransformComponent>().speed.x
+            // bullet->getComponent<SpriteComponent>().setAngle(90.f);
+
+            /*bullet->getComponent<SpriteComponent>().setAngle(atan2(
+                bullet->getComponent<TransformComponent>().speed.y,
+                bullet->getComponent<TransformComponent>().speed.x
                 )
             );*/
 
-            entity->getScene().root->get_children()[3]->addChild(arrow);
+            entity->getScene().root->get_children()[3]->addChild(bullet);
 
             // std::cout << "Added arrow: " << mouseX << " " << mouseY << std::endl;
 

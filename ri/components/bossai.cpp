@@ -2,6 +2,12 @@
 
 #include <iostream>
 
+#include <zboss/engine.hpp>
+#include <zboss/components/life.hpp>
+#include <zboss/components/sprite.hpp>
+
+#include "simplemapcollider.hpp"
+
 void BossAiComponent::init() {
 
     enableUpdate();
@@ -88,6 +94,27 @@ void BossAiComponent::update() {
                 transform->speed.y = (destinationY - transform->position.y) * 0.1f;
 
                 updateAnimation();
+
+            }
+
+            if (SDL_GetTicks() % 30 == 0) {
+
+                TransformComponent& playerTransform = entity->get_parent()->get_children()[0]->getComponent<TransformComponent>();
+
+                auto bullet = Engine::get().entities().addEntity("fire"s);
+
+                bullet->addComponent<LifeComponent>(1000);
+
+                bullet->addComponent<TransformComponent>(32, 32, transform->position.x, transform->position.y);
+
+                bullet->getComponent<TransformComponent>().speed.y = (playerTransform.position.y - transform->position.y) * 0.05f;
+                bullet->getComponent<TransformComponent>().speed.x = (playerTransform.position.x - transform->position.x) * 0.05f;
+
+                bullet->addComponent<SimpleMapColliderComponent>();
+
+                bullet->addComponent<SpriteComponent>("fire.png");
+
+                entity->getScene().root->get_children()[3]->addChild(bullet);
 
             }
 

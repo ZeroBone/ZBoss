@@ -37,13 +37,13 @@ namespace zboss {
 
         bool in_tree = false;
 
-        std::string name;
-
         std::weak_ptr<Entity> parent;
 
         std::vector<std::shared_ptr<Entity>> children;
 
         public:
+
+        std::string name;
 
         Entity(EntityManager& manager, const std::string& name) : manager(manager), name(name) {}
 
@@ -150,11 +150,11 @@ namespace zboss {
 
         void set_process(bool enabled);
 
-        void send_process();
+        void onUpdate();
 
-        void process();
+        void update();
 
-        void send_draw();
+        void onRender();
 
         void send_enter_tree();
 

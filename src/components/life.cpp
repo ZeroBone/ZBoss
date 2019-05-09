@@ -16,7 +16,8 @@ namespace zboss {
 
         if (currentTicks > startTicks + lifetime) {
 
-            entity->get_parent()->remove_child(entity);
+            // entity->get_parent()->remove_child(entity);
+            entity->destroy();
 
         }
 

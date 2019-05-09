@@ -20,8 +20,6 @@ void HpBarComponent::draw() {
 
     innerRect.w = static_cast<int>(innerWidth * (static_cast<float>(hp) / maxHp));
 
-
-
     Engine::get().renderer().draw_filled_rect(rect, backgroundColor);
 
     Engine::get().renderer().draw_filled_rect(innerRect, hpColor);

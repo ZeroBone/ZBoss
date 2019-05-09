@@ -202,19 +202,27 @@ namespace zboss {
         process_enabled = enabled;
     }
 
-    void Entity::send_process() {
+    void Entity::onUpdate() {
 
         if (has_process()) {
-            process();
+            update();
         }
 
         for (auto& child : get_children()) {
-            child->send_process();
+            child->onUpdate();
+        }
+
+        for (auto& child : get_children()) {
+
+            if (!child->active) {
+                remove_child(child);
+            }
+
         }
 
     }
 
-    void Entity::process() {
+    void Entity::update() {
 
         for (auto& component : components) {
 
@@ -226,12 +234,12 @@ namespace zboss {
 
     }
 
-    void Entity::send_draw() {
+    void Entity::onRender() {
 
         draw();
 
         for (auto& child : children) {
-            child->send_draw();
+            child->onRender();
         }
 
     }

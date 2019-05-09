@@ -10,7 +10,7 @@ namespace zboss {
 
         public:
 
-        SDL_Point box;
+        Vector2D box;
 
         Vector2D position;
 

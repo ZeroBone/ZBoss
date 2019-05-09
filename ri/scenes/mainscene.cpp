@@ -22,7 +22,7 @@ void MainScene::onCreate() {
 
     // player
 
-    auto player = Engine::get().entities().addEntity("test"s);
+    auto player = Engine::get().entities().addEntity("player"s);
 
     player->addComponent<TransformComponent>(static_cast<int>(16 * 3.5f), static_cast<int>(25 * 3.5f), 1200, 1600);
 
@@ -76,7 +76,7 @@ void MainScene::onCreate() {
 
     // boss
 
-    auto boss = Engine::get().entities().addEntity("test"s);
+    auto boss = Engine::get().entities().addEntity("boss"s);
 
     boss->addComponent<TransformComponent>(static_cast<int>(16 * 3.5f), static_cast<int>(25 * 3.5f), 1500, 1700);
 

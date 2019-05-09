@@ -28,13 +28,13 @@ namespace zboss {
 
         virtual void onUpdate() {
 
-            root->send_process();
+            root->onUpdate();
 
         }
 
         void onRender() {
 
-            root->send_draw();
+            root->onRender();
 
         }
 
