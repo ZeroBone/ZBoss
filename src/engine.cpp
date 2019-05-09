@@ -11,7 +11,7 @@ namespace zboss {
             throw InitializeException("B", SDL_GetError());
         }
 
-        // SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+        SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0"); // 0 - nearest, 1 - linear, 2 - anisotropic
 
         if (config.useFonts) {
 
@@ -48,21 +48,6 @@ namespace zboss {
             SDL_RENDERER_ACCELERATED // SDL_RENDERER_TARGETTEXTURE
         ));
 
-        if (config.useAudio) {
-
-            // const int MIX_INIT_EVERYTHING = MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG;
-            /*const int MIX_INIT_EVERYTHING = MIX_INIT_MP3;
-
-            if ((Mix_Init(MIX_INIT_EVERYTHING) & MIX_INIT_EVERYTHING) != MIX_INIT_EVERYTHING) {
-                throw InitializeException("B", Mix_GetError());
-            }
-
-            if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) != 0) {
-                throw InitializeException("B", Mix_GetError());
-            }*/
-
-        }
-
         // start the engine loop
         derivedInstance->run();
 
@@ -77,7 +62,6 @@ namespace zboss {
         frameDelay(static_cast<Uint32>(1000 / fps)),
         _asset_file_locator(std::make_shared<FileLocator>(ZBOSS_SOURCE_DIR)),
         _asset_image_loader(std::make_shared<TextureAssetLoader>()),
-        _asset_audio_loader(std::make_shared<AudioLoader>()),
         _asset_font_loader(std::make_shared<FontLoader>()),
         _asset_tile_map_loader(std::make_shared<TileMapLoader>()) {
 
@@ -101,21 +85,6 @@ namespace zboss {
                 "gif",
                 "tif", "tiff",
                 "lbm", "iff"
-            }
-        );
-
-        _assets.register_loader(
-            _asset_audio_loader,
-            {
-                "wav",
-                "voc",
-                "midi",
-                "mod",
-                "s3m",
-                "it",
-                "xm",
-                "ogg",
-                "mp3"
             }
         );
 

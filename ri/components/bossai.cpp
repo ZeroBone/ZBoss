@@ -7,6 +7,7 @@
 #include <zboss/components/sprite.hpp>
 
 #include "simplemapcollider.hpp"
+#include "entitycollider.hpp"
 
 void BossAiComponent::init() {
 
@@ -111,6 +112,8 @@ void BossAiComponent::update() {
                 bullet->getComponent<TransformComponent>().speed.x = (playerTransform.position.x - transform->position.x) * 0.05f;
 
                 bullet->addComponent<SimpleMapColliderComponent>();
+
+                bullet->addComponent<EntityColliderComponent>("boss", 2);
 
                 bullet->addComponent<SpriteComponent>("fire.png");
 

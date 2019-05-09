@@ -5,6 +5,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+
 #include <zboss/scene.hpp>
 #include <zboss/config.hpp>
 #include <zboss/exceptions.hpp>
@@ -12,13 +13,10 @@
 #include <zboss/assets/manager.hpp>
 #include <zboss/assets/locators/file.hpp>
 #include <zboss/assets/loaders/texture.hpp>
-#include <zboss/assets/loaders/audio.hpp>
 #include <zboss/assets/loaders/font.hpp>
 #include <zboss/assets/loaders/tilemap.hpp>
 
 #include <zboss/renderer.hpp>
-
-#include <zboss/audio/manager.hpp>
 
 namespace zboss {
 
@@ -48,15 +46,11 @@ namespace zboss {
 
         std::shared_ptr<TextureAssetLoader> _asset_image_loader;
 
-        std::shared_ptr<AudioLoader> _asset_audio_loader;
-
         std::shared_ptr<FontLoader> _asset_font_loader;
 
         std::shared_ptr<TileMapLoader> _asset_tile_map_loader;
 
         AssetManager _assets;
-
-        AudioManager _audio;
 
         public:
 
@@ -74,6 +68,8 @@ namespace zboss {
         explicit Engine();
 
         virtual void onCreate() = 0;
+
+        virtual void destroy() {}
 
         private:
 
@@ -96,6 +92,8 @@ namespace zboss {
         }
 
         void onDestroy() {
+
+            destroy();
 
             if (_scene != nullptr) {
                 _scene->onDestroy();
@@ -137,10 +135,6 @@ namespace zboss {
 
         inline Renderer& renderer() {
             return _renderer;
-        }
-
-        inline AudioManager& audio() {
-            return _audio;
         }
 
         inline Scene& scene() {

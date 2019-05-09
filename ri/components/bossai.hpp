@@ -134,8 +134,11 @@ inline bool isDestination(int row, int col, GridPosition dest) {
 // A Utility Function to calculate the 'h' heuristics.
 inline double calculateHValue(int row, int col, GridPosition dest) {
     // Return using the distance formula
-    return ((double) sqrt((row - dest.first) * (row - dest.first)
-                          + (col - dest.second) * (col - dest.second)));
+    /*return ((double) sqrt((row - dest.first) * (row - dest.first)
+                          + (col - dest.second) * (col - dest.second)));*/
+
+    return abs(row - dest.first) + abs(col - dest.second);
+
 }
 
 // A Utility Function to trace the path from the source

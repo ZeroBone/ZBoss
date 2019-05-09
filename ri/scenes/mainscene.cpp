@@ -157,10 +157,4 @@ void MainScene::onCreate() {
     entities->addChild(player);
     entities->addChild(boss);
 
-    // Engine::get().audio().soundtrackmgr.add("audio/music/caketown.mp3");
-    // Engine::get().audio().soundtrackmgr.add("audio/beat.wav");
-    // Engine::get().audio().soundtrackmgr.add("audio/music_wav/caketown.wav");
-    // Engine::get().audio().soundtrackmgr.add("audio/bestmid3/1_rosann.mid");
-    // Engine::get().audio().soundtrackmgr.play();
-
 }

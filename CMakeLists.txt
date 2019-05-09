@@ -31,7 +31,6 @@ set(ZBOSS_HEADERS
         include/zboss/assets/loader.hpp
         include/zboss/assets/cache.hpp
         include/zboss/assets/asset.hpp
-        include/zboss/assets/loaders/audio.hpp
         include/zboss/assets/loaders/font.hpp
         include/zboss/assets/loaders/texture.hpp
         include/zboss/assets/locators/file.hpp
@@ -49,11 +48,9 @@ set(ZBOSS_HEADERS
         include/zboss/components/transform.hpp
         include/zboss/components/animatedsprite.hpp
         include/zboss/components/camerafollow.hpp
-        include/zboss/audio/manager.hpp
-        include/zboss/audio/track.hpp
-        include/zboss/audio/sfx.hpp
         include/zboss/callback.hpp
-        include/zboss/components/life.hpp include/zboss/math/collision.hpp)
+        include/zboss/components/life.hpp
+        include/zboss/math/collision.hpp)
 
 set(ZBOSS_SOURCES
         src/engine.cpp
@@ -63,7 +60,6 @@ set(ZBOSS_SOURCES
         src/components/container.cpp
         src/assets/asset.cpp
         src/assets/manager.cpp
-        src/assets/loaders/audio.cpp
         src/assets/loaders/font.cpp
         src/assets/loaders/texture.cpp
         src/assets/locators/file.cpp
@@ -82,8 +78,8 @@ set(ZBOSS_SOURCES
         src/components/transform.cpp
         src/components/animatedsprite.cpp
         src/components/camerafollow.cpp
-        src/audio/track.cpp src/audio/sfx.cpp
-        src/components/life.cpp src/math/collision.cpp)
+        src/components/life.cpp
+        src/math/collision.cpp)
 
 set(ZBOSS_RI_SOURCES
     ri/main.cpp
@@ -101,7 +97,11 @@ set(ZBOSS_RI_SOURCES
     ri/components/hpbar.cpp
     ri/components/hpbar.hpp
     ri/components/bossai.cpp
-    ri/components/bossai.hpp ri/components/simplemapcollider.cpp ri/components/simplemapcollider.hpp ri/components/entitycollider.cpp ri/components/entitycollider.hpp)
+    ri/components/bossai.hpp
+    ri/components/simplemapcollider.cpp
+    ri/components/simplemapcollider.hpp
+    ri/components/entitycollider.cpp
+    ri/components/entitycollider.hpp)
 
 add_library(zboss SHARED ${ZBOSS_HEADERS} ${ZBOSS_SOURCES})
 
