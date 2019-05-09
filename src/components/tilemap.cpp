@@ -26,19 +26,33 @@ namespace zboss {
 
         TileMap& map = *tileMap->asset();
 
-        SDL_Rect src = {
+        /*SDL_Rect src = {
             .x = 0,
             .y = 0,
             .w = map.width * map.tileWidth,
             .h = map.height * map.tileHeight
+        };*/
+
+        SDL_Rect src = {
+            .x = static_cast<int>(entity->getScene().camera.x / map.scale),
+            .y = static_cast<int>(entity->getScene().camera.y / map.scale),
+            .w = static_cast<int>(Engine::get().vWidth / map.scale),
+            .h = static_cast<int>(Engine::get().vHeight / map.scale)
         };
 
-        SDL_Rect dest;
-        dest.x = -entity->getScene().camera.x;
-        dest.y = -entity->getScene().camera.y;
+//        SDL_Rect dest;
+//        dest.x = -entity->getScene().camera.x;
+//        dest.y = -entity->getScene().camera.y;
+//
+//        dest.w = map.width * map.tileScreenWidth;
+//        dest.h = map.height * map.tileScreenHeight;
 
-        dest.w = map.width * map.tileScreenWidth;
-        dest.h = map.height * map.tileScreenHeight;
+        SDL_Rect dest = {
+            .x = 0,
+            .y = 0,
+            .w = Engine::get().vWidth,
+            .h = Engine::get().vHeight
+        };
 
         // for (auto& layer : map.layers) {
         for (size_t i = startLayer; i != map.layers.size() && i != endLayer; i++) {

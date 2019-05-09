@@ -36,6 +36,8 @@ namespace zboss {
 
     void TileMap::setScale(float scale) {
 
+        this->scale = scale;
+
         tileScreenWidth = static_cast<uint16_t>(tileWidth * scale);
 
         tileScreenHeight = static_cast<uint16_t>(tileHeight * scale);

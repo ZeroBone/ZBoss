@@ -24,6 +24,8 @@ namespace zboss {
 
         float version;
 
+        float scale;
+
         int width;
 
         int height;
