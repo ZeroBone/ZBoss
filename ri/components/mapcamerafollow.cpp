@@ -8,6 +8,7 @@ void MapCameraFollowComponent::update() {
 
     TileMap* gameMap = entity
         ->get_parent()
+        ->get_parent()
         ->get_children()[0]
         ->getComponent<MyTileMapComponent>().tileMap->asset();
 

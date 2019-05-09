@@ -2,6 +2,8 @@
 
 #include "mytilemap.hpp"
 
+using namespace std::literals;
+
 bool MovementControllerComponent::input() {
 
     SDL_Event& event = Engine::get().currentEvent;
@@ -61,6 +63,40 @@ bool MovementControllerComponent::input() {
 
         }
 
+        case SDL_MOUSEBUTTONDOWN: {
+
+            int mouseX;
+            int mouseY;
+
+            entity->getScene().worldMouseState(&mouseX, &mouseY);
+
+            auto arrow = Engine::get().entities().addEntity("arrow"s);
+
+            arrow->addComponent<LifeComponent>(1000);
+
+            arrow->addComponent<TransformComponent>(32, 32, transform->position.x, transform->position.y);
+
+            arrow->getComponent<TransformComponent>().speed.y = static_cast<int>((mouseY - transform->position.y) * 0.02);
+            arrow->getComponent<TransformComponent>().speed.x = static_cast<int>((mouseX - transform->position.x) * 0.02);
+
+            arrow->addComponent<SpriteComponent>("bullet.png");
+
+            // arrow->getComponent<SpriteComponent>().setAngle(90.f);
+
+            /*arrow->getComponent<SpriteComponent>().setAngle(atan2(
+                arrow->getComponent<TransformComponent>().speed.y,
+                arrow->getComponent<TransformComponent>().speed.x
+                )
+            );*/
+
+            entity->getScene().root->get_children()[3]->addChild(arrow);
+
+            // std::cout << "Added arrow: " << mouseX << " " << mouseY << std::endl;
+
+            break;
+
+        }
+
         default:
             break;
 
@@ -75,6 +111,7 @@ void MovementControllerComponent::update() {
     transform->speed = queuedSpeed;
 
     MyTileMapComponent& gameMap = entity
+        ->get_parent()
         ->get_parent()
         ->get_children()[0]
         ->getComponent<MyTileMapComponent>();
@@ -235,7 +272,7 @@ void MovementControllerComponent::update() {
 
     if (collidedX && collidedY) {
 
-        // return;
+        return;
 
     }
 

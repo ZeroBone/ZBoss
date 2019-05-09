@@ -48,7 +48,10 @@ set(ZBOSS_HEADERS
         include/zboss/tilemap/layers/layer.hpp
         include/zboss/components/transform.hpp
         include/zboss/components/animatedsprite.hpp
-        include/zboss/components/camerafollow.hpp)
+        include/zboss/components/camerafollow.hpp
+        include/zboss/audio/manager.hpp
+        include/zboss/audio/track.hpp
+        include/zboss/audio/sfx.hpp include/zboss/callback.hpp include/zboss/components/life.hpp)
 
 set(ZBOSS_SOURCES
         src/engine.cpp
@@ -74,7 +77,10 @@ set(ZBOSS_SOURCES
         src/components/tilemap.cpp
         src/scene.cpp
         src/tilemap/layers/layer.cpp
-        src/components/transform.cpp src/components/animatedsprite.cpp src/components/camerafollow.cpp)
+        src/components/transform.cpp
+        src/components/animatedsprite.cpp
+        src/components/camerafollow.cpp
+        src/audio/track.cpp src/audio/sfx.cpp src/components/life.cpp)
 
 set(ZBOSS_RI_SOURCES
     ri/main.cpp
@@ -85,7 +91,10 @@ set(ZBOSS_RI_SOURCES
     ri/components/movementcontroller.cpp
     ri/scenes/mainscene.cpp
     ri/components/mytilemap.hpp
-    ri/components/mytilemap.hpp ri/components/mytilemap.cpp ri/components/mapcamerafollow.cpp ri/components/mapcamerafollow.hpp)
+    ri/components/mytilemap.hpp
+    ri/components/mytilemap.cpp
+    ri/components/mapcamerafollow.cpp
+    ri/components/mapcamerafollow.hpp ri/components/hpbar.cpp ri/components/hpbar.hpp)
 
 add_library(zboss SHARED ${ZBOSS_HEADERS} ${ZBOSS_SOURCES})
 

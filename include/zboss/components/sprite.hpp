@@ -19,8 +19,6 @@ namespace zboss {
 
         void setSprite(const std::string& assetname);
 
-        void flip(SDL_RendererFlip flip);
-
         void init() override;
 
         void draw() override;
@@ -28,8 +26,6 @@ namespace zboss {
         private:
 
         std::shared_ptr<TextureAsset> sprite;
-
-        SDL_RendererFlip _flip = SDL_FLIP_NONE;
 
     };
 

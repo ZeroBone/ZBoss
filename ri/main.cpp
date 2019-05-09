@@ -8,7 +8,8 @@ int main(int argc, char *argv[]) {
         .height = 480,
         .resizable = true,
         .maximise = true,
-        .useFonts = true
+        .useFonts = true,
+        .useAudio = true
     };
 
     Game game;

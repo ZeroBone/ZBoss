@@ -14,12 +14,15 @@
 #include "../components/mytilemap.hpp"
 #include "../components/mapcamerafollow.hpp"
 #include "../components/movementcontroller.hpp"
+#include "../components/hpbar.hpp"
 
 using namespace zboss;
 
 using namespace std::literals;
 
 class MainScene : public zboss::Scene {
+
+    public:
 
     void onCreate() override;
 

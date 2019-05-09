@@ -4,8 +4,10 @@
 #include <SDL2/SDL.h>
 #include <zboss/engine.hpp>
 #include <zboss/components/transform.hpp>
+#include <zboss/components/sprite.hpp>
 #include <zboss/components/animatedsprite.hpp>
 #include <zboss/components/tilemap.hpp>
+#include <zboss/components/life.hpp>
 
 using namespace zboss;
 

@@ -18,6 +18,8 @@
 
 #include <zboss/renderer.hpp>
 
+#include <zboss/audio/manager.hpp>
+
 namespace zboss {
 
     class Engine {
@@ -53,6 +55,8 @@ namespace zboss {
         std::shared_ptr<TileMapLoader> _asset_tile_map_loader;
 
         AssetManager _assets;
+
+        AudioManager _audio;
 
         public:
 
@@ -127,9 +131,17 @@ namespace zboss {
             return entityManager;
         }
 
-        AssetManager& assets();
+        inline AssetManager& assets() {
+            return _assets;
+        }
 
-        Renderer& renderer();
+        inline Renderer& renderer() {
+            return _renderer;
+        }
+
+        inline AudioManager& audio() {
+            return _audio;
+        }
 
         inline Scene& scene() {
             return *_scene;

@@ -12,6 +12,7 @@ namespace zboss {
         bool maximise;
 
         bool useFonts;
+        bool useAudio;
 
     };
 

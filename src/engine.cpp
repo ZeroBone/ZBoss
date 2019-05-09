@@ -11,6 +11,8 @@ namespace zboss {
             throw InitializeException("B", SDL_GetError());
         }
 
+        // SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+
         if (config.useFonts) {
 
             if (TTF_Init() != 0) {
@@ -19,7 +21,7 @@ namespace zboss {
 
         }
 
-        Uint32 windowFlags = SDL_WINDOW_OPENGL;
+        Uint32 windowFlags = SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI;
 
         if (config.maximise) {
             windowFlags |= SDL_WINDOW_MAXIMIZED;
@@ -46,6 +48,21 @@ namespace zboss {
             SDL_RENDERER_ACCELERATED // SDL_RENDERER_TARGETTEXTURE
         ));
 
+        if (config.useAudio) {
+
+            // const int MIX_INIT_EVERYTHING = MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG;
+            /*const int MIX_INIT_EVERYTHING = MIX_INIT_MP3;
+
+            if ((Mix_Init(MIX_INIT_EVERYTHING) & MIX_INIT_EVERYTHING) != MIX_INIT_EVERYTHING) {
+                throw InitializeException("B", Mix_GetError());
+            }
+
+            if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) != 0) {
+                throw InitializeException("B", Mix_GetError());
+            }*/
+
+        }
+
         // start the engine loop
         derivedInstance->run();
 
@@ -57,7 +74,7 @@ namespace zboss {
 
     Engine::Engine() :
         fps(60),
-        frameDelay(1000 / fps),
+        frameDelay(static_cast<Uint32>(1000 / fps)),
         _asset_file_locator(std::make_shared<FileLocator>(ZBOSS_SOURCE_DIR)),
         _asset_image_loader(std::make_shared<TextureAssetLoader>()),
         _asset_audio_loader(std::make_shared<AudioLoader>()),
@@ -223,14 +240,6 @@ namespace zboss {
             _scene->onPause();
         }
 
-    }
-
-    AssetManager& Engine::assets() {
-        return _assets;
-    }
-
-    Renderer& Engine::renderer() {
-        return _renderer;
     }
 
 }

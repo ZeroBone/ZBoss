@@ -28,21 +28,13 @@ namespace zboss {
 
         virtual void onUpdate() {
 
-            if (root != nullptr) { // TODO: remove this check
-
-                root->send_process();
-
-            }
+            root->send_process();
 
         }
 
         void onRender() {
 
-            if (root != nullptr) { // TODO: remove this check
-
-                root->send_draw();
-
-            }
+            root->send_draw();
 
         }
 
@@ -58,6 +50,25 @@ namespace zboss {
 
         void onResume() {}
 
+        inline int getWorldX(int screenX) {
+            return camera.x + screenX;
+        }
+
+        inline int getWorldY(int screenY) {
+            return camera.y + screenY;
+        }
+
+        void worldMouseState(int* worldX, int* worldY) {
+
+            int mouseX;
+            int mouseY;
+
+            SDL_GetMouseState(&mouseX, &mouseY);
+
+            *worldX = getWorldX(mouseX);
+            *worldY = getWorldY(mouseY);
+
+        }
 
     };
 

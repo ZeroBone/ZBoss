@@ -44,8 +44,7 @@ namespace zboss {
 
         bool draw_ellipse(const Vector2D& center, int hradius, int vradius, float angle, const SDL_Color& color);
 
-        bool
-        draw_ellipse(const Vector2D& center, int hradius, int vradius, SDL_RendererFlip flip, const SDL_Color& color);
+        bool draw_ellipse(const Vector2D& center, int hradius, int vradius, SDL_RendererFlip flip, const SDL_Color& color);
 
         bool draw_ellipse(const Vector2D& center, int hradius, int vradius, float angle, SDL_RendererFlip flip,
                           const SDL_Color& color);
