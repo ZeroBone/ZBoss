@@ -106,7 +106,7 @@ class GridCell {
 // is a valid cell or not.
 
 template <int ROW, int COL>
-static bool isValid(int row, int col) {
+inline bool isValid(int row, int col) {
 
     // Returns true if row number and column number
     // is in range
@@ -118,7 +118,7 @@ static bool isValid(int row, int col) {
 // blocked or not
 
 template <class T, int COL>
-static bool isUnBlocked(T* grid, int row, int col) {
+inline bool isUnBlocked(T* grid, int row, int col) {
 
     // Returns true if the cell is not blocked else false
     return grid[row * COL + col] == 0; // == 1
@@ -127,12 +127,12 @@ static bool isUnBlocked(T* grid, int row, int col) {
 
 // A Utility Function to check whether destination cell has
 // been reached or not
-static bool isDestination(int row, int col, GridPosition dest) {
+inline bool isDestination(int row, int col, GridPosition dest) {
     return row == dest.first && col == dest.second;
 }
 
 // A Utility Function to calculate the 'h' heuristics.
-static double calculateHValue(int row, int col, GridPosition dest) {
+inline double calculateHValue(int row, int col, GridPosition dest) {
     // Return using the distance formula
     return ((double) sqrt((row - dest.first) * (row - dest.first)
                           + (col - dest.second) * (col - dest.second)));
@@ -209,7 +209,7 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
     // Create a closed list and initialise it to false which means
     // that no cell has been included yet
     // This closed list is implemented as a boolean 2D array
-    bool closedList[ROW][COL];
+    static bool closedList[ROW][COL];
 
     memset(closedList, false, sizeof(closedList));
 
@@ -251,10 +251,6 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
     // 'f' as 0
     // openList.insert(HeuristicGridPosition(0., i, j));
     openList.insert(make_pair(0., GridPosition(i, j)));
-
-    // We set this boolean value as false as initially
-    // the destination is not reached.
-    bool foundDest = false;
 
     while (!openList.empty()) {
 
@@ -309,7 +305,7 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 
                 
                 tracePath<ROW, COL>(result, cellDetails, dest);
-                foundDest = true;
+
                 return true;
 
             }
@@ -360,7 +356,7 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 cellDetails[i + 1][j].parent_j = j;
                 
                 tracePath<ROW, COL>(result, cellDetails, dest);
-                foundDest = true;
+
                 return true;
 
             }
@@ -410,7 +406,7 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 cellDetails[i][j + 1].parent_j = j;
                 
                 tracePath<ROW, COL>(result, cellDetails, dest);
-                foundDest = true;
+
                 return true;
 
             }
@@ -462,7 +458,7 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 cellDetails[i][j - 1].parent_j = j;
                 
                 tracePath<ROW, COL>(result, cellDetails, dest);
-                foundDest = true;
+
                 return true;
 
             }
@@ -514,7 +510,7 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 cellDetails[i - 1][j + 1].parent_j = j;
                 
                 tracePath<ROW, COL>(result, cellDetails, dest);
-                foundDest = true;
+
                 return true;
 
             }
@@ -566,7 +562,7 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 cellDetails[i - 1][j - 1].parent_j = j;
                 
                 tracePath<ROW, COL>(result, cellDetails, dest);
-                foundDest = true;
+
                 return true;
 
             }
@@ -621,8 +617,6 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 
                 tracePath<ROW, COL>(result, cellDetails, dest);
 
-                foundDest = true; // TODO: remove all foundDest = true; statements
-
                 return true;
 
             }
@@ -675,7 +669,6 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 
 
                 tracePath<ROW, COL>(result, cellDetails, dest);
-                foundDest = true;
 
                 return true;
 

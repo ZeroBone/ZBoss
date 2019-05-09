@@ -12,6 +12,8 @@ class MyTileMapComponent : public TileMapComponent {
 
     public:
 
+    bool isTileWall(int tileX, int tileY);
+
     bool isPositionWall(float x, float y);
 
     explicit MyTileMapComponent(const std::string& tileMapName, float scale = 1.f, uint16_t specialTiles = 0) :

@@ -1,6 +1,7 @@
 #include "movementcontroller.hpp"
 
 #include "mytilemap.hpp"
+#include "simplemapcollider.hpp"
 
 using namespace std::literals;
 
@@ -78,6 +79,8 @@ bool MovementControllerComponent::input() {
 
             arrow->getComponent<TransformComponent>().speed.y = static_cast<float>((mouseY - transform->position.y) * 0.02);
             arrow->getComponent<TransformComponent>().speed.x = static_cast<float>((mouseX - transform->position.x) * 0.02);
+
+            arrow->addComponent<SimpleMapColliderComponent>();
 
             arrow->addComponent<SpriteComponent>("bullet.png");
 

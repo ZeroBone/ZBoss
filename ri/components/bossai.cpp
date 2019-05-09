@@ -38,9 +38,11 @@ void BossAiComponent::update() {
 
             bool success = aStarSearch<uint16_t, 96, 96>(path, t, bossPosition, playerPosition);
 
-            std::cout << "Success: " << success << std::endl;
+            // std::cout << "Success: " << success << std::endl;
 
-            if (success) state = BOSS_FOLLOWING;
+            if (success) {
+                state = BOSS_FOLLOWING;
+            }
 
             // std::cout << "Boss - Player X: " << playerTransform.position.x << " Y: " << playerTransform.position.y << std::endl;
             // std::cout << "Boss - Player Tile X: " << playerTileX << std::endl;

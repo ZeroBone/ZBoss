@@ -45,7 +45,7 @@ void MainScene::onCreate() {
 
     }
 
-    player->addComponent<HpBarComponent>(50, 100);
+    player->addComponent<HpBarComponent>(100, 100);
 
     {
 

@@ -25,3 +25,11 @@ bool MyTileMapComponent::isPositionWall(float x, float y) {
     return collisionTileId != 0;
 
 }
+
+bool MyTileMapComponent::isTileWall(int tileX, int tileY) {
+
+    int tMapWidth = tileMap->asset()->width;
+
+    return tileMap->asset()->layers[tileMap->asset()->layerNameIndex("collision")].tiles[tileY * tMapWidth + tileX] != 0;
+
+}
