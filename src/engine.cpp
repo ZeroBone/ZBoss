@@ -97,6 +97,8 @@ namespace zboss {
 
         running = true;
 
+        SDL_GetRendererOutputSize(renderer().renderer, &vWidth, &vHeight);
+
         onCreate();
 
         onResize();
@@ -166,8 +168,6 @@ namespace zboss {
     }
 
     void Engine::onResize() {
-        
-        SDL_GetRendererOutputSize(renderer().renderer, &vWidth, &vHeight);
 
         if (_scene != nullptr) {
             _scene->onResize();

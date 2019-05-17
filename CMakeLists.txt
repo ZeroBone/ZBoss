@@ -15,6 +15,17 @@ find_package(SDL2_gfx REQUIRED)
 
 # include_directories(${SDL2_INCLUDE_DIR})
 
+#include(ExternalProject)
+#
+#ExternalProject_Add (
+#        nanogui
+#        SOURCE_DIR "${zboss_SOURCE_DIR}/nanogui/"
+#        # GIT_REPOSITORY "<git_repo_url>"
+#        # GIT_TAG "<git_tag_commit_or_branch>"
+#        #UPDATE_COMMAND ""
+#        #INSTALL_COMMAND ""
+#)
+
 set(ZBOSS_HEADERS
         include/zboss/engine.hpp
         include/zboss/exceptions.hpp
@@ -50,7 +61,7 @@ set(ZBOSS_HEADERS
         include/zboss/components/camerafollow.hpp
         include/zboss/callback.hpp
         include/zboss/components/life.hpp
-        include/zboss/math/collision.hpp)
+        include/zboss/math/collision.hpp include/zboss/components/ui/label.hpp include/zboss/components/click.hpp)
 
 set(ZBOSS_SOURCES
         src/engine.cpp
@@ -79,7 +90,7 @@ set(ZBOSS_SOURCES
         src/components/animatedsprite.cpp
         src/components/camerafollow.cpp
         src/components/life.cpp
-        src/math/collision.cpp)
+        src/math/collision.cpp src/components/ui/label.cpp src/components/click.cpp)
 
 set(ZBOSS_RI_SOURCES
     ri/main.cpp
@@ -101,7 +112,7 @@ set(ZBOSS_RI_SOURCES
     ri/components/simplemapcollider.cpp
     ri/components/simplemapcollider.hpp
     ri/components/entitycollider.cpp
-    ri/components/entitycollider.hpp)
+    ri/components/entitycollider.hpp ri/scenes/menuscene.cpp ri/scenes/menuscene.hpp ri/components/ui/entry.cpp ri/components/ui/entry.hpp ri/scenes/splashscene.cpp ri/scenes/splashscene.hpp ri/scenes/gamerules.cpp ri/scenes/gamerules.hpp)
 
 add_library(zboss SHARED ${ZBOSS_HEADERS} ${ZBOSS_SOURCES})
 

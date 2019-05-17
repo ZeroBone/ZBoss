@@ -22,7 +22,17 @@ bool MyTileMapComponent::isPositionWall(float x, float y) {
 
     // std::cout << collisionTileId << std::endl;
 
-    return collisionTileId != 0;
+    // return collisionTileId != 0;
+
+    if (specialTilesMap.find(collisionTileId) == specialTilesMap.end()) {
+        return false;
+    }
+
+    return specialTilesMap.at(collisionTileId)(
+        static_cast<int>(x) % tileMap->asset()->tileScreenWidth,
+        static_cast<int>(y) % tileMap->asset()->tileScreenHeight,
+        tileMap->asset()->tileScreenWidth
+    );
 
 }
 

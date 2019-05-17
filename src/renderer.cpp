@@ -114,7 +114,7 @@ namespace zboss {
 
     }
 
-    bool Renderer::draw_point(const Vector2D& pos, const SDL_Color& color) {
+    bool Renderer::renderPoint(const Vector2D& pos, const SDL_Color& color) {
         return draw_with_color(
             [&]() {
                 if (SDL_RenderDrawPoint(renderer, pos.x, pos.y) != 0) {

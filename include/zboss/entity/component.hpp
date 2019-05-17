@@ -10,7 +10,11 @@ namespace zboss {
 
     class EntityComponent {
 
+        friend class Entity;
+
         private:
+
+        size_t id;
 
         bool hasInput = false;
 
@@ -23,7 +27,7 @@ namespace zboss {
         std::shared_ptr<Entity> entity;
         // Entity* entity;
 
-        virtual void init() {}
+        virtual void init() = 0;
 
         virtual void enter_tree() {}
 

@@ -27,6 +27,10 @@ void EntityColliderComponent::update() {
 
             entity->destroy();
 
+            if (!entityInTree->hasComponent<HpBarComponent>()) {
+                continue;
+            }
+
             HpBarComponent& hpBarComponent = entityInTree->getComponent<HpBarComponent>();
 
             hpBarComponent.hp -= damage;

@@ -14,6 +14,8 @@ namespace zboss {
 
         static bool pointInRect(const Vector2D& point, const Vector2D& rectPosition, const Vector2D& rectSize);
 
+        static bool pointInSDLRect(int x, int y, int rx, int ry, int rw, int rh);
+
     };
 
 }

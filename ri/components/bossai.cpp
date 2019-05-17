@@ -21,6 +21,8 @@ void BossAiComponent::init() {
 
 void BossAiComponent::update() {
 
+    // return;
+
     switch (state) {
 
         case BOSS_LOOKING: {
@@ -98,7 +100,33 @@ void BossAiComponent::update() {
 
             }
 
-            if (SDL_GetTicks() % 30 == 0) {
+            if (SDL_GetTicks() % 250 == 0) {
+
+                TransformComponent& playerTransform = entity->get_parent()->get_children()[0]->getComponent<TransformComponent>();
+
+                for (double d = 0; d < 6.28; d += (6.28 / 12.f)) {
+
+                    auto bullet = Engine::get().entities().addEntity("fire"s);
+
+                    bullet->addComponent<LifeComponent>(5000);
+
+                    bullet->addComponent<TransformComponent>(32, 32, transform->position.x, transform->position.y);
+
+                    bullet->getComponent<TransformComponent>().speed.x = static_cast<float>(cos(d)) * 3.f;
+                    bullet->getComponent<TransformComponent>().speed.y = static_cast<float>(sin(d)) * 3.f;
+
+                    bullet->addComponent<SimpleMapColliderComponent>();
+
+                    bullet->addComponent<EntityColliderComponent>("boss", 2);
+
+                    bullet->addComponent<SpriteComponent>("fire.png");
+
+                    entity->getScene().root->get_children()[3]->addChild(bullet);
+
+                }
+
+            }
+            else if (SDL_GetTicks() % 30 == 0) {
 
                 TransformComponent& playerTransform = entity->get_parent()->get_children()[0]->getComponent<TransformComponent>();
 
@@ -108,8 +136,13 @@ void BossAiComponent::update() {
 
                 bullet->addComponent<TransformComponent>(32, 32, transform->position.x, transform->position.y);
 
-                bullet->getComponent<TransformComponent>().speed.y = (playerTransform.position.y - transform->position.y) * 0.05f;
-                bullet->getComponent<TransformComponent>().speed.x = (playerTransform.position.x - transform->position.x) * 0.05f;
+                // bullet->getComponent<TransformComponent>().speed.y = (playerTransform.position.y - transform->position.y) * 0.05f;
+                // bullet->getComponent<TransformComponent>().speed.x = (playerTransform.position.x - transform->position.x) * 0.05f;
+
+                double angle = atan2(playerTransform.position.y - transform->position.y, playerTransform.position.x - transform->position.x);
+
+                bullet->getComponent<TransformComponent>().speed.x = static_cast<float>(cos(angle)) * 12;
+                bullet->getComponent<TransformComponent>().speed.y = static_cast<float>(sin(angle)) * 12;
 
                 bullet->addComponent<SimpleMapColliderComponent>();
 

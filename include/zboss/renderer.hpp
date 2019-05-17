@@ -24,7 +24,7 @@ namespace zboss {
 
         void present();
 
-        bool draw_point(const Vector2D& pos, const SDL_Color& color);
+        bool renderPoint(const Vector2D& pos, const SDL_Color& color);
 
         bool drawLine(const Vector2D& start, const Vector2D& end, const SDL_Color& color);
 

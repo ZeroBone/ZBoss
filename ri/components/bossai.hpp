@@ -20,7 +20,8 @@ using namespace std;
 
 typedef enum {
     BOSS_LOOKING,
-    BOSS_FOLLOWING
+    BOSS_FOLLOWING,
+    BOSS_VICTORY
 } BossState;
 
 // class GridPosition;
@@ -33,11 +34,11 @@ class BossAiComponent : public EntityComponent {
 
     TransformComponent* transform;
 
-    BossState state;
-
     stack<GridPosition> path;
 
     public:
+
+    BossState state;
 
     explicit BossAiComponent() = default;
 
@@ -65,12 +66,15 @@ class BossAiComponent : public EntityComponent {
 
 };*/
 
+// typedef double HeuristicType;
+typedef int HeuristicType;
+
 // Creating a shortcut for int, int pair type
 
 // Creating a shortcut for pair<int, pair<int, int>> type
 // typedef pair<double, pair<int, int>> pPair;
 
-typedef std::pair<double, GridPosition> HeuristicGridPosition;
+typedef std::pair<HeuristicType, GridPosition> HeuristicGridPosition;
 
 /*class HeuristicGridPosition : public GridPosition {
 
@@ -98,7 +102,7 @@ class GridCell {
     int parent_i, parent_j;
 
     // f = g + h
-    double f, g, h;
+    HeuristicType f, g, h;
 
 };
 
@@ -132,12 +136,12 @@ inline bool isDestination(int row, int col, GridPosition dest) {
 }
 
 // A Utility Function to calculate the 'h' heuristics.
-inline double calculateHValue(int row, int col, GridPosition dest) {
+inline HeuristicType calculateHValue(int row, int col, GridPosition dest) {
     // Return using the distance formula
     /*return ((double) sqrt((row - dest.first) * (row - dest.first)
                           + (col - dest.second) * (col - dest.second)));*/
 
-    return abs(row - dest.first) + abs(col - dest.second);
+    return static_cast<HeuristicType>(abs(row - dest.first) + abs(col - dest.second));
 
 }
 
@@ -290,7 +294,7 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
          S.W--> South-West  (i+1, j-1)*/
 
         // To store the 'g', 'h' and 'f' of the 8 successors
-        double gNew, hNew, fNew;
+        HeuristicType gNew, hNew, fNew;
 
         //----------- 1st Successor (North) ------------
 

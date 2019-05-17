@@ -21,10 +21,17 @@ namespace zboss {
             float rotation;
         } pivot;*/
 
-        explicit TransformComponent(int width, int height, float x = 0, float y = 0) {
+        explicit TransformComponent(int width, int height, float x, float y) {
 
             box.x = width;
             box.y = height;
+
+            position.x = x;
+            position.y = y;
+
+        }
+
+        explicit TransformComponent(float x, float y) {
 
             position.x = x;
             position.y = y;

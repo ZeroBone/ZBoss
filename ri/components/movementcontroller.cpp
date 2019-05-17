@@ -78,8 +78,13 @@ bool MovementControllerComponent::input() {
 
             bullet->addComponent<TransformComponent>(32, 32, transform->position.x, transform->position.y);
 
-            bullet->getComponent<TransformComponent>().speed.y = (mouseY - transform->position.y) * 0.02f;
-            bullet->getComponent<TransformComponent>().speed.x = (mouseX - transform->position.x) * 0.02f;
+            // bullet->getComponent<TransformComponent>().speed.y = (mouseY - transform->position.y) * 0.02f;
+            // bullet->getComponent<TransformComponent>().speed.x = (mouseX - transform->position.x) * 0.02f;
+
+            double angle = atan2(mouseY - transform->position.y, mouseX - transform->position.x);
+
+            bullet->getComponent<TransformComponent>().speed.x = static_cast<float>(cos(angle)) * 10;
+            bullet->getComponent<TransformComponent>().speed.y = static_cast<float>(sin(angle)) * 10;
 
             bullet->addComponent<SimpleMapColliderComponent>();
 
@@ -147,9 +152,7 @@ void MovementControllerComponent::update() {
             transform->speed.x = 0;
 
         }
-        else if (
-            gameMap.isPositionWall(newX + bodyHalfWidth, transform->position.y + bodyQuaterHeight)
-            ) {
+        else if (gameMap.isPositionWall(newX + bodyHalfWidth, transform->position.y + bodyQuaterHeight)) {
             // right
 
             collidedX = true;
@@ -157,9 +160,7 @@ void MovementControllerComponent::update() {
             transform->speed.x = 0;
 
         }
-        else if (
-            gameMap.isPositionWall(newX, transform->position.y + bodyHalfHeight)
-            ) {
+        else if (gameMap.isPositionWall(newX, transform->position.y + bodyHalfHeight)) {
             // down
 
             collidedX = true;
@@ -179,9 +180,7 @@ void MovementControllerComponent::update() {
             transform->speed.x = 0;
 
         }
-        else if (
-            gameMap.isPositionWall(newX - bodyHalfWidth, transform->position.y + bodyQuaterHeight)
-            ) {
+        else if (gameMap.isPositionWall(newX - bodyHalfWidth, transform->position.y + bodyQuaterHeight)) {
             // left
 
             collidedX = true;
@@ -189,9 +188,7 @@ void MovementControllerComponent::update() {
             transform->speed.x = 0;
 
         }
-        else if (
-            gameMap.isPositionWall(newX, transform->position.y + bodyHalfHeight)
-            ) {
+        else if (gameMap.isPositionWall(newX, transform->position.y + bodyHalfHeight)) {
             // down
 
             collidedX = true;
@@ -207,9 +204,7 @@ void MovementControllerComponent::update() {
     if (transform->speed.y > 0) {
         // going down
 
-        if (
-            gameMap.isPositionWall(transform->position.x, newY + bodyHalfHeight)
-            ) {
+        if (gameMap.isPositionWall(transform->position.x, newY + bodyHalfHeight)) {
             // down
 
             collidedY = true;
@@ -217,9 +212,7 @@ void MovementControllerComponent::update() {
             transform->speed.y = 0;
 
         }
-        else if (
-            gameMap.isPositionWall(transform->position.x - bodyHalfWidth, newY + bodyQuaterHeight)
-            ) {
+        else if (gameMap.isPositionWall(transform->position.x - bodyHalfWidth, newY + bodyQuaterHeight)) {
             // left
 
             collidedY = true;
@@ -227,9 +220,7 @@ void MovementControllerComponent::update() {
             transform->speed.y = 0;
 
         }
-        else if (
-            gameMap.isPositionWall(transform->position.x + bodyHalfWidth, newY + bodyQuaterHeight)
-            ) {
+        else if (gameMap.isPositionWall(transform->position.x + bodyHalfWidth, newY + bodyQuaterHeight)) {
             // right
 
             collidedY = true;

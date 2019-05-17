@@ -22,7 +22,8 @@ void MainScene::onCreate() {
 
     // player
 
-    auto player = Engine::get().entities().addEntity("player"s);
+    // auto player = Engine::get().entities().addEntity("player"s);
+    player = Engine::get().entities().addEntity("player"s);
 
     player->addComponent<TransformComponent>(static_cast<int>(16 * 3.5f), static_cast<int>(25 * 3.5f), 1200, 1600);
 
@@ -76,7 +77,7 @@ void MainScene::onCreate() {
 
     // boss
 
-    auto boss = Engine::get().entities().addEntity("boss"s);
+    boss = Engine::get().entities().addEntity("boss"s);
 
     boss->addComponent<TransformComponent>(static_cast<int>(16 * 3.5f), static_cast<int>(25 * 3.5f), 1500, 1700);
 
@@ -156,5 +157,54 @@ void MainScene::onCreate() {
 
     entities->addChild(player);
     entities->addChild(boss);
+
+}
+
+void MainScene::onUpdate() {
+
+    Scene::onUpdate();
+
+    if (!playerDead && player->getComponent<HpBarComponent>().hp == 0) {
+
+        playerDead = true;
+
+        player->getComponent<TransformComponent>().speed.x = 0;
+        player->getComponent<TransformComponent>().speed.y = 0;
+
+        player->removeComponent<MovementControllerComponent>();
+
+        player->removeComponent<AnimatedSpriteComponent>();
+
+        player->removeComponent<HpBarComponent>();
+
+        player->addComponent<SpriteComponent>("grave.png");
+
+        // stop boss
+
+        boss->getComponent<TransformComponent>().speed.x = 0;
+        boss->getComponent<TransformComponent>().speed.y = 0;
+
+        boss->getComponent<AnimatedSpriteComponent>().stop();
+
+        boss->getComponent<BossAiComponent>().state = BOSS_VICTORY;
+
+    }
+
+    if (!bossDead && boss->getComponent<HpBarComponent>().hp == 0 && !playerDead) {
+
+        bossDead = true;
+
+        boss->getComponent<TransformComponent>().speed.x = 0;
+        boss->getComponent<TransformComponent>().speed.y = 0;
+
+        boss->removeComponent<AnimatedSpriteComponent>();
+
+        boss->removeComponent<BossAiComponent>();
+
+        boss->removeComponent<HpBarComponent>();
+
+        boss->addComponent<SpriteComponent>("grave.png");
+
+    }
 
 }

@@ -45,7 +45,7 @@ namespace zboss {
 
         std::string name;
 
-        Entity(EntityManager& manager, const std::string& name) : manager(manager), name(name) {}
+        explicit Entity(EntityManager& manager, const std::string& name) : manager(manager), name(name) {}
 
         // void update();
 
@@ -77,6 +77,8 @@ namespace zboss {
 
             std::unique_ptr<EntityComponent> uPtr{c};
 
+            c->id = components.size();
+
             components.emplace_back(std::move(uPtr));
 
             componentMap[std::type_index(typeid(T))] = c;
@@ -90,6 +92,21 @@ namespace zboss {
             return *c;
 
         }
+
+        template <class T>
+        void removeComponent() {
+
+            auto comp = componentMap.at(std::type_index(typeid(T)));
+
+            components.erase(components.begin() + comp->id);
+
+            for (auto i = components.begin() + comp->id; i < components.end(); i++) {
+                (*i)->id--;
+            }
+
+            componentMap.erase(std::type_index(typeid(T)));
+
+        };
 
         template <class T>
         T& getComponent() const {

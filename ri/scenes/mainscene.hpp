@@ -21,11 +21,22 @@ using namespace zboss;
 
 using namespace std::literals;
 
-class MainScene : public zboss::Scene {
+class MainScene : public Scene {
+
+    private:
+
+    bool playerDead = false;
+    bool bossDead = false;
+
+    std::shared_ptr<Entity> player;
+
+    std::shared_ptr<Entity> boss;
 
     public:
 
     void onCreate() override;
+
+    void onUpdate() override;
 
     void onDestroy() override {}
 
