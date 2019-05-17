@@ -61,7 +61,7 @@ set(ZBOSS_HEADERS
         include/zboss/components/camerafollow.hpp
         include/zboss/callback.hpp
         include/zboss/components/life.hpp
-        include/zboss/math/collision.hpp include/zboss/components/ui/label.hpp include/zboss/components/click.hpp)
+        include/zboss/math/collision.hpp include/zboss/components/ui/label.hpp include/zboss/components/click.hpp include/zboss/components/ui/textfield.hpp)
 
 set(ZBOSS_SOURCES
         src/engine.cpp
@@ -90,7 +90,7 @@ set(ZBOSS_SOURCES
         src/components/animatedsprite.cpp
         src/components/camerafollow.cpp
         src/components/life.cpp
-        src/math/collision.cpp src/components/ui/label.cpp src/components/click.cpp)
+        src/math/collision.cpp src/components/ui/label.cpp src/components/click.cpp src/components/ui/textfield.cpp)
 
 set(ZBOSS_RI_SOURCES
     ri/main.cpp
@@ -112,7 +112,10 @@ set(ZBOSS_RI_SOURCES
     ri/components/simplemapcollider.cpp
     ri/components/simplemapcollider.hpp
     ri/components/entitycollider.cpp
-    ri/components/entitycollider.hpp ri/scenes/menuscene.cpp ri/scenes/menuscene.hpp ri/components/ui/entry.cpp ri/components/ui/entry.hpp ri/scenes/splashscene.cpp ri/scenes/splashscene.hpp ri/scenes/gamerules.cpp ri/scenes/gamerules.hpp)
+    ri/components/entitycollider.hpp
+        ri/scenes/menuscene.cpp
+        ri/scenes/menuscene.hpp
+         ri/scenes/splashscene.cpp ri/scenes/splashscene.hpp ri/scenes/gamerules.cpp ri/scenes/gamerules.hpp ri/scenes/changeplayer.cpp ri/scenes/changeplayer.hpp)
 
 add_library(zboss SHARED ${ZBOSS_HEADERS} ${ZBOSS_SOURCES})
 

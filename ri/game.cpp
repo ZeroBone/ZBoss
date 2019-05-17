@@ -1,5 +1,11 @@
 #include "game.hpp"
 
+#include "scenes/splashscene.hpp"
+#include "scenes/menuscene.hpp"
+#include "scenes/mainscene.hpp"
+#include "scenes/gamerules.hpp"
+#include "scenes/changeplayer.hpp"
+
 Game* Game::instance = nullptr;
 
 void Game::onCreate() {
@@ -8,20 +14,22 @@ void Game::onCreate() {
 
     Mix_Chunk* wave = Mix_LoadWAV("D:\\cpp\\ZBoss\\assets\\audio\\music_wav\\pleasantCreek.wav");
 
-    Mix_PlayChannel(-1, wave, 0);
+    Mix_PlayChannel(-1, wave, -1);
 
-    splashScene = new SplashScene();
+//    splashScene = new SplashScene();
+//
+//    menuScene = new MenuScene();
+//
+//    gameRulesScene = new GameRulesScene();
+//
+//    gameScene = new MainScene();
 
-    menuScene = new MenuScene();
-
-    gameRulesScene = new GameRulesScene();
-
-    gameScene = new MainScene();
-
-    setScene(splashScene);
+    // setScene(new SplashScene());
+    // setScene(splashScene);
     // setScene(menuScene);
     // setScene(gameScene);
     // setScene(new MainScene());
+    setScene(new ChangePlayerScene());
 
 }
 

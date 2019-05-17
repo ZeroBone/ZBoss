@@ -112,8 +112,8 @@ void BossAiComponent::update() {
 
                     bullet->addComponent<TransformComponent>(32, 32, transform->position.x, transform->position.y);
 
-                    bullet->getComponent<TransformComponent>().speed.x = static_cast<float>(cos(d)) * 3.f;
-                    bullet->getComponent<TransformComponent>().speed.y = static_cast<float>(sin(d)) * 3.f;
+                    bullet->getComponent<TransformComponent>().speed.x = static_cast<float>(cos(d)) * 4.f;
+                    bullet->getComponent<TransformComponent>().speed.y = static_cast<float>(sin(d)) * 4.f;
 
                     bullet->addComponent<SimpleMapColliderComponent>();
 
@@ -141,8 +141,8 @@ void BossAiComponent::update() {
 
                 double angle = atan2(playerTransform.position.y - transform->position.y, playerTransform.position.x - transform->position.x);
 
-                bullet->getComponent<TransformComponent>().speed.x = static_cast<float>(cos(angle)) * 12;
-                bullet->getComponent<TransformComponent>().speed.y = static_cast<float>(sin(angle)) * 12;
+                bullet->getComponent<TransformComponent>().speed.x = static_cast<float>(cos(angle)) * 20;
+                bullet->getComponent<TransformComponent>().speed.y = static_cast<float>(sin(angle)) * 20;
 
                 bullet->addComponent<SimpleMapColliderComponent>();
 

@@ -2,9 +2,7 @@
 
 #include <zboss/engine.hpp>
 
-#include "../game.hpp"
-
-#include "../components/ui/entry.hpp"
+#include "menuscene.hpp"
 
 void SplashScene::onCreate() {
 
@@ -32,7 +30,7 @@ void SplashScene::onUpdate() {
     Scene::onUpdate();
 
     if (SDL_GetTicks() > startTicks + 3000) {
-        Engine::get().setScene(Game::get()->menuScene);
+        Engine::get().setScene(new MenuScene());
     }
 
 }

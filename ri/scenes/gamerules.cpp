@@ -6,6 +6,8 @@
 
 #include "../game.hpp"
 
+#include "menuscene.hpp"
+
 void GameRulesScene::onCreate() {
 
     auto background = Engine::get().entities().addEntity("bg"s);
@@ -19,7 +21,8 @@ void GameRulesScene::onCreate() {
 
     background->addComponent<ClickComponent>([](std::shared_ptr<Entity> self, SDL_MouseButtonEvent& e) {
 
-        Engine::get().setScene(Game::get()->menuScene);
+        // Engine::get().setScene(Game::get()->menuScene);
+        Engine::get().setScene(new MenuScene());
 
     });
 

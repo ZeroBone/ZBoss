@@ -28,6 +28,8 @@ class MainScene : public Scene {
     bool playerDead = false;
     bool bossDead = false;
 
+    Uint32 returnTimerStart = 0;
+
     std::shared_ptr<Entity> player;
 
     std::shared_ptr<Entity> boss;

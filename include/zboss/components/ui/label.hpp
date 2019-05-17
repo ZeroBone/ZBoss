@@ -1,12 +1,16 @@
 #ifndef ZBOSS_UI_LABEL_COMPONENT_HPP
 #define ZBOSS_UI_LABEL_COMPONENT_HPP
 
+#include <zboss/engine.hpp>
+
 #include <zboss/entity/entity.hpp>
 #include <zboss/entity/component.hpp>
 
 #include <zboss/components/transform.hpp>
 
 #include <zboss/assets/loaders/font.hpp>
+
+using namespace std::literals;
 
 namespace zboss {
 
@@ -18,8 +22,7 @@ namespace zboss {
 
         SDL_Rect finalPosition;
 
-        std::string labelText;
-        std::string labelFont;
+        std::string text;
 
         SDL_Color textColor;
         SDL_Texture* labelTexture;
@@ -28,15 +31,16 @@ namespace zboss {
 
         public:
 
-        explicit UiLabelComponent(SDL_Color& color) :
+        explicit UiLabelComponent(std::string fontName, SDL_Color& color) :
             EntityComponent(), textColor(color) {
 
-            // position.x = xpos;
-            // position.y = ypos;
+            FontDescriptor d(fontName);
+
+            font = Engine::get().assets().load<Font>(d);
 
         }
 
-        void setLabelText(std::string text, std::string fontname);
+        void setText(const std::string& newText);
 
         void init() override;
 

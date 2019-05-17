@@ -1,6 +1,15 @@
 #include "mainscene.hpp"
 
+#include <fstream>
+
 #include <zboss/engine.hpp>
+
+#include "../game.hpp"
+#include "menuscene.hpp"
+
+#include <json/json.hpp>
+
+using namespace nlohmann;
 
 void MainScene::onCreate() {
 
@@ -188,6 +197,8 @@ void MainScene::onUpdate() {
 
         boss->getComponent<BossAiComponent>().state = BOSS_VICTORY;
 
+        returnTimerStart = SDL_GetTicks();
+
     }
 
     if (!bossDead && boss->getComponent<HpBarComponent>().hp == 0 && !playerDead) {
@@ -204,6 +215,31 @@ void MainScene::onUpdate() {
         boss->removeComponent<HpBarComponent>();
 
         boss->addComponent<SpriteComponent>("grave.png");
+
+        returnTimerStart = SDL_GetTicks();
+
+    }
+
+    if (returnTimerStart != 0) {
+
+        if (SDL_GetTicks() > returnTimerStart + 2000) {
+
+            std::cout << "saving file" << std::endl;
+
+            json jsonfile;
+
+            jsonfile["foo"] = "bar";
+
+            std::fstream file("D:\\cpp\\ZBoss\\games.json");
+
+            file << jsonfile;
+
+            file.close();
+
+            // Engine::get().setScene(Game::get()->menuScene);
+            Engine::get().setScene(new MenuScene());
+
+        }
 
     }
 

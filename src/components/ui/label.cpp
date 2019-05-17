@@ -12,16 +12,13 @@ namespace zboss {
 
         transform = &entity->getComponent<TransformComponent>();
 
+        setText(""s);
+
     }
 
-    void UiLabelComponent::setLabelText(std::string text, std::string fontname) {
+    void UiLabelComponent::setText(const std::string& newText) {
 
-        labelText = text;
-        labelFont = fontname;
-
-        FontDescriptor d(fontname);
-
-        font = Engine::get().assets().load<Font>(d);
+        text = newText;
 
         SDL_Surface* surf = TTF_RenderText_Blended(font->asset(), "Hello", textColor);
 

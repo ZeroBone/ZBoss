@@ -5,7 +5,10 @@
 #include <zboss/components/click.hpp>
 #include <zboss/math/collision.hpp>
 
+#include "mainscene.hpp"
 #include "../game.hpp"
+
+#include "gamerules.hpp"
 
 void MenuScene::onCreate() {
 
@@ -23,7 +26,7 @@ void MenuScene::onCreate() {
     auto title = Engine::get().entities().addEntity("title"s);
 
     {
-        // SDL_Color titleColor = {0xff, 0, 0, 0xff};
+        SDL_Color titleColor = {0xff, 0, 0, 0xff};
 
         title->addComponent<TransformComponent>(
             100,
@@ -36,16 +39,10 @@ void MenuScene::onCreate() {
 
         title->addComponent<ClickComponent>([](std::shared_ptr<Entity> self, SDL_MouseButtonEvent& e) {
 
-            Engine::get().setScene(Game::get()->gameScene);
+            // Engine::get().setScene(Game::get()->gameScene);
+            Engine::get().setScene(new MainScene());
 
         });
-
-//        title->addComponent<UiLabelComponent>(titleColor);
-//
-//        title->getComponent<UiLabelComponent>().setLabelText(
-//            std::string("BossFight"),
-//            std::string("px.ttf")
-//        );
 
     }
 
@@ -107,6 +104,13 @@ void MenuScene::onCreate() {
 
         changePlayer->addComponent<SpriteComponent>("change_player.png");
 
+        changePlayer->addComponent<ClickComponent>([](std::shared_ptr<Entity> self, SDL_MouseButtonEvent& e) {
+
+            std::cout << "Enter player name:" << std::endl;
+            std::cin >> Game::get()->currentPlayer;
+
+        });
+
     }
 
     auto gameRules = Engine::get().entities().addEntity("gameRules"s);
@@ -124,7 +128,7 @@ void MenuScene::onCreate() {
 
         gameRules->addComponent<ClickComponent>([](std::shared_ptr<Entity> self, SDL_MouseButtonEvent& e) {
 
-            Engine::get().setScene(Game::get()->gameRulesScene);
+            Engine::get().setScene(new GameRulesScene());
 
         });
 

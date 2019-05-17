@@ -4,10 +4,6 @@
 #include <SDL2/SDL_mixer.h>
 
 #include <zboss/engine.hpp>
-#include "scenes/splashscene.hpp"
-#include "scenes/menuscene.hpp"
-#include "scenes/mainscene.hpp"
-#include "scenes/gamerules.hpp"
 
 class Game : public zboss::Engine {
 
@@ -19,17 +15,13 @@ class Game : public zboss::Engine {
 
     public:
 
-    SplashScene* splashScene;
-
-    MenuScene* menuScene;
-
-    GameRulesScene* gameRulesScene;
-
-    MainScene* gameScene;
+    std::string currentPlayer;
 
     explicit Game(): Engine() {
 
         instance = this;
+
+        currentPlayer = "--none--";
 
     }
 
