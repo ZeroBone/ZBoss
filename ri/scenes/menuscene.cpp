@@ -7,6 +7,7 @@
 
 #include "mainscene.hpp"
 #include "../game.hpp"
+#include "changeplayer.hpp"
 
 #include "gamerules.hpp"
 
@@ -35,9 +36,14 @@ void MenuScene::onCreate() {
             100
         );
 
-        title->addComponent<SpriteComponent>("play.png");
+        // title->addComponent<SpriteComponent>("play.png");
+        title->addComponent<UiLabelComponent>("px.ttf", titleColor);
+
+        title->getComponent<UiLabelComponent>().setText("Играть");
 
         title->addComponent<ClickComponent>([](std::shared_ptr<Entity> self, SDL_MouseButtonEvent& e) {
+
+            std::cout << "STARTING GAME" << std::endl;
 
             // Engine::get().setScene(Game::get()->gameScene);
             Engine::get().setScene(new MainScene());
@@ -80,6 +86,8 @@ void MenuScene::onCreate() {
 
     {
 
+        SDL_Color titleColor = {0xff, 0, 0, 0xff};
+
         scores->addComponent<TransformComponent>(
             100,
             40,
@@ -87,13 +95,25 @@ void MenuScene::onCreate() {
             200
         );
 
-        scores->addComponent<SpriteComponent>("scores.png");
+        // scores->addComponent<SpriteComponent>("scores.png");
+
+        scores->addComponent<UiLabelComponent>("px.ttf", titleColor);
+
+        scores->getComponent<UiLabelComponent>().setText("Результаты");
+
+        scores->addComponent<ClickComponent>([](std::shared_ptr<Entity> self, SDL_MouseButtonEvent& e) {
+
+
+
+        });
 
     }
 
     auto changePlayer = Engine::get().entities().addEntity("changePlayer"s);
 
     {
+
+        SDL_Color titleColor = {0xff, 0, 0, 0xff};
 
         changePlayer->addComponent<TransformComponent>(
             100,
@@ -102,12 +122,15 @@ void MenuScene::onCreate() {
             300
         );
 
-        changePlayer->addComponent<SpriteComponent>("change_player.png");
+        // changePlayer->addComponent<SpriteComponent>("change_player.png");
+
+        changePlayer->addComponent<UiLabelComponent>("px.ttf", titleColor);
+
+        changePlayer->getComponent<UiLabelComponent>().setText("Смена игрока");
 
         changePlayer->addComponent<ClickComponent>([](std::shared_ptr<Entity> self, SDL_MouseButtonEvent& e) {
 
-            std::cout << "Enter player name:" << std::endl;
-            std::cin >> Game::get()->currentPlayer;
+            Engine::get().setScene(new ChangePlayerScene());
 
         });
 
@@ -117,6 +140,8 @@ void MenuScene::onCreate() {
 
     {
 
+        SDL_Color titleColor = {0xff, 0, 0, 0xff};
+
         gameRules->addComponent<TransformComponent>(
             100,
             40,
@@ -124,7 +149,10 @@ void MenuScene::onCreate() {
             400
         );
 
-        gameRules->addComponent<SpriteComponent>("game_rules.png");
+        // gameRules->addComponent<SpriteComponent>("game_rules.png");
+        gameRules->addComponent<UiLabelComponent>("px.ttf", titleColor);
+
+        gameRules->getComponent<UiLabelComponent>().setText("Правила");
 
         gameRules->addComponent<ClickComponent>([](std::shared_ptr<Entity> self, SDL_MouseButtonEvent& e) {
 

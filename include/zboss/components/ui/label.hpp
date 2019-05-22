@@ -22,7 +22,7 @@ namespace zboss {
 
         SDL_Rect finalPosition;
 
-        std::string text;
+        std::string text = "";
 
         SDL_Color textColor;
         SDL_Texture* labelTexture;
@@ -32,7 +32,7 @@ namespace zboss {
         public:
 
         explicit UiLabelComponent(std::string fontName, SDL_Color& color) :
-            EntityComponent(), textColor(color) {
+            EntityComponent(), textColor(color), labelTexture(nullptr) {
 
             FontDescriptor d(fontName);
 
@@ -45,6 +45,10 @@ namespace zboss {
         void init() override;
 
         void draw() override;
+
+        private:
+
+        void rerender();
 
     };
 

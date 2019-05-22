@@ -106,7 +106,11 @@ namespace zboss {
         void setScene(Scene* newScene) {
 
             if (_scene != nullptr) {
+
                 _scene->onDestroy();
+
+                delete _scene;
+
             }
 
             _scene = newScene;

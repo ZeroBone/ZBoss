@@ -99,7 +99,7 @@ namespace zboss {
         }
     }
 
-    void Entity::addChild(shared_ptr <Entity> child, bool reparent) {
+    void Entity::addChild(shared_ptr<Entity> child, bool reparent) {
 
         children.push_back(child);
 

@@ -20,6 +20,8 @@ namespace zboss {
 
         explicit Scene();
 
+        virtual ~Scene() = default;
+
         virtual void onCreate() = 0;
 
         virtual void onDestroy() = 0;

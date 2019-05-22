@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <typeinfo>
 #include <typeindex>
+#include <iostream>
 
 #include <zboss/entity/manager.hpp>
 #include <zboss/entity/component.hpp>
@@ -46,6 +47,11 @@ namespace zboss {
         std::string name;
 
         explicit Entity(EntityManager& manager, const std::string& name) : manager(manager), name(name) {}
+
+        ~Entity() {
+            children.clear();
+            std::cout << "Entity '" << name << "' destroyed!" << std::endl;
+        }
 
         // void update();
 

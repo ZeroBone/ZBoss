@@ -24,12 +24,12 @@ void Game::onCreate() {
 //
 //    gameScene = new MainScene();
 
-    // setScene(new SplashScene());
+    setScene(new SplashScene());
     // setScene(splashScene);
     // setScene(menuScene);
     // setScene(gameScene);
     // setScene(new MainScene());
-    setScene(new ChangePlayerScene());
+    // setScene(new ChangePlayerScene());
 
 }
 

@@ -7,6 +7,40 @@
 #include <zboss/components/ui/label.hpp>
 #include <zboss/components/ui/textfield.hpp>
 
+#include "../scenes/menuscene.hpp"
+
+#include "../game.hpp"
+
+class ExitComponent : public EntityComponent {
+
+    public:
+
+    ExitComponent() = default;
+
+    void init() override {
+        enableInput();
+    }
+
+    bool input() override {
+
+        if (entity->getComponent<TextFieldUiComponent>().text.empty()) {
+            return true;
+        }
+
+        Game::get()->currentPlayer = entity->getComponent<TextFieldUiComponent>().text;
+
+        if (Engine::get().currentEvent.type == SDL_KEYDOWN && Engine::get().currentEvent.key.keysym.scancode == SDL_SCANCODE_RETURN) {
+
+            Engine::get().setScene(new MenuScene());
+
+        }
+
+        return true;
+
+    }
+
+};
+
 void ChangePlayerScene::onCreate() {
 
     auto background = Engine::get().entities().addEntity("bg"s);
@@ -28,7 +62,7 @@ void ChangePlayerScene::onCreate() {
 
     {
 
-        SDL_Color titleColor = {0xff, 0, 0, 0xff};
+        SDL_Color titleColor = {0x4f, 0xb0, 0xb9, 0xff}; // #4FB0B9
 
         title->addComponent<TransformComponent>(
             100,
@@ -39,7 +73,7 @@ void ChangePlayerScene::onCreate() {
 
         title->addComponent<UiLabelComponent>("px.ttf", titleColor);
 
-        title->getComponent<UiLabelComponent>().setText("BossFight");
+        title->getComponent<UiLabelComponent>().setText("Введите имя:");
 
     }
 
@@ -63,6 +97,8 @@ void ChangePlayerScene::onCreate() {
 
         // textInput->addComponent<SpriteComponent>("spawn.png");
         textInput->addComponent<TextFieldUiComponent>("px.ttf", c);
+
+        textInput->addComponent<ExitComponent>();
 
     }
 

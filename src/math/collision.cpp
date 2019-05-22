@@ -24,14 +24,16 @@ namespace zboss {
 
     }
 
-    bool CollisionUtils::pointInSDLRect(int x, int y, int rx, int ry, int rw, int rh) {
+    bool CollisionUtils::pointInRect(int x, int y, int rx, int ry, int rw, int rh) {
 
-        return (
+        return x > rx && x < rx + rw && y > ry && y < ry + rh;
+
+        /*return (
             x >= rx && // point is right of the left edge
             y >= ry && // point is below the top edge
             x <= rx + rw && // point is left of the right edge
             y <= ry + rh // point is above the bottom edge
-        );
+        );*/
 
     }
 

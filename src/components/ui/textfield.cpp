@@ -7,7 +7,7 @@
 
 namespace zboss {
 
-    TextFieldUiComponent::TextFieldUiComponent(std::string fontName, SDL_Color textColor) {
+    TextFieldUiComponent::TextFieldUiComponent(std::string fontName, SDL_Color textColor) : labelTexture(nullptr) {
 
         color = textColor;
 
@@ -44,8 +44,9 @@ namespace zboss {
 
         SDL_RenderCopy(Engine::get().renderer().renderer, labelTexture, nullptr, &finalPosition);
 
-        SDL_SetRenderDrawColor(Engine::get().renderer().renderer, 0xff, 0, 0xff, 0xff);
+        /*SDL_SetRenderDrawColor(Engine::get().renderer().renderer, 0xff, 0, 0xff, 0xff);
         SDL_RenderDrawRect(Engine::get().renderer().renderer, &finalPosition);
+        SDL_SetRenderDrawColor(Engine::get().renderer().renderer, 0, 0, 0, 0);*/
 
     }
 
@@ -133,6 +134,10 @@ namespace zboss {
     }
 
     void TextFieldUiComponent::rerender() {
+
+        if (labelTexture != nullptr) {
+            SDL_DestroyTexture(labelTexture);
+        }
 
         // SDL_Surface* surf = TTF_RenderText_Blended(font->asset(), text.c_str(), color);
         SDL_Surface* surf = TTF_RenderUTF8_Blended(font->asset(), text.c_str(), color);

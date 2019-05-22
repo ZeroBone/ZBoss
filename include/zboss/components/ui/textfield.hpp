@@ -14,6 +14,8 @@ namespace zboss {
 
         public:
 
+        std::string text = "";
+
         size_t maxLength = 16;
 
         char* composition;
@@ -25,8 +27,6 @@ namespace zboss {
         TransformComponent* transform;
 
         SDL_Rect finalPosition;
-
-        std::string text = "";
 
         SDL_Color color;
 
