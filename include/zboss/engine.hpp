@@ -145,6 +145,10 @@ namespace zboss {
             return *_scene;
         }
 
+        inline void quit() {
+            running = false;
+        }
+
         inline static Engine& get() {
             return *_instance;
         }

@@ -5,6 +5,8 @@
 #include <set>
 #include <cfloat>
 
+#include <limits>
+
 #include <zboss/entity/component.hpp>
 #include <zboss/entity/entity.hpp>
 #include <zboss/scene.hpp>
@@ -135,18 +137,14 @@ inline bool isDestination(int row, int col, GridPosition dest) {
     return row == dest.first && col == dest.second;
 }
 
-// A Utility Function to calculate the 'h' heuristics.
 inline HeuristicType calculateHValue(int row, int col, GridPosition dest) {
-    // Return using the distance formula
+
     /*return ((double) sqrt((row - dest.first) * (row - dest.first)
                           + (col - dest.second) * (col - dest.second)));*/
 
     return static_cast<HeuristicType>(abs(row - dest.first) + abs(col - dest.second));
 
 }
-
-// A Utility Function to trace the path from the source
-// to destination
 
 template <int ROW, int COL>
 static void tracePath(stack<GridPosition>& path, GridCell cellDetails[][COL], GridPosition dest) {
@@ -228,9 +226,12 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
 
     for (i = 0; i < ROW; i++) {
         for (j = 0; j < COL; j++) {
-            cellDetails[i][j].f = FLT_MAX;
+            /*cellDetails[i][j].f = FLT_MAX;
             cellDetails[i][j].g = FLT_MAX;
-            cellDetails[i][j].h = FLT_MAX;
+            cellDetails[i][j].h = FLT_MAX;*/
+            cellDetails[i][j].f = std::numeric_limits<HeuristicType>::max();
+            cellDetails[i][j].g = std::numeric_limits<HeuristicType>::max();
+            cellDetails[i][j].h = std::numeric_limits<HeuristicType>::max();
             cellDetails[i][j].parent_i = -1;
             cellDetails[i][j].parent_j = -1;
         }
@@ -239,9 +240,10 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
     // Initialising the parameters of the starting node
     i = src.first, j = src.second;
 
-    cellDetails[i][j].f = 0.;
-    cellDetails[i][j].g = 0.;
-    cellDetails[i][j].h = 0.;
+    cellDetails[i][j].f = 0; // 0.0
+    cellDetails[i][j].g = 0; // 0.0
+    cellDetails[i][j].h = 0; // 0.0
+
     cellDetails[i][j].parent_i = i;
     cellDetails[i][j].parent_j = j;
 
@@ -309,20 +311,16 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 cellDetails[i - 1][j].parent_i = i;
                 cellDetails[i - 1][j].parent_j = j;
                 
-                
-                
                 tracePath<ROW, COL>(result, cellDetails, dest);
 
                 return true;
 
             }
-                // If the successor is already on the closed
-                // list or if it is blocked, then ignore it.
-                // Else do the following
             else if (!closedList[i - 1][j] &&
                      isUnBlocked<T, COL>(grid, i - 1, j)) {
 
-                gNew = cellDetails[i][j].g + 1.0;
+                gNew = cellDetails[i][j].g + 1; // 1.0
+
                 hNew = calculateHValue(i - 1, j, dest);
                 fNew = gNew + hNew;
 
@@ -334,7 +332,7 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 // If it is on the open list already, check
                 // to see if this path to that square is better,
                 // using 'f' cost as the measure.
-                if (cellDetails[i - 1][j].f == FLT_MAX ||
+                if (cellDetails[i - 1][j].f == std::numeric_limits<HeuristicType>::max() ||
                     cellDetails[i - 1][j].f > fNew) {
 
                     openList.insert(make_pair(fNew, GridPosition(i - 1, j)));
@@ -367,12 +365,11 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 return true;
 
             }
-                // If the successor is already on the closed
-                // list or if it is blocked, then ignore it.
-                // Else do the following
             else if (!closedList[i + 1][j] &&
                      isUnBlocked<T, COL>(grid, i + 1, j)) {
-                gNew = cellDetails[i][j].g + 1.0;
+
+                gNew = cellDetails[i][j].g + 1; // 1.0
+
                 hNew = calculateHValue(i + 1, j, dest);
                 fNew = gNew + hNew;
 
@@ -384,7 +381,7 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 // If it is on the open list already, check
                 // to see if this path to that square is better,
                 // using 'f' cost as the measure.
-                if (cellDetails[i + 1][j].f == FLT_MAX ||
+                if (cellDetails[i + 1][j].f == std::numeric_limits<HeuristicType>::max() ||
                     cellDetails[i + 1][j].f > fNew) {
 
                     openList.insert(make_pair(fNew, GridPosition(i + 1, j)));
@@ -417,13 +414,11 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 return true;
 
             }
-
-                // If the successor is already on the closed
-                // list or if it is blocked, then ignore it.
-                // Else do the following
             else if (!closedList[i][j + 1] &&
                      isUnBlocked<T, COL>(grid, i, j + 1)) {
-                gNew = cellDetails[i][j].g + 1.0;
+
+                gNew = cellDetails[i][j].g + 1; // 1.0
+
                 hNew = calculateHValue(i, j + 1, dest);
                 fNew = gNew + hNew;
 
@@ -435,7 +430,7 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 // If it is on the open list already, check
                 // to see if this path to that square is better,
                 // using 'f' cost as the measure.
-                if (cellDetails[i][j + 1].f == FLT_MAX ||
+                if (cellDetails[i][j + 1].f == std::numeric_limits<HeuristicType>::max() ||
                     cellDetails[i][j + 1].f > fNew) {
 
                     openList.insert(make_pair(fNew, GridPosition(i, j + 1)));
@@ -469,13 +464,11 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 return true;
 
             }
-
-                // If the successor is already on the closed
-                // list or if it is blocked, then ignore it.
-                // Else do the following
             else if (!closedList[i][j - 1] &&
                      isUnBlocked<T, COL>(grid, i, j - 1)) {
-                gNew = cellDetails[i][j].g + 1.0;
+
+                gNew = cellDetails[i][j].g + 1; // 1.0
+
                 hNew = calculateHValue(i, j - 1, dest);
                 fNew = gNew + hNew;
 
@@ -487,7 +480,7 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 // If it is on the open list already, check
                 // to see if this path to that square is better,
                 // using 'f' cost as the measure.
-                if (cellDetails[i][j - 1].f == FLT_MAX ||
+                if (cellDetails[i][j - 1].f == std::numeric_limits<HeuristicType>::max() ||
                     cellDetails[i][j - 1].f > fNew) {
 
 
@@ -521,13 +514,11 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 return true;
 
             }
-
-                // If the successor is already on the closed
-                // list or if it is blocked, then ignore it.
-                // Else do the following
             else if (!closedList[i - 1][j + 1] &&
                      isUnBlocked<T, COL>(grid, i - 1, j + 1)) {
-                gNew = cellDetails[i][j].g + 1.414;
+
+                gNew = cellDetails[i][j].g + 1; // 1.414 because diagonal
+
                 hNew = calculateHValue(i - 1, j + 1, dest);
                 fNew = gNew + hNew;
 
@@ -539,7 +530,7 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 // If it is on the open list already, check
                 // to see if this path to that square is better,
                 // using 'f' cost as the measure.
-                if (cellDetails[i - 1][j + 1].f == FLT_MAX ||
+                if (cellDetails[i - 1][j + 1].f == std::numeric_limits<HeuristicType>::max() ||
                     cellDetails[i - 1][j + 1].f > fNew) {
 
 
@@ -573,13 +564,11 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 return true;
 
             }
-
-                // If the successor is already on the closed
-                // list or if it is blocked, then ignore it.
-                // Else do the following
             else if (!closedList[i - 1][j - 1] &&
                      isUnBlocked<T, COL>(grid, i - 1, j - 1)) {
-                gNew = cellDetails[i][j].g + 1.414;
+
+                gNew = cellDetails[i][j].g + 1; // 1.414
+
                 hNew = calculateHValue(i - 1, j - 1, dest);
                 fNew = gNew + hNew;
 
@@ -591,7 +580,7 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 // If it is on the open list already, check
                 // to see if this path to that square is better,
                 // using 'f' cost as the measure.
-                if (cellDetails[i - 1][j - 1].f == FLT_MAX ||
+                if (cellDetails[i - 1][j - 1].f == std::numeric_limits<HeuristicType>::max() ||
                     cellDetails[i - 1][j - 1].f > fNew) {
 
                     openList.insert(make_pair(fNew, GridPosition(i - 1, j - 1)));
@@ -633,7 +622,9 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 // Else do the following
             else if (!closedList[i + 1][j + 1] &&
                      isUnBlocked<T, COL>(grid, i + 1, j + 1)) {
-                gNew = cellDetails[i][j].g + 1.414;
+
+                gNew = cellDetails[i][j].g + 1; // 1.414
+
                 hNew = calculateHValue(i + 1, j + 1, dest);
                 fNew = gNew + hNew;
 
@@ -645,7 +636,7 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 // If it is on the open list already, check
                 // to see if this path to that square is better,
                 // using 'f' cost as the measure.
-                if (cellDetails[i + 1][j + 1].f == FLT_MAX ||
+                if (cellDetails[i + 1][j + 1].f == std::numeric_limits<HeuristicType>::max() ||
                     cellDetails[i + 1][j + 1].f > fNew) {
 
 
@@ -686,7 +677,9 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 // Else do the following
             else if (!closedList[i + 1][j - 1] &&
                      isUnBlocked<T, COL>(grid, i + 1, j - 1)) {
-                gNew = cellDetails[i][j].g + 1.414;
+
+                gNew = cellDetails[i][j].g + 1; // 1.414
+
                 hNew = calculateHValue(i + 1, j - 1, dest);
                 fNew = gNew + hNew;
 
@@ -698,7 +691,7 @@ static bool aStarSearch(stack<GridPosition>& result, T* grid, GridPosition src, 
                 // If it is on the open list already, check
                 // to see if this path to that square is better,
                 // using 'f' cost as the measure.
-                if (cellDetails[i + 1][j - 1].f == FLT_MAX ||
+                if (cellDetails[i + 1][j - 1].f == std::numeric_limits<HeuristicType>::max() ||
                     cellDetails[i + 1][j - 1].f > fNew) {
 
 

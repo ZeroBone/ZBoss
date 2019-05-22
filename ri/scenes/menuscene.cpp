@@ -162,6 +162,32 @@ void MenuScene::onCreate() {
 
     }
 
+    auto exit = Engine::get().entities().addEntity("exit"s);
+
+    {
+
+        SDL_Color titleColor = {0xff, 0, 0, 0xff};
+
+        exit->addComponent<TransformComponent>(
+            100,
+            40,
+            Engine::get().vWidth / 2.f,
+            500
+        );
+
+        // gameRules->addComponent<SpriteComponent>("game_rules.png");
+        exit->addComponent<UiLabelComponent>("px.ttf", titleColor);
+
+        exit->getComponent<UiLabelComponent>().setText("Выход");
+
+        exit->addComponent<ClickComponent>([](std::shared_ptr<Entity> self, SDL_MouseButtonEvent& e) {
+
+            Engine::get().quit();
+
+        });
+
+    }
+
     // entry
 
     // build scene graph
@@ -175,5 +201,7 @@ void MenuScene::onCreate() {
     root->addChild(changePlayer);
 
     root->addChild(gameRules);
+
+    root->addChild(exit);
 
 }
