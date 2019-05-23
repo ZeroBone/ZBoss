@@ -166,10 +166,10 @@ namespace zboss {
 
             result = result && input();
 
-        }
+            for (auto& child : get_children()) {
+                result = result && child->send_input();
+            }
 
-        for (auto& child : get_children()) {
-            result = result && child->send_input();
         }
 
         return result;
@@ -205,17 +205,19 @@ namespace zboss {
     void Entity::onUpdate() {
 
         if (has_process()) {
+
             update();
-        }
 
-        for (auto& child : get_children()) {
-            child->onUpdate();
-        }
+            for (auto& child : get_children()) {
+                child->onUpdate();
+            }
 
-        for (auto& child : get_children()) {
+            for (auto& child : get_children()) {
 
-            if (!child->active) {
-                remove_child(child);
+                if (!child->active) {
+                    remove_child(child);
+                }
+
             }
 
         }

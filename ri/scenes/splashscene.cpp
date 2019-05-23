@@ -2,7 +2,7 @@
 
 #include <zboss/engine.hpp>
 
-#include "menuscene.hpp"
+#include "changeplayer.hpp"
 
 void SplashScene::onCreate() {
 
@@ -30,7 +30,8 @@ void SplashScene::onUpdate() {
     Scene::onUpdate();
 
     if (SDL_GetTicks() > startTicks + 3000) {
-        Engine::get().setScene(new MenuScene());
+        // Engine::get().setScene(new MenuScene());
+        Engine::get().setScene(new ChangePlayerScene());
     }
 
 }

@@ -31,10 +31,19 @@ namespace zboss {
 
         public:
 
-        explicit UiLabelComponent(std::string fontName, SDL_Color& color) :
+        explicit UiLabelComponent(const std::string& fontName, SDL_Color& color) :
             EntityComponent(), textColor(color), labelTexture(nullptr) {
 
             FontDescriptor d(fontName);
+
+            font = Engine::get().assets().load<Font>(d);
+
+        }
+
+        explicit UiLabelComponent(const std::string& fontName, int fontSize, SDL_Color& color) :
+            EntityComponent(), textColor(color), labelTexture(nullptr) {
+
+            FontDescriptor d(fontName, fontSize);
 
             font = Engine::get().assets().load<Font>(d);
 

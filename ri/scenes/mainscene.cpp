@@ -7,11 +7,15 @@
 #include "../game.hpp"
 #include "menuscene.hpp"
 
-#include <json/json.hpp>
+#include "../gameresult.hpp"
+
+#include <zboss/components/click.hpp>
 
 using namespace nlohmann;
 
 void MainScene::onCreate() {
+
+    startTime = SDL_GetTicks();
 
     // setup background tilemap
 
@@ -152,6 +156,10 @@ void MainScene::onCreate() {
         tileMapComponent.startLayer = tileMapComponent.tileMap->asset()->layerNameIndex("above_1");
     }
 
+    // pause overlay
+
+    pauseOverlayContainer = Engine::get().entities().addEntity("pauseOverlayContainer"s);
+
     // build the graph
 
     root->addChild(tileMapGround);
@@ -161,6 +169,8 @@ void MainScene::onCreate() {
     root->addChild(projectiles);
 
     root->addChild(tileMapAbove);
+
+    root->addChild(pauseOverlayContainer);
 
     // build entities
 
@@ -224,22 +234,207 @@ void MainScene::onUpdate() {
 
         if (SDL_GetTicks() > returnTimerStart + 2000) {
 
-            std::cout << "saving file" << std::endl;
+            GameResult gameResult;
 
-            json jsonfile;
+            gameResult.score = SDL_GetTicks() - startTime;
 
-            jsonfile["foo"] = "bar";
+            strncpy(gameResult.name, Game::get()->currentPlayer.c_str(), sizeof(gameResult.name));
+            gameResult.name[sizeof(gameResult.name) - 1] = 0;
 
-            std::fstream file("D:\\cpp\\ZBoss\\games.json");
+            FILE* fp = fopen("data.bin", "ab");
 
-            file << jsonfile;
+            fwrite(&gameResult, sizeof(GameResult), 1, fp);
 
-            file.close();
+            fclose(fp);
+
+//            std::cout << "saving file" << std::endl;
+//
+//            json jsonfile;
+//
+//            jsonfile["foo"] = "bar";
+//
+//            std::fstream file("D:\\cpp\\ZBoss\\games.json");
+//
+//            file << jsonfile;
+//
+//            file.close();
 
             // Engine::get().setScene(Game::get()->menuScene);
             Engine::get().setScene(new MenuScene());
 
         }
+
+    }
+
+}
+
+void MainScene::onInput() {
+
+    Scene::onInput();
+
+    SDL_Event& event = Engine::get().currentEvent;
+
+    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p) {
+
+        if (paused) {
+
+            resumeGame();
+
+        }
+        else {
+
+            // pause the game
+
+            paused = true;
+
+            for (int i = 0; i < 3; i++) {
+
+                root->get_children()[i]->set_process(false);
+                root->get_children()[i]->set_input(false);
+
+            }
+
+            auto pauseTitle = Engine::get().entities().addEntity("pauseTitle"s);
+
+            {
+                SDL_Color titleColor = {0xff, 0, 0, 0xff};
+
+                pauseTitle->addComponent<TransformComponent>(
+                    100,
+                    40,
+                    Engine::get().vWidth / 2.f,
+                    100
+                );
+
+                // title->addComponent<SpriteComponent>("play.png");
+                pauseTitle->addComponent<UiLabelComponent>("px.ttf", titleColor);
+
+                pauseTitle->getComponent<UiLabelComponent>().setText("Пауза");
+
+            }
+
+            auto resumeTitle = Engine::get().entities().addEntity("resumeTitle"s);
+
+            {
+                SDL_Color titleColor = {0xff, 0, 0, 0xff};
+
+                resumeTitle->addComponent<TransformComponent>(
+                    100,
+                    40,
+                    Engine::get().vWidth / 2.f,
+                    200
+                );
+
+                // title->addComponent<SpriteComponent>("play.png");
+                resumeTitle->addComponent<UiLabelComponent>("px.ttf", titleColor);
+
+                resumeTitle->getComponent<UiLabelComponent>().setText("Возобновить");
+
+                resumeTitle->addComponent<ClickComponent>([](std::shared_ptr<Entity> self, SDL_MouseButtonEvent& e) {
+
+                    dynamic_cast<MainScene&>(self->getScene()).resumeGame();
+
+                });
+
+            }
+
+            auto quitWithoutSavingTitle = Engine::get().entities().addEntity("quitWithoutSavingTitle"s);
+
+            {
+                SDL_Color titleColor = {0xff, 0, 0, 0xff};
+
+                quitWithoutSavingTitle->addComponent<TransformComponent>(
+                    100,
+                    40,
+                    Engine::get().vWidth / 2.f,
+                    300
+                );
+
+                // title->addComponent<SpriteComponent>("play.png");
+                quitWithoutSavingTitle->addComponent<UiLabelComponent>("px.ttf", titleColor);
+
+                quitWithoutSavingTitle->getComponent<UiLabelComponent>().setText("Выйти без сохранения");
+
+                quitWithoutSavingTitle->addComponent<ClickComponent>([](std::shared_ptr<Entity> self, SDL_MouseButtonEvent& e) {
+
+                    Engine::get().setScene(new MenuScene());
+
+                });
+
+            }
+
+            auto quitAndSaveTitle = Engine::get().entities().addEntity("quitAndSaveTitle"s);
+
+            {
+                SDL_Color titleColor = {0xff, 0, 0, 0xff};
+
+                quitAndSaveTitle->addComponent<TransformComponent>(
+                    100,
+                    40,
+                    Engine::get().vWidth / 2.f,
+                    400
+                );
+
+                // title->addComponent<SpriteComponent>("play.png");
+                quitAndSaveTitle->addComponent<UiLabelComponent>("px.ttf", titleColor);
+
+                quitAndSaveTitle->getComponent<UiLabelComponent>().setText("Сохранить и выйти");
+
+                quitAndSaveTitle->addComponent<ClickComponent>([](std::shared_ptr<Entity> self, SDL_MouseButtonEvent& e) {
+
+                    MainScene& mainScene = dynamic_cast<MainScene&>(self->getScene());
+
+                    GameState gs;
+
+                    gs.playerX = mainScene.player->getComponent<TransformComponent>().position.x;
+                    gs.playerY = mainScene.player->getComponent<TransformComponent>().position.y;
+
+                    gs.bossX = mainScene.boss->getComponent<TransformComponent>().position.x;
+                    gs.bossY = mainScene.boss->getComponent<TransformComponent>().position.y;
+
+                    gs.playerHp = mainScene.player->getComponent<HpBarComponent>().hp;
+                    gs.bossHp = mainScene.boss->getComponent<HpBarComponent>().hp;
+
+                    FILE* fp = fopen(Game::get()->currentPlayer.c_str(), "wb");
+
+                    fwrite(&gs, sizeof(GameState), 1, fp);
+
+                    fclose(fp);
+
+                    Engine::get().setScene(new MenuScene());
+
+                });
+
+            }
+
+            pauseOverlayContainer->addChild(pauseTitle);
+
+            pauseOverlayContainer->addChild(resumeTitle);
+
+            pauseOverlayContainer->addChild(quitWithoutSavingTitle);
+
+            pauseOverlayContainer->addChild(quitAndSaveTitle);
+
+        }
+
+    }
+
+}
+
+void MainScene::resumeGame() {
+
+    paused = false;
+
+    auto children = pauseOverlayContainer->get_children();
+
+    for (auto& i : children) {
+        i->destroy();
+    }
+
+    for (int i = 0; i < 3; i++) {
+
+        root->get_children()[i]->set_process(true);
+        root->get_children()[i]->set_input(true);
 
     }
 

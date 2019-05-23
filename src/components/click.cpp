@@ -19,8 +19,8 @@ namespace zboss {
 
             TransformComponent& trans = entity->getComponent<TransformComponent>();
 
-            std::cout << "Clicked on entity " << entity->name << std::endl;
-            std::cout << trans.position.y << " " << Engine::get().currentEvent.button.y << std::endl;
+            // std::cout << "Clicked on entity " << entity->name << std::endl;
+            // std::cout << trans.position.y << " " << Engine::get().currentEvent.button.y << std::endl;
 
             if (CollisionUtils::pointInRect(
                 Engine::get().currentEvent.button.x,
@@ -31,7 +31,7 @@ namespace zboss {
                 static_cast<int>(trans.box.y)
             )) {
 
-                std::cout << "Click on entity PASS." << std::endl;
+                // std::cout << "Click on entity PASS." << std::endl;
 
                 callback(entity, Engine::get().currentEvent.button);
 

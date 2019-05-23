@@ -28,11 +28,16 @@ class MainScene : public Scene {
     bool playerDead = false;
     bool bossDead = false;
 
+    bool paused = false;
+
+    Uint32 startTime;
     Uint32 returnTimerStart = 0;
 
     std::shared_ptr<Entity> player;
 
     std::shared_ptr<Entity> boss;
+
+    std::shared_ptr<Entity> pauseOverlayContainer;
 
     public:
 
@@ -40,7 +45,11 @@ class MainScene : public Scene {
 
     void onUpdate() override;
 
+    void onInput() override;
+
     void onDestroy() override {}
+
+    void resumeGame();
 
 };
 

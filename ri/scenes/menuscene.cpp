@@ -10,8 +10,11 @@
 #include "changeplayer.hpp"
 
 #include "gamerules.hpp"
+#include "scoresscene.hpp"
 
 void MenuScene::onCreate() {
+
+
 
     auto background = Engine::get().entities().addEntity("bg"s);
 
@@ -43,7 +46,7 @@ void MenuScene::onCreate() {
 
         title->addComponent<ClickComponent>([](std::shared_ptr<Entity> self, SDL_MouseButtonEvent& e) {
 
-            std::cout << "STARTING GAME" << std::endl;
+            // std::cout << "STARTING GAME" << std::endl;
 
             // Engine::get().setScene(Game::get()->gameScene);
             Engine::get().setScene(new MainScene());
@@ -103,7 +106,7 @@ void MenuScene::onCreate() {
 
         scores->addComponent<ClickComponent>([](std::shared_ptr<Entity> self, SDL_MouseButtonEvent& e) {
 
-
+            Engine::get().setScene(new ScoresScene());
 
         });
 

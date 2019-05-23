@@ -135,7 +135,7 @@ namespace zboss {
                 }
                 else if (_scene != nullptr) {
 
-                    _scene->dispatchEvent();
+                    _scene->onInput();
 
                 }
 

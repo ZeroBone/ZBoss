@@ -32,9 +32,9 @@ namespace zboss {
 
         // scene graph
 
-        bool input_enabled = false;
+        bool input_enabled = true;
 
-        bool process_enabled = false;
+        bool process_enabled = true;
 
         bool in_tree = false;
 

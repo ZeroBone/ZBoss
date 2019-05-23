@@ -115,7 +115,7 @@ set(ZBOSS_RI_SOURCES
     ri/components/entitycollider.hpp
         ri/scenes/menuscene.cpp
         ri/scenes/menuscene.hpp
-         ri/scenes/splashscene.cpp ri/scenes/splashscene.hpp ri/scenes/gamerules.cpp ri/scenes/gamerules.hpp ri/scenes/changeplayer.cpp ri/scenes/changeplayer.hpp)
+         ri/scenes/splashscene.cpp ri/scenes/splashscene.hpp ri/scenes/gamerules.cpp ri/scenes/gamerules.hpp ri/scenes/changeplayer.cpp ri/scenes/changeplayer.hpp ri/gameresult.hpp ri/scenes/scoresscene.cpp ri/scenes/scoresscene.hpp)
 
 add_library(zboss SHARED ${ZBOSS_HEADERS} ${ZBOSS_SOURCES})
 

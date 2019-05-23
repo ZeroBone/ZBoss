@@ -40,7 +40,7 @@ namespace zboss {
 
         }
 
-        inline void dispatchEvent() {
+        virtual void onInput() {
 
             if (root != nullptr) {
                 root->send_input();
