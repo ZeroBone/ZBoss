@@ -33,13 +33,13 @@ class MainScene : public Scene {
     Uint32 startTime;
     Uint32 returnTimerStart = 0;
 
+    public:
+
     std::shared_ptr<Entity> player;
 
     std::shared_ptr<Entity> boss;
 
     std::shared_ptr<Entity> pauseOverlayContainer;
-
-    public:
 
     void onCreate() override;
 

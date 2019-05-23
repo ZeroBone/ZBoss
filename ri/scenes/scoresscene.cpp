@@ -9,8 +9,15 @@
 
 #include <zboss/components/click.hpp>
 
+// #include <bits/stdc++.h>
+#include <fstream>
+
 #include "../gameresult.hpp"
 #include "menuscene.hpp"
+
+bool compareGameResults(GameResult g1, GameResult g2) {
+    return (g1.score < g2.score);
+}
 
 void ScoresScene::onCreate() {
 
@@ -65,6 +72,14 @@ void ScoresScene::onCreate() {
 
         clear->getComponent<UiLabelComponent>().setText("Очистить список");
 
+        clear->addComponent<ClickComponent>([](std::shared_ptr<Entity> self, SDL_MouseButtonEvent& e) {
+
+            unlink("data.bin");
+
+            Engine::get().setScene(new MenuScene());
+
+        });
+
     }
 
     auto print = Engine::get().entities().addEntity("clear"s);
@@ -83,6 +98,35 @@ void ScoresScene::onCreate() {
         print->addComponent<UiLabelComponent>("px.ttf", 40, titleColor);
 
         print->getComponent<UiLabelComponent>().setText("Распечатать");
+
+        print->addComponent<ClickComponent>([](std::shared_ptr<Entity> self, SDL_MouseButtonEvent& e) {
+
+            std::ofstream printFile;
+            printFile.open("print.txt");
+
+            FILE* fp = fopen("data.bin", "rb");
+
+            std::vector<GameResult> gameResults;
+
+            GameResult t_gameResult;
+
+            while (fread(&t_gameResult, sizeof(GameResult), 1, fp)) {
+
+                printFile << "---" << std::endl;
+
+                printFile << "Имя: " << t_gameResult.name << std::endl;
+                printFile << "Секунд: " << (t_gameResult.score / 1000) << std::endl;
+
+                printFile << "---" << std::endl;
+
+            }
+
+            fclose(fp);
+            printFile.close();
+
+            Engine::get().setScene(new MenuScene());
+
+        });
 
     }
 
@@ -115,10 +159,23 @@ void ScoresScene::onCreate() {
 
     FILE* fp = fopen("data.bin", "rb");
 
-    GameResult gameResult;
+    std::vector<GameResult> gameResults;
+
+    GameResult t_gameResult;
+
+    while (fread(&t_gameResult, sizeof(GameResult), 1, fp)) {
+
+        gameResults.emplace_back(t_gameResult);
+
+    }
+
+    fclose(fp);
+
+    std::sort(gameResults.begin(), gameResults.end(), compareGameResults);
+
     int offset = 0;
 
-    while (fread(&gameResult, sizeof(GameResult), 1, fp)) {
+    for (auto gameResult : gameResults) {
 
         auto tableItem = Engine::get().entities().addEntity("tableitem"s);
 
@@ -163,9 +220,11 @@ void ScoresScene::onCreate() {
 
         offset++;
 
-    }
+        if (offset > 10) {
+            break;
+        }
 
-    fclose(fp);
+    }
 
     // build tree
 
