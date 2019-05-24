@@ -88,7 +88,7 @@ bool MovementControllerComponent::input() {
 
             bullet->addComponent<SimpleMapColliderComponent>();
 
-            bullet->addComponent<EntityColliderComponent>("player"s, 50);
+            bullet->addComponent<EntityColliderComponent>("player"s, 5);
 
             bullet->addComponent<SpriteComponent>("bullet.png");
 

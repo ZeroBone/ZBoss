@@ -232,7 +232,7 @@ void MainScene::onUpdate() {
 
     if (returnTimerStart != 0) {
 
-        if (SDL_GetTicks() > returnTimerStart + 2000) {
+        if (SDL_GetTicks() > returnTimerStart + 5000) {
 
             GameResult gameResult;
 
@@ -297,7 +297,7 @@ void MainScene::onInput() {
             auto pauseTitle = Engine::get().entities().addEntity("pauseTitle"s);
 
             {
-                SDL_Color titleColor = {0xff, 0, 0, 0xff};
+                SDL_Color titleColor = {0xff, 0xff, 0xff, 0xff};
 
                 pauseTitle->addComponent<TransformComponent>(
                     100,
@@ -316,7 +316,7 @@ void MainScene::onInput() {
             auto resumeTitle = Engine::get().entities().addEntity("resumeTitle"s);
 
             {
-                SDL_Color titleColor = {0xff, 0, 0, 0xff};
+                SDL_Color titleColor = {0xff, 0xff, 0xff, 0xff};
 
                 resumeTitle->addComponent<TransformComponent>(
                     100,
@@ -341,7 +341,7 @@ void MainScene::onInput() {
             auto quitWithoutSavingTitle = Engine::get().entities().addEntity("quitWithoutSavingTitle"s);
 
             {
-                SDL_Color titleColor = {0xff, 0, 0, 0xff};
+                SDL_Color titleColor = {0xff, 0xff, 0xff, 0xff};
 
                 quitWithoutSavingTitle->addComponent<TransformComponent>(
                     100,
@@ -366,7 +366,7 @@ void MainScene::onInput() {
             auto quitAndSaveTitle = Engine::get().entities().addEntity("quitAndSaveTitle"s);
 
             {
-                SDL_Color titleColor = {0xff, 0, 0, 0xff};
+                SDL_Color titleColor = {0xff, 0xff, 0xff, 0xff};
 
                 quitAndSaveTitle->addComponent<TransformComponent>(
                     100,

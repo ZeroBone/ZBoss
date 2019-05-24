@@ -40,7 +40,8 @@ void ScoresScene::onCreate() {
 
     {
 
-        SDL_Color titleColor = {0x4f, 0xb0, 0xb9, 0xff}; // #4FB0B9
+        // SDL_Color titleColor = {0x4f, 0xb0, 0xb9, 0xff}; // #4FB0B9
+        SDL_Color titleColor = {0xff, 0xff, 0xff, 0xff};
 
         title->addComponent<TransformComponent>(
             100,
@@ -59,7 +60,8 @@ void ScoresScene::onCreate() {
 
     {
 
-        SDL_Color titleColor = {0x4f, 0xb0, 0xb9, 0xff}; // #4FB0B9
+        // SDL_Color titleColor = {0x4f, 0xb0, 0xb9, 0xff}; // #4FB0B9
+        SDL_Color titleColor = {0xff, 0xff, 0xff, 0xff};
 
         clear->addComponent<TransformComponent>(
             100,
@@ -86,7 +88,8 @@ void ScoresScene::onCreate() {
 
     {
 
-        SDL_Color titleColor = {0x4f, 0xb0, 0xb9, 0xff}; // #4FB0B9
+        // SDL_Color titleColor = {0x4f, 0xb0, 0xb9, 0xff}; // #4FB0B9
+        SDL_Color titleColor = {0xff, 0xff, 0xff, 0xff};
 
         print->addComponent<TransformComponent>(
             100,
@@ -134,7 +137,8 @@ void ScoresScene::onCreate() {
 
     {
 
-        SDL_Color titleColor = {0x4f, 0xb0, 0xb9, 0xff}; // #4FB0B9
+        // SDL_Color titleColor = {0x4f, 0xb0, 0xb9, 0xff}; // #4FB0B9
+        SDL_Color titleColor = {0xff, 0xff, 0xff, 0xff};
 
         returnToMainManu->addComponent<TransformComponent>(
             100,
@@ -182,7 +186,8 @@ void ScoresScene::onCreate() {
         auto tablePlayerName = Engine::get().entities().addEntity("tablePlayerName"s);
 
         {
-            SDL_Color titleColor = {0x4f, 0xb0, 0xb9, 0xff}; // #4FB0B9
+            // SDL_Color titleColor = {0x4f, 0xb0, 0xb9, 0xff}; // #4FB0B9
+            SDL_Color titleColor = {0xff, 0xff, 0xff, 0xff};
 
             tablePlayerName->addComponent<TransformComponent>(
                 100,
@@ -199,7 +204,8 @@ void ScoresScene::onCreate() {
         auto tablePlayerScore = Engine::get().entities().addEntity("tablePlayerScore"s);
 
         {
-            SDL_Color titleColor = {0x4f, 0xb0, 0xb9, 0xff}; // #4FB0B9
+            // SDL_Color titleColor = {0x4f, 0xb0, 0xb9, 0xff}; // #4FB0B9
+            SDL_Color titleColor = {0xff, 0xff, 0xff, 0xff};
 
             tablePlayerScore->addComponent<TransformComponent>(
                 100,

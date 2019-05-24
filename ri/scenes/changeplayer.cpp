@@ -62,7 +62,8 @@ void ChangePlayerScene::onCreate() {
 
     {
 
-        SDL_Color titleColor = {0x4f, 0xb0, 0xb9, 0xff}; // #4FB0B9
+        // SDL_Color titleColor = {0x4f, 0xb0, 0xb9, 0xff}; // #4FB0B9
+        SDL_Color titleColor = {0xff, 0xff, 0xff, 0xff};
 
         title->addComponent<TransformComponent>(
             100,

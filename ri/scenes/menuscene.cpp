@@ -32,7 +32,7 @@ void MenuScene::onCreate() {
     auto title = Engine::get().entities().addEntity("title"s);
 
     {
-        SDL_Color titleColor = {0xff, 0, 0, 0xff};
+        SDL_Color titleColor = {0xff, 0xff, 0xff, 0xff};
 
         title->addComponent<TransformComponent>(
             100,
@@ -91,7 +91,7 @@ void MenuScene::onCreate() {
 
     {
 
-        SDL_Color titleColor = {0xff, 0, 0, 0xff};
+        SDL_Color titleColor = {0xff, 0xff, 0xff, 0xff};
 
         scores->addComponent<TransformComponent>(
             100,
@@ -118,7 +118,7 @@ void MenuScene::onCreate() {
 
     {
 
-        SDL_Color titleColor = {0xff, 0, 0, 0xff};
+        SDL_Color titleColor = {0xff, 0xff, 0xff, 0xff};
 
         changePlayer->addComponent<TransformComponent>(
             100,
@@ -145,7 +145,8 @@ void MenuScene::onCreate() {
 
     {
 
-        SDL_Color titleColor = {0xff, 0, 0, 0xff};
+        // SDL_Color titleColor = {0xff, 0, 0, 0xff};
+        SDL_Color titleColor = {0xff, 0xff, 0xff, 0xff};
 
         gameRules->addComponent<TransformComponent>(
             100,
@@ -178,7 +179,8 @@ void MenuScene::onCreate() {
 
         {
 
-            SDL_Color titleColor = {0xff, 0, 0, 0xff};
+            // SDL_Color titleColor = {0xff, 0, 0, 0xff};
+            SDL_Color titleColor = {0xff, 0xff, 0xff, 0xff};
 
             loadGame->addComponent<TransformComponent>(
                 100,
@@ -225,7 +227,7 @@ void MenuScene::onCreate() {
 
     {
 
-        SDL_Color titleColor = {0xff, 0, 0, 0xff};
+        SDL_Color titleColor = {0xff, 0xff, 0xff, 0xff};
 
         exit->addComponent<TransformComponent>(
             100,
